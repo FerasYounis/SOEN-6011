@@ -10,7 +10,8 @@ public class TestCard {
 		String name;
 	
 		int i;
-		
+
+		int ii;
 		
 	}
 
