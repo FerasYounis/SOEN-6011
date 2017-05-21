@@ -6,7 +6,10 @@ public class TestCard {
 
 	@Test
 	public void testCreateNewCard() {
-
+		String name;
+		
+		
+		
 	}
 
 }
