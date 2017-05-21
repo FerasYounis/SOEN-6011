@@ -2,10 +2,10 @@
 
 ##Pokémon - 30
 * 2 Doduo
-
+ 
 * 1 Dodrio
 
-* 1 Meowth AOR
+* 1 MeowthAOR
 
 * 1 Meowth
 
@@ -47,17 +47,17 @@
 
 * 1 Red Card
 
-* 2 Energy Switch
+* 2 EnergySwitch
 
 * 1 Switch
 
-* 2 Pokémon Fan Club
+* 2 PokémonFanClub
 
 * 1 Shauna
 
 * 1 Poké Ball
 
-* 1 Floral Crown
+* 1 FloralCrown
 
 
 

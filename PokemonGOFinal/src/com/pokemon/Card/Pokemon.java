@@ -13,17 +13,18 @@ public class Pokemon extends Card {
 	private int currentHP;
 	private Strategy status;
 	// private ArrayList<Button> ability;
+	private String evolution;
 
 	private ArrayList<Energy> energys;
 
-	public Pokemon(String url, CardCategory level, int HP, String ability1, int attackHit1, String ability2,
+	public Pokemon(String url, CardCategory level, int HP, String evolution, String ability1, int attackHit1, String ability2,
 			int attackHit2) {
 		super(url, CardType.Pokemon, level);
 		this.HP = HP;
 		this.ability1 = new Ability(ability1, attackHit1);
 		this.ability2 = new Ability(ability2, attackHit2); // if not exists, put
 															// 0, 0
-
+		this.evolution = evolution;
 		this.currentHP = HP;
 		this.energys = new ArrayList<Energy>();
 	}

@@ -9,7 +9,7 @@ public enum CardCategory {
 	//Energy Categories
 	Colorless,
 	Water,
-	Lighting,
+	Lightning,
 	Psychic,
 	Fighting,
 	

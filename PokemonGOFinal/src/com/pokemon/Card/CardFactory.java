@@ -5,12 +5,12 @@ import com.pokemon.Enums.CardType;
 
 public class CardFactory {
 	// create a pokemon
-	public Card createCard(String name, CardType type, CardCategory level, int deck, int HP, String ability1,
+	public Card createCard(String name, CardType type, CardCategory level, int deck, String evolution, int HP, String ability1,
 			int attackHit1, String ability2, int attackHit2) {
 		if (1 == deck) {
-			return new Pokemon("/deck1/" + name + ".png", level, HP, ability1, attackHit1, ability2, attackHit2);
+			return new Pokemon("/deck1/" + name + ".png", level, HP, evolution, ability1, attackHit1, ability2, attackHit2);
 		} else {
-			return new Pokemon("/deck2/" + name + ".png", level, HP, ability1, attackHit1, ability2, attackHit2);
+			return new Pokemon("/deck2/" + name + ".png", level, HP, evolution, ability1, attackHit1, ability2, attackHit2);
 		}
 	}
 
