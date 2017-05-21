@@ -8,7 +8,8 @@ public class TestCard {
 	@Test
 	public void testCreateNewCard() {
 		String name;
-		String name1;
+	
+		int i;
 		
 		
 	}
