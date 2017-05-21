@@ -8,10 +8,7 @@ public class TestCard {
 	@Test
 	public void testCreateNewCard() {
 		String name;
-	
-		int i;
-
-		int ii;
+		String fsf;
 		
 	}
 
