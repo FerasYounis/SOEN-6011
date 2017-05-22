@@ -1,6 +1,7 @@
 ﻿****** Pokémon Trading Card Game Deck List ******
 
 ##Pokémon - 30
+
 * 2 Doduo 0 Dodrio 70 DoubleHit 30 0 0 
 * 1 Dodrio 1 0 90 Rage 20 Endeavor 50
 * 1 MeowthAOR 0 Persian 70 FurySwipes 10 0 0
@@ -24,6 +25,7 @@
 
 
 ##Trainer Cards - 10
+
 * 1 Wally
 * 1 Red Card
 * 2 EnergySwitch
@@ -35,8 +37,10 @@
 
 
 ##Energy - 20
+
 * 10 Psychic
 * 10 Fighting
+
 
 Total Cards - 60
 

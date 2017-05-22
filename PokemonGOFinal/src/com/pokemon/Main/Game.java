@@ -34,7 +34,7 @@ public class Game extends JFrame {
 	public static State state;
 	private static MouseManager mouseManager;
 	public static BufferedImage cardImg, cardback, menuBackground, gameBackground;
-	public static BufferedImage wIcon, pIcon, eIcon, fIcon;
+	public static BufferedImage wIcon, pIcon, lIcon, fIcon;
 	public static Menu menu;
 	public static GameInterface gameInterface;
 	public static ObjectHandler objectHandler;
@@ -83,7 +83,7 @@ public class Game extends JFrame {
 		
 		wIcon = loader.load("/wIcon.png");
 		pIcon = loader.load("/pIcon.png");
-		eIcon = loader.load("/eIcon.png");
+		lIcon = loader.load("/lIcon.png");
 		fIcon = loader.load("/fIcon.png");
 		
 		menuBackground = loader.load("/menuBackground.png");

@@ -210,6 +210,16 @@ public class GameInterface extends JFrame {
 		retreat.draw(g);
 		drawCard.draw(g);
 
+
+		// draw player's pokemon
+		if (player.getPoke() != null) {
+			player.getPoke().draw(g, playerPoke.x, playerPoke.y, false, true);
+			if (selected != -1 && 11 == selected)
+				player.getPoke().draw(g, 100, 175, true, true);
+			else if (mouseOver != -1 && 11 == mouseOver)
+				player.getPoke().draw(g, 100, 175, true, true);
+		}
+		
 		// draw player's prize card
 		if (player.getPrize().size() != 0) {
 			player.getPrize().get(player.getPrize().size() - 1).draw(g, playerPrize.x, playerPrize.y, false, false);
@@ -257,14 +267,6 @@ public class GameInterface extends JFrame {
 		if (selected != -1 && selected < player.getHand().size())
 			player.hand.get(selected).draw(g, player.hand.get(selected).x, player.hand.get(selected).y);
 
-		// draw player's pokemon
-		if (player.getPoke() != null) {
-			player.getPoke().draw(g, playerPoke.x, playerPoke.y, false, true);
-			if (selected != -1 && 11 == selected)
-				player.getPoke().draw(g, 100, 175, true, true);
-			else if (mouseOver != -1 && 11 == mouseOver)
-				player.getPoke().draw(g, 100, 175, true, true);
-		}
 
 	}
 }
