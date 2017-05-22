@@ -39,8 +39,8 @@ public class Pokemon extends Card {
 		this.ability1 = new Ability(ability1, attackHit1, array1);
 		this.ability2 = new Ability(ability2, attackHit2, array2); // if not
 																	// exists,
-																	// put
-		// 0, 0
+																	// put 0, 0
+		
 		this.stage = level;
 		if (level == CardCategory.StageOne) {
 			this.basicName = evolution;

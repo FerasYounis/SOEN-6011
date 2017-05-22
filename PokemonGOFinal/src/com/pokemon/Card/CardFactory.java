@@ -39,7 +39,7 @@ public class CardFactory {
 		if (1 == deck) {
 			return new Trainer("/deck1/" + name + ".png", cardType, cardCategory, abilityName, abilityAttackHP);
 		} else {
-			return new Trainer("/deck2/" + name + ".png", cardType, cardCategory, abilityName, abilityAttackHP);
+			return new Trainer("/deck2/"+name+".png", cardType, cardCategory, abilityName, abilityAttackHP);
 		}
 	}
 

@@ -9,6 +9,7 @@ public class TestCard {
 	public void testCreateNewCard() {
 		String name;
 		String fsf;
+		int i;
 		
 	}
 

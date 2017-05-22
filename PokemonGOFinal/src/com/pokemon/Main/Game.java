@@ -44,9 +44,8 @@ public class Game extends JFrame {
 		this.setBounds(0, 0, WIDTH, HEIGHT + 30);
 		this.setVisible(true);
 		this.setResizable(false);
-		//this.setAlwaysOnTop(true);
+		// this.setAlwaysOnTop(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 
 		mouseManager = new MouseManager(); // 鼠标事件
 		this.addMouseListener(mouseManager);
@@ -75,17 +74,16 @@ public class Game extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		//加载图片
+
+		// 加载图片
 		ImageLoader loader = new ImageLoader();
 		cardback = loader.load("/cardback.jpg");
-		
+
 		wIcon = loader.load("/wIcon.png");
 		pIcon = loader.load("/pIcon.png");
 		lIcon = loader.load("/lIcon.png");
 		fIcon = loader.load("/fIcon.png");
-		
+
 		menuBackground = loader.load("/menuBackground.png");
 		gameBackground = loader.load("/background.jpg");
 
@@ -93,8 +91,7 @@ public class Game extends JFrame {
 		state = State.MENU;
 		menu = new Menu();
 		gameInterface = new GameInterface();
-		
-		
+
 		new Thread(new GameThread()).start();
 	}
 
@@ -121,7 +118,7 @@ public class Game extends JFrame {
 		} else if (state == State.GAME && gameInterface != null) {
 			gameInterface.draw(g);
 		}
-		
+
 		g.dispose();
 		g2d.drawImage(offSetImage, 0, 0, null);
 	}
@@ -133,7 +130,6 @@ public class Game extends JFrame {
 	public static MouseManager getMouseManager() {
 		return mouseManager;
 	}
-
 
 	class GameThread implements Runnable {
 		@Override
