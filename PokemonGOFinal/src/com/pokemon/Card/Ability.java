@@ -18,14 +18,16 @@ public class Ability {
 	public int getAttackHit() {
 		return attackHit;
 	}
-	
-	public boolean checkCost(){
-		
-		
+
+	public boolean checkCost(Pokemon p) {
+		if (p.getEnergys().size() >= cost.length)
+			return true;
+
 		return false;
 	}
 	
-	
-	
+	public int getCost(){
+		return cost.length;
+	}
 
 }

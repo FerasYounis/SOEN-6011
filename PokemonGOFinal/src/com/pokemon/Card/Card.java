@@ -18,6 +18,7 @@ public class Card extends GameObject {
 	// range, maxRange, id;
 	// protected String name, description;
 	protected BufferedImage cardBack, cardImage;
+	public String url;
 
 	protected CardType cardType;
 	protected boolean dragging = false;
@@ -26,7 +27,7 @@ public class Card extends GameObject {
 	public Card(String url, CardType type, CardCategory cardCategory) {
 		this.cardType = type;
 		this.cardCategory = cardCategory;
-
+		this.url = url;
 		this.w = Game.CARD_W;
 		this.h = Game.CARD_H;
 		// icon = new BufferedImage(Game.CARD_W, Game.CARD_H,

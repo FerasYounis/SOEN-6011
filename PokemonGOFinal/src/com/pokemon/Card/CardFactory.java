@@ -20,7 +20,7 @@ public class CardFactory {
 	// create a energy
 	public Card createCard(String name, CardType type, CardCategory level, int deck) {
 		if(level == CardCategory.Colorless){
-			return new Energy("Colorless", level);	
+			return new Energy("/Colorless.png", level);	
 		}
 		
 		if (1 == deck) {
