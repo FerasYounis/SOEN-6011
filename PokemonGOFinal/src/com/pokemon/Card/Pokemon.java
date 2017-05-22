@@ -27,8 +27,15 @@ public class Pokemon extends Card {
 		super(url, CardType.Pokemon, level);
 		this.name = name;
 		this.HP = HP;
-		this.ability1 = new Ability(ability1, attackHit1);
-		this.ability2 = new Ability(ability2, attackHit2); // if not exists, put
+		Energy[] array1 = new Energy[1];
+		array1[0] = ObjectHandler.colorless;
+		Energy[] array2 = new Energy[2];
+		array1[0] = ObjectHandler.colorless;
+		array1[1] = ObjectHandler.colorless;
+		array1[2] = ObjectHandler.colorless;
+
+		this.ability1 = new Ability(ability1, attackHit1, array1);
+		this.ability2 = new Ability(ability2, attackHit2, array2); // if not exists, put
 															// 0, 0
 		this.stage = level;
 		if (level == CardCategory.StageOne) {
@@ -57,17 +64,18 @@ public class Pokemon extends Card {
 		int damegAfterHit;
 		switch (attackAbility) {
 		case 1:
-			if (validateAttackExist(ability1.getName()) == false) {
-				break;
-			} //
+//			if (validateAttackExist(ability1.getName()) == false) {
+//				break;
+//			} //
 			damegAfterHit = pokemonTarget.getCurrentHP() - ability1.getAttackHit();
 			pokemonTarget.setCurrentHP(damegAfterHit);
+			System.out.println(pokemonTarget.getCurrentHP());
 			break;
 
 		case 2:
-			if (validateAttackExist(ability2.getName()) == false) {
-				break;
-			} //
+//			if (validateAttackExist(ability2.getName()) == false) {
+//				break;
+//			} //
 			damegAfterHit = pokemonTarget.getCurrentHP() - ability2.getAttackHit();
 			pokemonTarget.setCurrentHP(damegAfterHit);
 			break;
@@ -75,7 +83,6 @@ public class Pokemon extends Card {
 
 	}
 
-	
 	public boolean validateAttackExist(String attackAbility) {
 		if (attackAbility.equals("0")) {
 			return false;
@@ -130,31 +137,31 @@ public class Pokemon extends Card {
 
 	}
 
-	
 	public ArrayList<Energy> getEnergys() {
 		return energys;
 	}
 
 	public void setEnergys(ArrayList<Energy> energys) {
-//		this.energys = energys;
-//		for(int i = 0; i < energys.size(); i++){
-//			Graphics g2d = this.cardImage.getGraphics();
-//			g2d.drawImage(energys.get(i).getIcon(), 50 * (energys.size() - 1), 342, 50, 50, null);
-//			g2d.dispose();
-//		}
-		
-		for(Energy e: energys){
+		// this.energys = energys;
+		// for(int i = 0; i < energys.size(); i++){
+		// Graphics g2d = this.cardImage.getGraphics();
+		// g2d.drawImage(energys.get(i).getIcon(), 50 * (energys.size() - 1),
+		// 342, 50, 50, null);
+		// g2d.dispose();
+		// }
+
+		for (Energy e : energys) {
 			this.addEnergy(e);
 		}
-		
+
 	}
 
 	public void attackButton(Button b) {
-		if (b.equals(ability.get(0))) {
-			// attack(1, ObjectHandler.getEnemy().getPoke());
+		if (b.getText().equals(ability1.getName())) {
+			attack(1, ObjectHandler.getEnemy().getPoke());
 			System.out.println("ability1 success attack!");
 		} else {
-			// attack(2, ObjectHandler.getEnemy().getPoke());
+			attack(2, ObjectHandler.getEnemy().getPoke());
 			System.out.println("ability2 success attack!");
 		}
 

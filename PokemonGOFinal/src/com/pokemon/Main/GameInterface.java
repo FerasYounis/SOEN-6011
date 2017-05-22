@@ -13,9 +13,10 @@ import com.pokemon.Card.Energy;
 import com.pokemon.Card.Pokemon;
 import com.pokemon.Enums.CardCategory;
 import com.pokemon.Enums.CardType;
+import com.pokemon.Strategies.StatusAI;
 import com.pokemon.Strategies.Strategy;
 
-public class GameInterface extends JFrame {
+public class GameInterface{
 	public static CardSpot[] playerBench, enemyBench; //
 	public static CardSpot playerPoke, enemyPoke, playerDeck, enemyDeck, playerPrize, enemyPrize; //
 	private Button endTurn, drawCard, retreat;
@@ -24,9 +25,11 @@ public class GameInterface extends JFrame {
 												// 31 AI pokemon; 40-44 AI bench
 	private Player player;
 	private Enemy enemy;
-	private int turn;
-	private boolean playerTurn;
+	public static int turn;
+	public static boolean playerTurn;
 	private Card movingCard = null;
+	private Strategy AIStrategy;
+	private boolean drawnCard;
 
 	public GameInterface() {
 		playerBench = new CardSpot[Game.BOARD_SIZE];
@@ -55,8 +58,10 @@ public class GameInterface extends JFrame {
 
 		player = ObjectHandler.getPlayer();
 		enemy = ObjectHandler.getEnemy();
+		AIStrategy = new StatusAI();
 		turn = 1;
 		playerTurn = true;
+		drawnCard = false;
 
 	}
 
@@ -146,6 +151,13 @@ public class GameInterface extends JFrame {
 				}
 			}
 
+		}else{
+			
+			
+			AIStrategy.turn();
+			
+			
+			
 		}
 
 	}
@@ -190,10 +202,10 @@ public class GameInterface extends JFrame {
 	}
 
 	private void drawCard() {
-		if (player.getHand().size() < 7) {
+		if (player.getHand().size() < 7 && !drawnCard) {
 			player.getHand().add(player.drawOneCard());
 		}
-
+		drawnCard = true;
 	}
 
 	private void selectPoke() {
@@ -307,6 +319,7 @@ public class GameInterface extends JFrame {
 					b.update();
 					if (b.isPressed()) {
 						player.getPoke().attackButton(b);
+						endTurn();
 						b.setPressed(false);
 					}
 				}
@@ -314,6 +327,19 @@ public class GameInterface extends JFrame {
 				player.getPoke().draw(g, 100, 175, true, true);
 			}
 		}
+		
+		
+		//draw AI's pokemon
+		if(enemy.getPoke() != null){
+			enemy.getPoke().draw(g, enemyPoke.x, enemyPoke.y, false, true);
+		}
+		
+		
+		
+		
+		
+		
+		
 
 		// draw player's prize card
 		if (player.getPrize().size() != 0) {

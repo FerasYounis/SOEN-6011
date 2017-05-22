@@ -17,6 +17,8 @@ public class Energy extends Card {
 		this.icon = loader.load("/" + catagory.toString().substring(0, 1).toLowerCase() + "Icon.png");
 	}
 
+	
+
 	public BufferedImage getIcon() {
 		return icon;
 	}

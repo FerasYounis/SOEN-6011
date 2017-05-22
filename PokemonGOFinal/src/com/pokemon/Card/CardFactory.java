@@ -3,6 +3,9 @@ package com.pokemon.Card;
 import com.pokemon.Enums.CardCategory;
 import com.pokemon.Enums.CardType;
 
+
+
+
 public class CardFactory {
 	// create a pokemon
 	public Card createCard(String name, CardType type, CardCategory level, int deck, String evolution, int HP, String ability1,
@@ -16,7 +19,10 @@ public class CardFactory {
 
 	// create a energy
 	public Card createCard(String name, CardType type, CardCategory level, int deck) {
-
+		if(level == CardCategory.Colorless){
+			return new Energy("Colorless", level);	
+		}
+		
 		if (1 == deck) {
 			return new Energy("/deck1/" + name + ".png", level);
 		}

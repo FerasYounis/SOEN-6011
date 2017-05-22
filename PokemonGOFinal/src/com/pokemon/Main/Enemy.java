@@ -10,14 +10,15 @@ import com.pokemon.Card.Pokemon;
 
 public class Enemy extends GameObject {
 
-	protected ArrayList<Card> deck, hand, bench, graveyard, prize;
+	protected ArrayList<Card> deck, hand, graveyard, prize;
+	protected ArrayList<Pokemon> bench;
 	protected Pokemon poke;
 	private DataReader dr;
 
 	public Enemy() {
 		deck = new ArrayList<Card>();
 		hand = new ArrayList<Card>();
-		bench = new ArrayList<Card>();
+		bench = new ArrayList<Pokemon>();
 		poke = null;
 		graveyard = new ArrayList<Card>();
 		prize = new ArrayList<Card>();
@@ -56,12 +57,13 @@ public class Enemy extends GameObject {
 
 	}
 
+
 	public ArrayList<Card> getDeck() {
 		return deck;
 	}
 
 	public void setDeck() {
-		deck = dr.loadData("deck2.txt", 2);
+		deck = dr.loadData("deck1.txt", 1);
 	}
 
 	public ArrayList<Card> getHand() {
@@ -85,15 +87,15 @@ public class Enemy extends GameObject {
 		}
 	}
 
-	private void shuffleDeck() {
+	public void shuffleDeck() {
 		Collections.shuffle(deck);
 	}
 
-	public ArrayList<Card> getBench() {
+	public ArrayList<Pokemon> getBench() {
 		return bench;
 	}
 
-	public void setBench(ArrayList<Card> bench) {
+	public void setBench(ArrayList<Pokemon> bench) {
 		this.bench = bench;
 	}
 
