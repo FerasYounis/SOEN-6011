@@ -210,7 +210,7 @@ public class GameInterface {
 	}
 
 	private void drawCard() {
-		if (player.getHand().size() < 7 && !drawnCard) {
+		if (!drawnCard) {
 			player.getHand().add(player.drawOneCard());
 		}
 		drawnCard = true;
