@@ -161,16 +161,16 @@ public class GameInterface {
 
 	}
 
-	private void checkLose() {
+	private void checkWin() {
 		if (enemy.prize.size() == 0 || player.deck.size() == 0) {
-			JOptionPane.showMessageDialog(null, "Sorry! You LOSE the game!!!");
+			JOptionPane.showMessageDialog(null, "Congratulations! You WIN!!!");
 			System.exit(0);
 		}
 	}
 
-	private void checkWin() {
+	private void checkLose() {
 		if (player.prize.size() == 0 || enemy.deck.size() == 0) {
-			JOptionPane.showMessageDialog(null, "Congratulations! You WIN!!!");
+			JOptionPane.showMessageDialog(null, "Sorry! You LOSE the game!!!");
 			System.exit(0);
 		}
 	}
