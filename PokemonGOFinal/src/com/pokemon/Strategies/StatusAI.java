@@ -45,26 +45,26 @@ public class StatusAI implements Strategy {
 				enemy.getHand().remove(getHandBasic());
 			}
 
-			checkHandEnergy();
-			if (hasEnergy && enemy.getPoke().getEnergys().size() < 4) {
-				enemy.getPoke().addEnergy(getHandEnergy());
-				enemy.getHand().remove(getHandEnergy());
+			while (checkHandEnergy()) {
+				if (hasEnergy && enemy.getPoke().getEnergys().size() < 4) {
+					enemy.getPoke().addEnergy(getHandEnergy());
+					enemy.getHand().remove(getHandEnergy());
+				}
 			}
 
 			if (enemy.getPoke() != null) {
 				Pokemon p = enemy.getPoke();
 				if (p.validateAttackExist(enemy.getPoke().getAbility1().getName())) {
 					enemy.getPoke().attackPlayer(1);
-					if(player.checkKnockout()){
+					if (player.checkKnockout()) {
 						player.getGraveyard().add(player.getPoke());
 						player.setPoke(null);
 						enemy.getHand().add(enemy.getPrize().get(enemy.getPrize().size() - 1));
 						enemy.getPrize().remove(enemy.getPrize().size() - 1);
 					}
-				}
-				else if (p.validateAttackExist(enemy.getPoke().getAbility2().getName())) {
+				} else if (p.validateAttackExist(enemy.getPoke().getAbility2().getName())) {
 					enemy.getPoke().attackPlayer(2);
-					if(player.checkKnockout()){
+					if (player.checkKnockout()) {
 						player.getGraveyard().add(player.getPoke());
 						player.setPoke(null);
 						enemy.getHand().add(enemy.getPrize().get(enemy.getPrize().size() - 1));
@@ -113,11 +113,12 @@ public class StatusAI implements Strategy {
 		return null;
 	}
 
-	public void checkHandEnergy() {
+	public boolean checkHandEnergy() {
 		for (Card c : enemy.getHand()) {
 			if (c.getCardType() == CardType.Engergy)
 				hasEnergy = true;
 		}
+		return hasEnergy;
 	}
 
 	public Energy getHandEnergy() {

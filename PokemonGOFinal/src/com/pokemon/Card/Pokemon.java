@@ -36,11 +36,18 @@ public class Pokemon extends Card {
 		array2[1] = ObjectHandler.colorless;
 		array2[2] = ObjectHandler.colorless;
 
-		this.ability1 = new Ability(ability1, attackHit1, array1);
-		this.ability2 = new Ability(ability2, attackHit2, array2); // if not
-																	// exists,
-																	// put 0, 0
-		
+		// this.ability1 = new Ability(ability1, attackHit1, array1);
+		// this.ability2 = new Ability(ability2, attackHit2, array2); // if not
+		// // exists,
+		// // put 0, 0
+		if (level == CardCategory.Basic) {
+			this.ability1 = new Ability("ability1", 10, array1);
+			this.ability2 = new Ability("ability2", 30, array2);
+		} else{
+			this.ability1 = new Ability("ability1", 30, array1);
+			this.ability2 = new Ability("ability2", 50, array2);
+		}
+
 		this.stage = level;
 		if (level == CardCategory.StageOne) {
 			this.basicName = evolution;
@@ -48,12 +55,12 @@ public class Pokemon extends Card {
 		this.currentHP = HP;
 		this.energys = new ArrayList<Energy>();
 		this.ability = new ArrayList<Button>();
-		if (!ability1.equals("0")) {
-			this.ability.add(new Button(220, 620, 50, ability1, Color.WHITE, new Color(49, 156, 12)));
-		}
-		if (!ability2.equals("0")) {
-			this.ability.add(new Button(220, 700, 50, ability2, Color.WHITE, new Color(49, 156, 12)));
-		}
+//		if (!ability1.equals("0")) {
+			this.ability.add(new Button(220, 620, 50, "ability1", Color.WHITE, new Color(49, 156, 12)));
+//		}
+//		if (!ability2.equals("0")) {
+			this.ability.add(new Button(220, 700, 50, "ability2", Color.WHITE, new Color(49, 156, 12)));
+//		}
 	}
 
 	public void addEnergy(Energy e) {
