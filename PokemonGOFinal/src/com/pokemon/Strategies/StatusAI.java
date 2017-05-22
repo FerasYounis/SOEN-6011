@@ -29,15 +29,28 @@ public class StatusAI implements Strategy {
 				enemy.shuffleDeck();
 				turn();
 			}
-				
-			
-			
-			
-			
-			
-			
-			
 		}
+		if (GameInterface.turn > 1) {
+			enemy.drawOneCard();
+			checkHandBasic();
+			if(hasHandBasic && enemy.getBench().size() < 5){
+				enemy.getBench().add(getHandBasic());
+				enemy.getHand().remove(getHandBasic());
+			}else{
+				if(hasHandStageone){
+
+					
+				}
+				
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		GameInterface.turn++;
 		GameInterface.playerTurn = true;
@@ -60,8 +73,21 @@ public class StatusAI implements Strategy {
 		return null;
 	}
 	
+	public void checkHandStageone(){
+		for (Card c : enemy.getHand()) {
+			if (c.getCardCategory() == CardCategory.StageOne)
+				hasHandStageone = true;
+		}
+	}
 	
-	
+	public Pokemon getHandStageone(){
+		for (Card c: enemy.getHand()) {
+			if (c.getCardCategory() == CardCategory.StageOne){
+				return (Pokemon)c;
+			}
+		}
+		return null;
+	}
 	
 
 }

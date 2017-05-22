@@ -19,7 +19,7 @@ public class Pokemon extends Card {
 	private int currentHP;
 	private Strategy status;
 	private ArrayList<Button> ability;
-	private String basicName;
+	private String basicName;            //to indicate the name of this. basic pokemon
 	private CardCategory stage;
 
 	private ArrayList<Energy> energys;
@@ -179,19 +179,21 @@ public class Pokemon extends Card {
 
 	}
 
-	public void attackButton(Button b) {
+	public boolean attackButton(Button b) {
 		if (b.getText().equals(ability1.getName())) {
-			if (ability1.checkCost(this)) {
+			if (ability1.checkCost(this) && ObjectHandler.getEnemy().getPoke() != null) {
 				attack(1, ObjectHandler.getEnemy().getPoke());
 				System.out.println("ability1 success attack!");
+				return true;
 			}
 		} else {
-			if (ability2.checkCost(this)) {
+			if (ability2.checkCost(this) && ObjectHandler.getEnemy().getPoke() != null) {
 				attack(2, ObjectHandler.getEnemy().getPoke());
 				System.out.println("ability2 success attack!");
+				return true;
 			}
 		}
-
+		return false;
 	}
 
 }

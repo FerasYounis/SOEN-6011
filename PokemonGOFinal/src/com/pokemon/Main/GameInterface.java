@@ -17,7 +17,7 @@ import com.pokemon.Enums.CardType;
 import com.pokemon.Strategies.StatusAI;
 import com.pokemon.Strategies.Strategy;
 
-public class GameInterface{
+public class GameInterface {
 	public static CardSpot[] playerBench, enemyBench; //
 	public static CardSpot playerPoke, enemyPoke, playerDeck, enemyDeck, playerPrize, enemyPrize; //
 	private Button endTurn, drawCard, retreat;
@@ -153,31 +153,29 @@ public class GameInterface{
 				}
 			}
 
-		}else{
-			
-			
+		} else {
+
 			AIStrategy.turn();
-			
-			
-			
+
 		}
 
 	}
 
 	private void checkLose() {
-		if(enemy.prize.size() == 0 || player.deck.size() == 0)
+		if (enemy.prize.size() == 0 || player.deck.size() == 0)
 			JOptionPane.showMessageDialog(null, "Sorry! You LOSE the game!!!");
 	}
 
 	private void checkWin() {
-		if(player.prize.size() == 0 || enemy.deck.size() == 0)
+		if (player.prize.size() == 0 || enemy.deck.size() == 0)
 			JOptionPane.showMessageDialog(null, "Congratulations! You WIN!!!");
 	}
 
 	private void checkEvolve() {
-		if(selected >= 0 && selected < player.getHand().size() && player.getHand().get(selected).getCardType() == CardType.Pokemon){
-			Pokemon p = (Pokemon)player.getHand().get(selected);
-			if(player.getPoke() != null && p.evolve(player.getPoke())){
+		if (selected >= 0 && selected < player.getHand().size()
+				&& player.getHand().get(selected).getCardType() == CardType.Pokemon) {
+			Pokemon p = (Pokemon) player.getHand().get(selected);
+			if (player.getPoke() != null && p.evolve(player.getPoke())) {
 				int hitPoint = player.getPoke().getHP() - player.getPoke().getCurrentHP();
 				Strategy s = player.getPoke().getStatus();
 				ArrayList<Energy> list = player.getPoke().getEnergys();
@@ -187,25 +185,22 @@ public class GameInterface{
 				player.getPoke().setEnergys(list);
 				player.getHand().remove(selected);
 			}
-			
-			for(int i = 0; i < player.getBench().size(); i++){
-				Pokemon pp = (Pokemon)player.getBench().get(i);
-				if(p.evolve(pp)){
+
+			for (int i = 0; i < player.getBench().size(); i++) {
+				Pokemon pp = (Pokemon) player.getBench().get(i);
+				if (p.evolve(pp)) {
 					int hitPoint = pp.getHP() - pp.getCurrentHP();
 					Strategy s = pp.getStatus();
 					ArrayList<Energy> list = pp.getEnergys();
 					player.getBench().set(i, p);
-					Pokemon ppp = (Pokemon)player.getBench().get(i);
+					Pokemon ppp = (Pokemon) player.getBench().get(i);
 					ppp.setEnergys(list);
 					ppp.setCurrentHP(p.getHP() - hitPoint);
 					ppp.setStatus(s);
 					player.getHand().remove(selected);
 				}
 			}
-			
-			
-			
-			
+
 		}
 	}
 
@@ -234,7 +229,7 @@ public class GameInterface{
 		if ((selected > -1 && selected < player.getHand().size()) && player.getPoke() != null
 				&& player.getHand().get(selected).getCardCategory() == CardCategory.Basic
 				&& player.getBench().size() < 5) {
-			player.getBench().add((Pokemon)player.getHand().get(selected));
+			player.getBench().add((Pokemon) player.getHand().get(selected));
 			player.getHand().remove(selected);
 			Game.getMouseManager().LPressed = false;
 			selected = -1;
@@ -330,12 +325,13 @@ public class GameInterface{
 					b.draw(g);
 					b.update();
 					if (b.isPressed()) {
-						player.getPoke().attackButton(b);
-						if(enemy.checkKnockout()){
-							player.getHand().add(player.getPrize().get(player.getPrize().size() - 1));
-							player.getPrize().remove(player.getPrize().size() - 1);
+						if (player.getPoke().attackButton(b)) {
+							if (enemy.checkKnockout()) {
+								player.getHand().add(player.getPrize().get(player.getPrize().size() - 1));
+								player.getPrize().remove(player.getPrize().size() - 1);
+							}
+							endTurn();
 						}
-						endTurn();
 						b.setPressed(false);
 					}
 				}
@@ -343,19 +339,11 @@ public class GameInterface{
 				player.getPoke().draw(g, 100, 175, true, true);
 			}
 		}
-		
-		
-		//draw AI's pokemon
-		if(enemy.getPoke() != null){
+
+		// draw AI's pokemon
+		if (enemy.getPoke() != null) {
 			enemy.getPoke().draw(g, enemyPoke.x, enemyPoke.y, false, true);
 		}
-		
-		
-		
-		
-		
-		
-		
 
 		// draw player's prize card
 		if (player.getPrize().size() != 0) {
