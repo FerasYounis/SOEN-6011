@@ -1,6 +1,7 @@
 package com.pokemon.Main;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -18,11 +19,13 @@ public class GameInterface extends JFrame {
 	public static CardSpot[] playerBench, enemyBench; //
 	public static CardSpot playerPoke, enemyPoke, playerDeck, enemyDeck, playerPrize, enemyPrize; //
 	private Button endTurn, drawCard, retreat;
-	private int selected = -1, mouseOver = -1; // 0-6 player hand; 11 player pokemon; 20-24 player bench; 31 AI pokemon; 40-44 AI bench
-
+	private int selected = -1, mouseOver = -1; // 0-6 player hand; 11 player
+												// pokemon; 20-24 player bench;
+												// 31 AI pokemon; 40-44 AI bench
 	private Player player;
 	private Enemy enemy;
 	private int turn;
+	private boolean playerTurn;
 	private Card movingCard = null;
 
 	public GameInterface() {
@@ -52,75 +55,118 @@ public class GameInterface extends JFrame {
 
 		player = ObjectHandler.getPlayer();
 		enemy = ObjectHandler.getEnemy();
+		turn = 1;
+		playerTurn = true;
 
 	}
 
 	public void update() {
-		if (movingCard == null) {
-			endTurn.update();
-			drawCard.update();
-			retreat.update();
-			player.update();
-			enemy.update();
 
-			mouseOver = -1;
+		endTurn.update();
+		drawCard.update();
+		retreat.update();
+		player.update();
+		enemy.update();
 
-			if (retreat.isPressed()) {
-				retreat();
-				retreat.setPressed(false);
-			}
+		if (playerTurn) {
+			if (movingCard == null) {
 
-			checkMouse();
-			selectPoke();
+				mouseOver = -1;
 
-		} else {
-			// when the dragging mouse is released
-			if (!Game.getMouseManager().LPressed) {
-				boolean flag = false;
-				if (Math.abs(movingCard.x - player.getPoke().x) < 40
-						&& Math.abs(movingCard.y - player.getPoke().y) < 40) {
-					player.getPoke().addEnergy((Energy) movingCard);
-					player.getHand().remove(selected);
-					flag = true;
-				}
-				if (!flag) {
-					for (int i = 0; i < player.getBench().size(); i++) {
-						if (Math.abs(movingCard.x - player.getBench().get(i).x) < 40
-								&& Math.abs(movingCard.y - player.getBench().get(i).y) < 40) {
-							Pokemon p = (Pokemon) player.getBench().get(i);
-							p.addEnergy((Energy) movingCard);
-							player.getHand().remove(selected);
-							flag = true;
-							break;
-						}
-					}
-				}
-				if (!flag) {
-					movingCard.setX(500 + 90 * selected);
-					movingCard.setY(685);
+				if (retreat.isPressed()) {
+					retreat();
+					retreat.setPressed(false);
 				}
 
-				movingCard = null;
-				Game.getMouseManager().LPressed = false;
-				selected = -1;
+				if (drawCard.isPressed()) {
+					drawCard();
+					drawCard.setPressed(false);
+				}
 
-			}
-		}
+				if (endTurn.isPressed()) {
+					endTurn();
+					endTurn.setPressed(false);
+				}
 
-		// select energy card
-		if ((selected > -1 && selected < 10) && player.getPoke() != null
-				&& player.getHand().get(selected).getCardType().equals(CardType.Engergy)) {
+				checkMouse();
+				selectPoke();
+				
+			
+				
 
-			if (Game.getMouseManager().LDragging) {
-				movingCard = player.getHand().get(selected);
-				movingCard.setDragging(true);
+			} else {
+				
 				movingCard.setX(Game.getMouseManager().MX - 40);
 				movingCard.setY(Game.getMouseManager().MY - 128 / 2);
+				// when the dragging mouse is released
+				if (!Game.getMouseManager().LPressed) {
+					boolean flag = false;
+					if (Math.abs(movingCard.x - player.getPoke().x) < 40
+							&& Math.abs(movingCard.y - player.getPoke().y) < 40) {
+						player.getPoke().addEnergy((Energy) movingCard);
+						player.getHand().remove(selected);
+						flag = true;
+					}
+					if (!flag) {
+						for (int i = 0; i < player.getBench().size(); i++) {
+							if (Math.abs(movingCard.x - player.getBench().get(i).x) < 40
+									&& Math.abs(movingCard.y - player.getBench().get(i).y) < 40) {
+								Pokemon p = (Pokemon) player.getBench().get(i);
+								p.addEnergy((Energy) movingCard);
+								player.getHand().remove(selected);
+								flag = true;
+								break;
+							}
+						}
+					}
+					if (!flag) {
+						movingCard.setX(500 + 90 * selected);
+						movingCard.setY(685);
+					}
+					System.out.println(movingCard.getX());
+					System.out.println(flag);
+					System.out.println(Math.abs(movingCard.x - player.getPoke().x));
+					System.out.println(Math.abs(movingCard.y - player.getPoke().y));
+					movingCard = null;
+					Game.getMouseManager().LPressed = false;
+					selected = -1;
+
+				}
 			}
 
+			// System.out.println(mouseOver + "---(" + selected + ")" + "---" +
+			// player.getDeck().size());
+			
+			
+			
+			// select energy card
+			if ((selected > -1 && selected < 10) && player.getPoke() != null
+					&& player.getHand().get(selected).getCardType().equals(CardType.Engergy)) {
+
+				if (Game.getMouseManager().LDragging) {
+					movingCard = player.getHand().get(selected);
+					movingCard.setDragging(true);
+				
+				}
+			}
+			
+			
+			
+			
+			
 		}
 
-		System.out.println(mouseOver + "---(" + selected + ")" + "---" + player.getDeck().size());
+	}
+
+	private void endTurn() {
+		this.playerTurn = false;
+	}
+
+	private void drawCard() {
+		if (player.getHand().size() < 7) {
+			player.getHand().add(player.drawOneCard());
+		}
+
 	}
 
 	private void selectPoke() {
@@ -174,8 +220,7 @@ public class GameInterface extends JFrame {
 				break;
 			}
 		}
-		
-		
+
 		// check mouse loc & AI's pokemon
 		if (enemy.getPoke() != null && enemy.getPoke().getRect().intersects(Game.getMouseRect())) {
 			if (Game.getMouseManager().LPressed) {
@@ -192,8 +237,6 @@ public class GameInterface extends JFrame {
 				break;
 			}
 		}
-		
-		
 
 	}
 
@@ -304,6 +347,36 @@ public class GameInterface extends JFrame {
 		}
 		if (selected != -1 && selected < player.getHand().size())
 			player.hand.get(selected).draw(g, player.hand.get(selected).x, player.hand.get(selected).y);
+
+		if (movingCard == null) {
+			// indicate player's fighting pokemon status
+			if (player.getPoke() != null && Game.getMouseRect()
+					.intersects(new Rectangle(playerPoke.x, playerPoke.y, Game.CARD_W, Game.CARD_H))) {
+				g.setColor(Color.black);
+				g.setFont(new Font("DorFont03", Font.PLAIN, 24));
+				g.drawString("Remaining HP: " + player.getPoke().getCurrentHP(), playerPoke.x - 50, playerPoke.y - 20);
+			}
+
+			// indicate AI's fighting pokemon status
+			if (enemy.getPoke() != null && Game.getMouseRect()
+					.intersects(new Rectangle(enemyPoke.x, enemyPoke.y, Game.CARD_W, Game.CARD_H))) {
+				g.setColor(Color.black);
+				g.setFont(new Font("DorFont03", Font.PLAIN, 24));
+				g.drawString("Remaining HP: " + enemy.getPoke().getCurrentHP(), enemyPoke.x - 50, enemyPoke.y - 20);
+			}
+
+			// indicate player's bench pokemon status
+			for (int i = 0; i < player.getBench().size(); i++) {
+				if (Game.getMouseRect().intersects(new Rectangle(player.getBench().get(i).x, player.getBench().get(i).y,
+						Game.CARD_W, Game.CARD_H))) {
+					g.setColor(Color.black);
+					g.setFont(new Font("DorFont03", Font.PLAIN, 24));
+					Pokemon p = (Pokemon) player.getBench().get(i);
+					g.drawString("Remaining HP: " + p.getCurrentHP(), player.getBench().get(i).x - 50,
+							player.getBench().get(i).y - 20);
+				}
+			}
+		}
 
 	}
 }
