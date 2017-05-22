@@ -156,7 +156,7 @@ public class GameInterface {
 		} else {
 
 			AIStrategy.turn();
-			drawnCard = false;
+			
 		}
 
 	}
@@ -206,6 +206,7 @@ public class GameInterface {
 
 	private void endTurn() {
 		this.playerTurn = false;
+		drawnCard = false;
 	}
 
 	private void drawCard() {
