@@ -18,8 +18,7 @@ public class GameInterface extends JFrame {
 	public static CardSpot[] playerBench, enemyBench; //
 	public static CardSpot playerPoke, enemyPoke, playerDeck, enemyDeck, playerPrize, enemyPrize; //
 	private Button endTurn, drawCard, retreat;
-	private int selected = -1, mouseOver = -1; // 0-6 hand; 11 pokemon; 20-24
-												// bench;
+	private int selected = -1, mouseOver = -1; // 0-6 player hand; 11 player pokemon; 20-24 player bench; 31 AI pokemon; 40-44 AI bench
 
 	private Player player;
 	private Enemy enemy;
@@ -148,7 +147,7 @@ public class GameInterface extends JFrame {
 
 	private void checkMouse() {
 
-		// check mouse loc & hand
+		// check mouse loc & player's hand
 		for (int i = 0; i < player.getHand().size(); i++) {
 			if (player.getHand().get(i).getRect().intersects(Game.getMouseRect())) {
 				mouseOver = i;
@@ -159,24 +158,42 @@ public class GameInterface extends JFrame {
 			}
 		}
 
-		// check mouse loc & pokemon
+		// check mouse loc & player's pokemon
 		if (player.getPoke() != null && player.getPoke().getRect().intersects(Game.getMouseRect())) {
-			// mouseOver = 11;
 			if (Game.getMouseManager().LPressed) {
 				selected = 11;
 			}
 		}
 
-		// check mouse loc & bench
+		// check mouse loc & player's bench
 		for (int i = 0; i < player.getBench().size(); i++) {
 			if (player.getBench().get(i).getRect().intersects(Game.getMouseRect())) {
-				// mouseOver = i + 20;
 				if (Game.getMouseManager().LPressed) {
 					selected = i + 20;
 				}
 				break;
 			}
 		}
+		
+		
+		// check mouse loc & AI's pokemon
+		if (enemy.getPoke() != null && enemy.getPoke().getRect().intersects(Game.getMouseRect())) {
+			if (Game.getMouseManager().LPressed) {
+				selected = 31;
+			}
+		}
+
+		// check mouse loc & AI's bench
+		for (int i = 0; i < enemy.getBench().size(); i++) {
+			if (enemy.getBench().get(i).getRect().intersects(Game.getMouseRect())) {
+				if (Game.getMouseManager().LPressed) {
+					selected = i + 40;
+				}
+				break;
+			}
+		}
+		
+		
 
 	}
 
@@ -210,7 +227,6 @@ public class GameInterface extends JFrame {
 		retreat.draw(g);
 		drawCard.draw(g);
 
-
 		// draw player's pokemon
 		if (player.getPoke() != null) {
 			player.getPoke().draw(g, playerPoke.x, playerPoke.y, false, true);
@@ -219,7 +235,7 @@ public class GameInterface extends JFrame {
 			else if (mouseOver != -1 && 11 == mouseOver)
 				player.getPoke().draw(g, 100, 175, true, true);
 		}
-		
+
 		// draw player's prize card
 		if (player.getPrize().size() != 0) {
 			player.getPrize().get(player.getPrize().size() - 1).draw(g, playerPrize.x, playerPrize.y, false, false);
@@ -228,6 +244,16 @@ public class GameInterface extends JFrame {
 		// draw player's deck card
 		if (player.getDeck().size() != 0) {
 			player.getDeck().get(player.getDeck().size() - 1).draw(g, playerDeck.x, playerDeck.y, false, false);
+		}
+
+		// draw enemy's prize card
+		if (enemy.getPrize().size() != 0) {
+			enemy.getPrize().get(enemy.getPrize().size() - 1).draw(g, enemyPrize.x, enemyPrize.y, false, false);
+		}
+
+		// draw enemy's deck card
+		if (enemy.getDeck().size() != 0) {
+			enemy.getDeck().get(enemy.getDeck().size() - 1).draw(g, enemyDeck.x, enemyDeck.y, false, false);
 		}
 
 		// indicate player's deck number
@@ -240,6 +266,18 @@ public class GameInterface extends JFrame {
 		if (Game.getMouseRect().intersects(new Rectangle(playerPrize.x, playerPrize.y, Game.CARD_W, Game.CARD_H))) {
 			g.setColor(Color.black);
 			g.drawString("Player's Prize: " + player.getPrize().size(), playerPrize.x - 50, playerPrize.y - 20);
+		}
+
+		// indicate enemey's deck number
+		if (Game.getMouseRect().intersects(new Rectangle(enemyDeck.x, enemyDeck.y, Game.CARD_W, Game.CARD_H))) {
+			g.setColor(Color.black);
+			g.drawString("AI's Deck: " + enemy.getDeck().size(), enemyDeck.x - 50, enemyDeck.y - 20);
+		}
+
+		// indicate enemy's prize number
+		if (Game.getMouseRect().intersects(new Rectangle(enemyPrize.x, enemyPrize.y, Game.CARD_W, Game.CARD_H))) {
+			g.setColor(Color.black);
+			g.drawString("AI's Prize: " + enemy.getPrize().size(), enemyPrize.x - 50, enemyPrize.y - 20);
 		}
 
 		// draw player's bench
@@ -266,7 +304,6 @@ public class GameInterface extends JFrame {
 		}
 		if (selected != -1 && selected < player.getHand().size())
 			player.hand.get(selected).draw(g, player.hand.get(selected).x, player.hand.get(selected).y);
-
 
 	}
 }
