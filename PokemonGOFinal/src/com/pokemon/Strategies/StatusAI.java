@@ -72,6 +72,16 @@ public class StatusAI implements Strategy {
 					}
 				}
 			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 		}
 
 		GameInterface.turn++;

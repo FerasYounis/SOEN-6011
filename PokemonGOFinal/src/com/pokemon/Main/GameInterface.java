@@ -289,8 +289,11 @@ public class GameInterface {
 
 		if (selected >= 20 && selected <= 24) {
 			Pokemon p = player.getPoke();
-			player.setPoke((Pokemon) player.getBench().get(selected - 20));
-			player.getBench().set(selected - 20, p);
+			if(player.getBench().get(selected - 20).getEnergys().size() > 0){
+				player.setPoke((Pokemon) player.getBench().get(selected - 20));
+				player.getBench().set(selected - 20, p);
+				player.getPoke().costEnergy(1);
+			}
 			selected = -1;
 		}
 
