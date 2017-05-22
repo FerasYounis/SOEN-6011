@@ -74,7 +74,7 @@ public class GameInterface {
 		retreat.update();
 		player.update();
 		enemy.update();
-
+		
 		if (playerTurn) {
 			if (movingCard == null) {
 
@@ -156,7 +156,7 @@ public class GameInterface {
 		} else {
 
 			AIStrategy.turn();
-
+			drawnCard = false;
 		}
 
 	}
@@ -403,11 +403,10 @@ public class GameInterface {
 
 				if (selected != -1 && 40 <= selected && selected <= 44)
 					enemy.getBench().get(selected - 40).draw(g, 100, 175, true, true);
-				if (selected != -1 && 31 == selected)
-					enemy.getPoke().draw(g, 100, 175, true, true);
 			}
 		}
-		
+		if (selected != -1 && 31 == selected)
+			enemy.getPoke().draw(g, 100, 175, true, true);
 		
 		
 
