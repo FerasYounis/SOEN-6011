@@ -44,7 +44,7 @@ public class Game extends JFrame {
 		this.setBounds(0, 0, WIDTH, HEIGHT + 30);
 		this.setVisible(true);
 		this.setResizable(false);
-		this.setAlwaysOnTop(true);
+		//this.setAlwaysOnTop(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 

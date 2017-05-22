@@ -74,7 +74,7 @@ public class GameInterface {
 		retreat.update();
 		player.update();
 		enemy.update();
-		
+
 		if (playerTurn) {
 			if (movingCard == null) {
 
@@ -156,7 +156,7 @@ public class GameInterface {
 		} else {
 
 			AIStrategy.turn();
-			
+
 		}
 
 	}
@@ -164,11 +164,13 @@ public class GameInterface {
 	private void checkLose() {
 		if (enemy.prize.size() == 0 || player.deck.size() == 0)
 			JOptionPane.showMessageDialog(null, "Sorry! You LOSE the game!!!");
+		System.exit(0);
 	}
 
 	private void checkWin() {
 		if (player.prize.size() == 0 || enemy.deck.size() == 0)
 			JOptionPane.showMessageDialog(null, "Congratulations! You WIN!!!");
+		System.exit(0);
 	}
 
 	private void checkEvolve() {
@@ -391,12 +393,11 @@ public class GameInterface {
 
 				if (selected != -1 && 20 <= selected && selected <= 24)
 					player.getBench().get(selected - 20).draw(g, 100, 175, true, true);
-//				else if (mouseOver != -1 && 11 == mouseOver)
-//					player.getBench().get(i).draw(g, 100, 175, true, true);
+				// else if (mouseOver != -1 && 11 == mouseOver)
+				// player.getBench().get(i).draw(g, 100, 175, true, true);
 			}
 		}
-		
-		
+
 		// draw AI's bench
 		if (enemy.getBench().size() != 0) {
 			for (int i = 0; i < enemy.getBench().size(); i++) {
@@ -408,8 +409,6 @@ public class GameInterface {
 		}
 		if (selected != -1 && 31 == selected)
 			enemy.getPoke().draw(g, 100, 175, true, true);
-		
-		
 
 		// draw enemy's hand
 		for (int i = 0; i < enemy.hand.size(); i++)
