@@ -5,7 +5,7 @@
 * 2 Doduo 0 0 70 DoubleHit 30 0 0 
 * 1 Dodrio 1 Doduo 90 Rage 20 Endeavor 50
 * 1 MeowthAOR 0 0 70 FurySwipes 10 0 0
-* 1 Meowth 0 0 60 Nap -20 JumpOn 20
+* 1 Meowth 0 0 60 Nap 20 JumpOn 20
 * 1 Persian 1 MeowthAOR 90 0 0 ClawRend 30
 * 1 Diglett 0 0 50 0 0 MudSlap 10
 * 1 Dugtrio 1 Diglett 100 0 0 DigUnder 50

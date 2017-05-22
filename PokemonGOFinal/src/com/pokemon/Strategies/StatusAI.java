@@ -29,10 +29,10 @@ public class StatusAI implements Strategy {
 	public void turn() {
 		if (GameInterface.turn == 1) {
 			checkHandBasic();
-			if(hasHandBasic){
-				enemy.setPoke(getHandBasic()); 
+			if (hasHandBasic) {
+				enemy.setPoke(getHandBasic());
 				enemy.getHand().remove(getHandBasic());
-			}else{
+			} else {
 				enemy.shuffleDeck();
 				turn();
 			}
@@ -40,39 +40,40 @@ public class StatusAI implements Strategy {
 		if (GameInterface.turn > 1) {
 			enemy.getHand().add(enemy.drawOneCard());
 			checkHandBasic();
-			if(hasHandBasic && enemy.getBench().size() < 5){
+			if (hasHandBasic && enemy.getBench().size() < 5) {
 				enemy.getBench().add(getHandBasic());
 				enemy.getHand().remove(getHandBasic());
-			}else{
-				if(hasHandStageone){
+			}
 
-					
-				}
-				
+			checkHandEnergy();
+			if (hasEnergy && enemy.getPoke().getEnergys().size() < 4) {
+				enemy.getPoke().addEnergy(getHandEnergy());
+				enemy.getHand().remove(getHandEnergy());
 			}
-			
-			if(enemy.getPoke() != null){
+
+			if (enemy.getPoke() != null) {
 				Pokemon p = enemy.getPoke();
-				if(p.validateAttackExist(enemy.getPoke().getAbility1().getName())){
+				if (p.validateAttackExist(enemy.getPoke().getAbility1().getName())) {
 					enemy.getPoke().attackPlayer(1);
+					if(player.checkKnockout()){
+						player.getGraveyard().add(player.getPoke());
+						player.setPoke(null);
+						enemy.getHand().add(enemy.getPrize().get(enemy.getPrize().size() - 1));
+						enemy.getPrize().remove(enemy.getPrize().size() - 1);
+					}
 				}
-				if(p.validateAttackExist(enemy.getPoke().getAbility2().getName())){
+				else if (p.validateAttackExist(enemy.getPoke().getAbility2().getName())) {
 					enemy.getPoke().attackPlayer(2);
+					if(player.checkKnockout()){
+						player.getGraveyard().add(player.getPoke());
+						player.setPoke(null);
+						enemy.getHand().add(enemy.getPrize().get(enemy.getPrize().size() - 1));
+						enemy.getPrize().remove(enemy.getPrize().size() - 1);
+					}
 				}
-				
-				
 			}
-			
-			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
+
 		GameInterface.turn++;
 		GameInterface.playerTurn = true;
 
@@ -84,48 +85,46 @@ public class StatusAI implements Strategy {
 				hasHandBasic = true;
 		}
 	}
-	
-	public Pokemon getHandBasic(){
-		for (Card c: enemy.getHand()) {
-			if (c.getCardCategory() == CardCategory.Basic){
+
+	public Pokemon getHandBasic() {
+		for (Card c : enemy.getHand()) {
+			if (c.getCardCategory() == CardCategory.Basic) {
 				hasHandBasic = false;
-				return (Pokemon)c;
+				return (Pokemon) c;
 			}
 		}
 		return null;
 	}
-	
-	public void checkHandStageone(){
+
+	public void checkHandStageone() {
 		for (Card c : enemy.getHand()) {
 			if (c.getCardCategory() == CardCategory.StageOne)
 				hasHandStageone = true;
 		}
 	}
-	
-	public Pokemon getHandStageone(){
-		for (Card c: enemy.getHand()) {
-			if (c.getCardCategory() == CardCategory.StageOne){
+
+	public Pokemon getHandStageone() {
+		for (Card c : enemy.getHand()) {
+			if (c.getCardCategory() == CardCategory.StageOne) {
 				hasHandStageone = false;
-				return (Pokemon)c;
+				return (Pokemon) c;
 			}
 		}
 		return null;
 	}
-	
-	
-	public void checkHandEnergy(){
+
+	public void checkHandEnergy() {
 		for (Card c : enemy.getHand()) {
 			if (c.getCardType() == CardType.Engergy)
 				hasEnergy = true;
 		}
 	}
-	
-	
-	public Energy getHandEnergy(){
-		for (Card c: enemy.getHand()) {
-			if (c.getCardType() == CardType.Engergy){
+
+	public Energy getHandEnergy() {
+		for (Card c : enemy.getHand()) {
+			if (c.getCardType() == CardType.Engergy) {
 				hasEnergy = false;
-				return (Energy)c;
+				return (Energy) c;
 			}
 		}
 		return null;
