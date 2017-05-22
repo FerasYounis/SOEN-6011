@@ -29,17 +29,13 @@ public class Player extends GameObject {
 		setDeck();
 		shuffleDeck();
 		setHand();
-
+		setPrize();
 
 		// initial hand location
 		for (int i = 0; i < hand.size(); i++) {
 			hand.get(i).setX(500 + 90 * i);
 			hand.get(i).setY(685);
 		}
-	}
-
-	private void shuffleDeck() {
-		Collections.shuffle(deck);
 	}
 
 	public void update() {
@@ -77,9 +73,24 @@ public class Player extends GameObject {
 	}
 
 	public void setHand() {
-		for(int i = 0; i < 7; i++){
+		for (int i = 0; i < 7; i++) {
 			hand.add(drawOneCard());
 		}
+	}
+	
+
+	public ArrayList<Card> getPrize() {
+		return prize;
+	}
+
+	private void setPrize() {
+		for (int i = 0; i < 6; i++) {
+			prize.add(drawOneCard());
+		}
+	}
+
+	private void shuffleDeck() {
+		Collections.shuffle(deck);
 	}
 
 	public ArrayList<Card> getBench() {

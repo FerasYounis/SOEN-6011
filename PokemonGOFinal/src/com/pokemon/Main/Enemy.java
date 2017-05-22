@@ -2,35 +2,57 @@ package com.pokemon.Main;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import com.pokemon.Card.Card;
 import com.pokemon.Card.CardFactory;
+import com.pokemon.Card.Pokemon;
 
 public class Enemy extends GameObject {
 
-	protected ArrayList<Card> deck, hand, bench, poke, graveyard, prize;
-	private CardFactory cf;
+	protected ArrayList<Card> deck, hand, bench, graveyard, prize;
+	protected Pokemon poke;
+	private DataReader dr;
 
 	public Enemy() {
 		deck = new ArrayList<Card>();
 		hand = new ArrayList<Card>();
 		bench = new ArrayList<Card>();
-		poke = new ArrayList<Card>();
+		poke = null;
 		graveyard = new ArrayList<Card>();
 		prize = new ArrayList<Card>();
-		cf = new CardFactory();
-//		for (int i = 0; i < 7; i++) {
-//			hand.add(cf.createCard("Diglett", CardType.Pokemon, 1));
-//			hand.get(i).setX(500 + 90 * i);
-//			hand.get(i).setY(30);
-//		}
+		dr = new DataReader();
+		setDeck();
+		shuffleDeck();
+		setHand();
+		setPrize();
+
+		// initial hand location
+		for (int i = 0; i < hand.size(); i++) {
+			hand.get(i).setX(500 + 90 * i);
+			hand.get(i).setY(30);
+		}
 	}
 
 	public void update() {
+		if (!Game.getMouseManager().LDragging) {
 
-	}
+			for (int i = 0; i < hand.size(); i++) {
+				hand.get(i).setX(500 + 90 * i);
+				hand.get(i).setY(30);
+			}
 
-	public void draw(Graphics g) {
+			if (poke != null) {
+				poke.setX(GameInterface.enemyPoke.x);
+				poke.setY(GameInterface.enemyPoke.y);
+			}
+
+			for (int i = 0; i < bench.size(); i++) {
+				bench.get(i).setX(GameInterface.enemyBench[i].x);
+				bench.get(i).setY(GameInterface.enemyBench[i].y);
+			}
+
+		}
 
 	}
 
@@ -38,16 +60,33 @@ public class Enemy extends GameObject {
 		return deck;
 	}
 
-	public void setDeck(ArrayList<Card> deck) {
-		this.deck = deck;
+	public void setDeck() {
+		deck = dr.loadData("deck2.txt", 2);
 	}
 
 	public ArrayList<Card> getHand() {
 		return hand;
 	}
 
-	public void setHand(ArrayList<Card> hand) {
-		this.hand = hand;
+	public void setHand() {
+		for (int i = 0; i < 7; i++) {
+			hand.add(drawOneCard());
+		}
+	}
+	
+
+	public ArrayList<Card> getPrize() {
+		return prize;
+	}
+
+	private void setPrize() {
+		for (int i = 0; i < 6; i++) {
+			prize.add(drawOneCard());
+		}
+	}
+
+	private void shuffleDeck() {
+		Collections.shuffle(deck);
 	}
 
 	public ArrayList<Card> getBench() {
@@ -58,11 +97,11 @@ public class Enemy extends GameObject {
 		this.bench = bench;
 	}
 
-	public ArrayList<Card> getPoke() {
+	public Pokemon getPoke() {
 		return poke;
 	}
 
-	public void setPoke(ArrayList<Card> poke) {
+	public void setPoke(Pokemon poke) {
 		this.poke = poke;
 	}
 
@@ -72,6 +111,12 @@ public class Enemy extends GameObject {
 
 	public void setGraveyard(ArrayList<Card> graveyard) {
 		this.graveyard = graveyard;
+	}
+
+	public Card drawOneCard() {
+		Card card = deck.get(deck.size() - 1);
+		deck.remove(deck.size() - 1);
+		return card;
 	}
 
 }

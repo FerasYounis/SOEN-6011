@@ -11,8 +11,8 @@
 * 2 Geodude 0 0 70 0 0 Rollout 40
 * 1 Hitmonchan 0 0 70 0 0 SkyUppercut 30
 * 1 Hitmonlee 0 0 80 Kick 20 HighJumpKick 60
-* 3 Machop 1 0 100 0 0 CrossChop 60
-* 2 Machoke 0 Machop 70 DualChop 30 0 0
+* 3 Machop 0 Machop 70 DualChop 30 0 0
+* 2 Machoke 1 0 100 0 0 CrossChop 60
 * 2 Espurr 0 0 60 Psyshot 10 FakeOut 10
 * 1 Meowstic 1 0 90 0 0 Psyblast 60
 * 2 Gastly 0 Haunter 50 0 0 0 0

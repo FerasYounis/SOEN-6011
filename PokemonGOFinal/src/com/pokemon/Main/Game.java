@@ -11,6 +11,7 @@ import java.io.InputStream;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 /**
  * 
@@ -24,7 +25,6 @@ public class Game extends JFrame {
 	public static int CARD_W = 80, CARD_H = 111; // 卡牌图片尺寸
 	public static final int HAND_SIZE = 7; // 初始手牌数
 	public static final int BOARD_SIZE = 5; // bench宠物数
-	//public static final int CARD_SCALE = 5; //乘五倍像素
 	Image offSetImage = null;
 
 	public static enum State {
@@ -38,8 +38,6 @@ public class Game extends JFrame {
 	public static Menu menu;
 	public static GameInterface gameInterface;
 	public static ObjectHandler objectHandler;
-	public static Player player;
-	public static Enemy enemy;
 
 	public void lanuchGame() {
 		this.setTitle("Pokemon TCG"); // 设置主界面窗体
@@ -48,6 +46,7 @@ public class Game extends JFrame {
 		this.setResizable(false);
 		this.setAlwaysOnTop(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
 		mouseManager = new MouseManager(); // 鼠标事件
 		this.addMouseListener(mouseManager);
@@ -76,38 +75,27 @@ public class Game extends JFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		
+		
 		//加载图片
 		ImageLoader loader = new ImageLoader();
-		//cardImg = loader.load("/card.png");
 		cardback = loader.load("/cardback.jpg");
-		
-		//diglett = loader.load("/deck1/Diglett.png");
 		
 		wIcon = loader.load("/wIcon.png");
 		pIcon = loader.load("/pIcon.png");
 		eIcon = loader.load("/eIcon.png");
 		fIcon = loader.load("/fIcon.png");
-
-		
-		
 		
 		menuBackground = loader.load("/menuBackground.png");
 		gameBackground = loader.load("/background.jpg");
 
-
-//		CARD_W = cardImg.getWidth();
-//		CARD_H = cardImg.getHeight();
-		
 		objectHandler = new ObjectHandler();
 		state = State.MENU;
 		menu = new Menu();
+		gameInterface = new GameInterface();
 		
 		
-		
-
 		new Thread(new GameThread()).start();
-
 	}
 
 	public void update() {
@@ -115,7 +103,6 @@ public class Game extends JFrame {
 			menu.update();
 		} else if (state == State.GAME) {
 			gameInterface.update();
-
 		}
 	}
 
@@ -134,7 +121,6 @@ public class Game extends JFrame {
 		} else if (state == State.GAME && gameInterface != null) {
 			gameInterface.draw(g);
 		}
-
 		
 		g.dispose();
 		g2d.drawImage(offSetImage, 0, 0, null);

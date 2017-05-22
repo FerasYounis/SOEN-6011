@@ -2,6 +2,11 @@ package com.pokemon.Main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import com.pokemon.Card.Card;
 import com.pokemon.Card.Energy;
@@ -9,12 +14,13 @@ import com.pokemon.Card.Pokemon;
 import com.pokemon.Enums.CardCategory;
 import com.pokemon.Enums.CardType;
 
-public class GameInterface {
-	public static CardSpot[] playerBench, enemyBench; // benchå® ç‰©
-	public static CardSpot playerPoke, enemyPoke, playerDeck, enemyDeck, playerPrize, enemyPrize; // å�‚æˆ˜å® ç‰©ï¼Œç‰Œå †
+public class GameInterface extends JFrame {
+	public static CardSpot[] playerBench, enemyBench; //
+	public static CardSpot playerPoke, enemyPoke, playerDeck, enemyDeck, playerPrize, enemyPrize; //
 	private Button endTurn, drawCard, retreat;
 	private int selected = -1, mouseOver = -1; // 0-6 hand; 11 pokemon; 20-24
 												// bench;
+
 	private Player player;
 	private Enemy enemy;
 	private int turn;
@@ -52,7 +58,6 @@ public class GameInterface {
 
 	public void update() {
 		if (movingCard == null) {
-
 			endTurn.update();
 			drawCard.update();
 			retreat.update();
@@ -116,7 +121,7 @@ public class GameInterface {
 
 		}
 
-		System.out.println(mouseOver + "---(" + selected + ")" + "---" + Game.getMouseManager().LPressed);
+		System.out.println(mouseOver + "---(" + selected + ")" + "---" + player.getDeck().size());
 	}
 
 	private void selectPoke() {
@@ -131,7 +136,8 @@ public class GameInterface {
 
 		// select player's bench
 		if ((selected > -1 && selected < 10) && player.getPoke() != null
-				&& player.getHand().get(selected).getCardCategory() == CardCategory.Basic && player.getBench().size() <= 5) {
+				&& player.getHand().get(selected).getCardCategory() == CardCategory.Basic
+				&& player.getBench().size() <= 5) {
 			player.getBench().add(player.getHand().get(selected));
 			player.getHand().remove(selected);
 			Game.getMouseManager().LPressed = false;
@@ -204,13 +210,26 @@ public class GameInterface {
 		retreat.draw(g);
 		drawCard.draw(g);
 
-		// draw player's pokemon
-		if (player.getPoke() != null) {
-			player.getPoke().draw(g, playerPoke.x, playerPoke.y, false, true);
-			if (selected != -1 && 11 == selected)
-				player.getPoke().draw(g, 100, 175, true, true);
-			else if (mouseOver != -1 && 11 == mouseOver)
-				player.getPoke().draw(g, 100, 175, true, true);
+		// draw player's prize card
+		if (player.getPrize().size() != 0) {
+			player.getPrize().get(player.getPrize().size() - 1).draw(g, playerPrize.x, playerPrize.y, false, false);
+		}
+
+		// draw player's deck card
+		if (player.getDeck().size() != 0) {
+			player.getDeck().get(player.getDeck().size() - 1).draw(g, playerDeck.x, playerDeck.y, false, false);
+		}
+
+		// indicate player's deck number
+		if (Game.getMouseRect().intersects(new Rectangle(playerDeck.x, playerDeck.y, Game.CARD_W, Game.CARD_H))) {
+			g.setColor(Color.black);
+			g.drawString("Player's Deck: " + player.getDeck().size(), playerDeck.x - 50, playerDeck.y - 20);
+		}
+
+		// indicate player's prize number
+		if (Game.getMouseRect().intersects(new Rectangle(playerPrize.x, playerPrize.y, Game.CARD_W, Game.CARD_H))) {
+			g.setColor(Color.black);
+			g.drawString("Player's Prize: " + player.getPrize().size(), playerPrize.x - 50, playerPrize.y - 20);
 		}
 
 		// draw player's bench
@@ -237,6 +256,15 @@ public class GameInterface {
 		}
 		if (selected != -1 && selected < player.getHand().size())
 			player.hand.get(selected).draw(g, player.hand.get(selected).x, player.hand.get(selected).y);
+
+		// draw player's pokemon
+		if (player.getPoke() != null) {
+			player.getPoke().draw(g, playerPoke.x, playerPoke.y, false, true);
+			if (selected != -1 && 11 == selected)
+				player.getPoke().draw(g, 100, 175, true, true);
+			else if (mouseOver != -1 && 11 == mouseOver)
+				player.getPoke().draw(g, 100, 175, true, true);
+		}
 
 	}
 }

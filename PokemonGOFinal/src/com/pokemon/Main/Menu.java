@@ -16,10 +16,7 @@ public class Menu {
 	}
 	
 	public void start(){
-		Game.gameInterface = new GameInterface();
 		Game.state = Game.State.GAME;
-		
-		
 	}
 
 	public void update() {
