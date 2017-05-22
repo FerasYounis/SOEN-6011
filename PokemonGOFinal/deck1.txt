@@ -15,7 +15,7 @@
 * 3 Machop 0 0 70 DualChop 30 0 0
 * 2 Machoke 1 Machop 100 0 0 CrossChop 60
 * 2 Espurr 0 0 60 Psyshot 10 FakeOut 10
-* 1 Meowstic 1 Meowth 90 0 0 Psyblast 60
+* 1 Meowstic 1 Espurr 90 0 0 Psyblast 60
 * 2 Gastly 0 0 50 0 0 0 0
 * 1 Haunter 1 Gastly 70 0 0 ConfuseRay 20
 * 2 Jirachi 0 0 60 Stardust 10 DreamDance 20

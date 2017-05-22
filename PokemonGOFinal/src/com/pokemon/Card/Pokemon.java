@@ -136,12 +136,17 @@ public class Pokemon extends Card {
 	}
 
 	public void setEnergys(ArrayList<Energy> energys) {
-		this.energys = energys;
-		for(int i = 0; i < energys.size(); i++){
-			Graphics g2d = this.cardImage.getGraphics();
-			g2d.drawImage(energys.get(i).getIcon(), 50 * (energys.size() - 1), 342, 50, 50, null);
-			g2d.dispose();
+//		this.energys = energys;
+//		for(int i = 0; i < energys.size(); i++){
+//			Graphics g2d = this.cardImage.getGraphics();
+//			g2d.drawImage(energys.get(i).getIcon(), 50 * (energys.size() - 1), 342, 50, 50, null);
+//			g2d.dispose();
+//		}
+		
+		for(Energy e: energys){
+			this.addEnergy(e);
 		}
+		
 	}
 
 	public void attackButton(Button b) {
