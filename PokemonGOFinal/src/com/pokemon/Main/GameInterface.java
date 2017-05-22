@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import com.pokemon.Card.Card;
 import com.pokemon.Card.Energy;
 import com.pokemon.Card.Pokemon;
+import com.pokemon.Enums.CardCategory;
 import com.pokemon.Enums.CardType;
 
 public class GameInterface {
@@ -104,7 +105,7 @@ public class GameInterface {
 
 		// select energy card
 		if ((selected > -1 && selected < 10) && player.getPoke() != null
-				&& player.getHand().get(selected).getType().equals(CardType.Engergy)) {
+				&& player.getHand().get(selected).getCardType().equals(CardType.Engergy)) {
 
 			if (Game.getMouseManager().LDragging) {
 				movingCard = player.getHand().get(selected);
@@ -121,7 +122,7 @@ public class GameInterface {
 	private void selectPoke() {
 		// select player's pokemon
 		if ((selected > -1 && selected < 10) && player.getPoke() == null
-				&& player.getHand().get(selected).getType() == CardType.Pokemon) {
+				&& player.getHand().get(selected).getCardCategory() == CardCategory.Basic) {
 			player.setPoke((Pokemon) player.getHand().get(selected));
 			player.getHand().remove(selected);
 			Game.getMouseManager().LPressed = false;
@@ -130,7 +131,7 @@ public class GameInterface {
 
 		// select player's bench
 		if ((selected > -1 && selected < 10) && player.getPoke() != null
-				&& player.getHand().get(selected).getType() == CardType.Pokemon && player.getBench().size() <= 5) {
+				&& player.getHand().get(selected).getCardCategory() == CardCategory.Basic && player.getBench().size() <= 5) {
 			player.getBench().add(player.getHand().get(selected));
 			player.getHand().remove(selected);
 			Game.getMouseManager().LPressed = false;

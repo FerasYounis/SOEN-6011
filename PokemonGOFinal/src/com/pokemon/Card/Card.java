@@ -19,12 +19,12 @@ public class Card extends GameObject {
 	// protected String name, description;
 	protected BufferedImage cardBack, cardImage;
 
-	protected CardType type;
+	protected CardType cardType;
 	protected boolean dragging = false;
 	private CardCategory cardCategory;
 
 	public Card(String url, CardType type, CardCategory cardCategory) {
-		this.type = type;
+		this.cardType = type;
 		this.cardCategory = cardCategory;
 
 		this.w = Game.CARD_W;
@@ -96,12 +96,16 @@ public class Card extends GameObject {
 		this.cardImage = cardImage;
 	}
 
-	public CardType getType() {
-		return type;
+	public CardType getCardType() {
+		return cardType;
 	}
 
-	public void setType(CardType type) {
-		this.type = type;
+	public void setCardType(CardType cardType) {
+		this.cardType = cardType;
+	}
+
+	public void setCardCategory(CardCategory cardCategory) {
+		this.cardCategory = cardCategory;
 	}
 
 	public boolean getDragging() {

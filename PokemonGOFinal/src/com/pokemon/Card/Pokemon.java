@@ -14,6 +14,7 @@ public class Pokemon extends Card {
 	private Strategy status;
 	// private ArrayList<Button> ability;
 	private String evolution;
+	private CardCategory stage;
 
 	private ArrayList<Energy> energys;
 
@@ -22,8 +23,8 @@ public class Pokemon extends Card {
 		super(url, CardType.Pokemon, level);
 		this.HP = HP;
 		this.ability1 = new Ability(ability1, attackHit1);
-		this.ability2 = new Ability(ability2, attackHit2); // if not exists, put
-															// 0, 0
+		this.ability2 = new Ability(ability2, attackHit2); // if not exists, put 0, 0
+		this.stage = level;
 		this.evolution = evolution;
 		this.currentHP = HP;
 		this.energys = new ArrayList<Energy>();
