@@ -1,8 +1,10 @@
 package com.pokemon.Strategies;
 
 import com.pokemon.Card.Card;
+import com.pokemon.Card.Energy;
 import com.pokemon.Card.Pokemon;
 import com.pokemon.Enums.CardCategory;
+import com.pokemon.Enums.CardType;
 import com.pokemon.Main.Enemy;
 import com.pokemon.Main.GameInterface;
 import com.pokemon.Main.ObjectHandler;
@@ -13,12 +15,14 @@ public class StatusAI implements Strategy {
 	private Player player;
 	private boolean hasHandBasic;
 	private boolean hasHandStageone;
+	private boolean hasEnergy;
 
 	public StatusAI() {
 		enemy = ObjectHandler.getEnemy();
 		player = ObjectHandler.getPlayer();
 		hasHandBasic = false;
 		hasHandStageone = false;
+		hasEnergy = false;
 	}
 
 	@Override
@@ -34,7 +38,7 @@ public class StatusAI implements Strategy {
 			}
 		}
 		if (GameInterface.turn > 1) {
-			enemy.drawOneCard();
+			enemy.getHand().add(enemy.drawOneCard());
 			checkHandBasic();
 			if(hasHandBasic && enemy.getBench().size() < 5){
 				enemy.getBench().add(getHandBasic());
@@ -84,6 +88,7 @@ public class StatusAI implements Strategy {
 	public Pokemon getHandBasic(){
 		for (Card c: enemy.getHand()) {
 			if (c.getCardCategory() == CardCategory.Basic){
+				hasHandBasic = false;
 				return (Pokemon)c;
 			}
 		}
@@ -100,11 +105,30 @@ public class StatusAI implements Strategy {
 	public Pokemon getHandStageone(){
 		for (Card c: enemy.getHand()) {
 			if (c.getCardCategory() == CardCategory.StageOne){
+				hasHandStageone = false;
 				return (Pokemon)c;
 			}
 		}
 		return null;
 	}
 	
+	
+	public void checkHandEnergy(){
+		for (Card c : enemy.getHand()) {
+			if (c.getCardType() == CardType.Engergy)
+				hasEnergy = true;
+		}
+	}
+	
+	
+	public Energy getHandEnergy(){
+		for (Card c: enemy.getHand()) {
+			if (c.getCardType() == CardType.Engergy){
+				hasEnergy = false;
+				return (Energy)c;
+			}
+		}
+		return null;
+	}
 
 }
