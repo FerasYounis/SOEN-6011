@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -155,9 +156,11 @@ public class GameInterface extends JFrame {
 			if(player.getPoke() != null && p.evolve(player.getPoke())){
 				int hitPoint = player.getPoke().getHP() - player.getPoke().getCurrentHP();
 				Strategy s = player.getPoke().getStatus();
+				ArrayList<Energy> list = player.getPoke().getEnergys();
 				player.setPoke(p);
 				player.getPoke().setCurrentHP(p.getHP() - hitPoint);
 				player.getPoke().setStatus(s);
+				player.getPoke().setEnergys(list);
 				player.getHand().remove(selected);
 			}
 			
@@ -166,8 +169,10 @@ public class GameInterface extends JFrame {
 				if(p.evolve(pp)){
 					int hitPoint = pp.getHP() - pp.getCurrentHP();
 					Strategy s = pp.getStatus();
+					ArrayList<Energy> list = pp.getEnergys();
 					player.getBench().set(i, p);
 					Pokemon ppp = (Pokemon)player.getBench().get(i);
+					ppp.setEnergys(list);
 					ppp.setCurrentHP(p.getHP() - hitPoint);
 					ppp.setStatus(s);
 					player.getHand().remove(selected);
@@ -205,7 +210,7 @@ public class GameInterface extends JFrame {
 		if ((selected > -1 && selected < player.getHand().size()) && player.getPoke() != null
 				&& player.getHand().get(selected).getCardCategory() == CardCategory.Basic
 				&& player.getBench().size() < 5) {
-			player.getBench().add(player.getHand().get(selected));
+			player.getBench().add((Pokemon)player.getHand().get(selected));
 			player.getHand().remove(selected);
 			Game.getMouseManager().LPressed = false;
 			selected = -1;

@@ -14,14 +14,15 @@ import com.pokemon.Card.Pokemon;
 
 public class Player extends GameObject {
 
-	protected ArrayList<Card> deck, hand, bench, graveyard, prize;
+	protected ArrayList<Card> deck, hand, graveyard, prize;
+	protected ArrayList<Pokemon> bench;
 	protected Pokemon poke;
 	private DataReader dr;
 
 	public Player() {
 		deck = new ArrayList<Card>();
 		hand = new ArrayList<Card>();
-		bench = new ArrayList<Card>();
+		bench = new ArrayList<Pokemon>();
 		poke = null;
 		graveyard = new ArrayList<Card>();
 		prize = new ArrayList<Card>();
@@ -93,11 +94,11 @@ public class Player extends GameObject {
 		Collections.shuffle(deck);
 	}
 
-	public ArrayList<Card> getBench() {
+	public ArrayList<Pokemon> getBench() {
 		return bench;
 	}
 
-	public void setBench(ArrayList<Card> bench) {
+	public void setBench(ArrayList<Pokemon> bench) {
 		this.bench = bench;
 	}
 

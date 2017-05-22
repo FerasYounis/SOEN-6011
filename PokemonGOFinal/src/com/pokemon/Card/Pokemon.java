@@ -47,7 +47,6 @@ public class Pokemon extends Card {
 
 	public void addEnergy(Energy e) {
 		this.energys.add(e);
-
 		Graphics g2d = this.cardImage.getGraphics();
 		g2d.drawImage(e.getIcon(), 50 * (energys.size() - 1), 342, 50, 50, null);
 
@@ -76,6 +75,7 @@ public class Pokemon extends Card {
 
 	}
 
+	
 	public boolean validateAttackExist(String attackAbility) {
 		if (attackAbility.equals("0")) {
 			return false;
@@ -128,6 +128,20 @@ public class Pokemon extends Card {
 			return true;
 		return false;
 
+	}
+
+	
+	public ArrayList<Energy> getEnergys() {
+		return energys;
+	}
+
+	public void setEnergys(ArrayList<Energy> energys) {
+		this.energys = energys;
+		for(int i = 0; i < energys.size(); i++){
+			Graphics g2d = this.cardImage.getGraphics();
+			g2d.drawImage(energys.get(i).getIcon(), 50 * (energys.size() - 1), 342, 50, 50, null);
+			g2d.dispose();
+		}
 	}
 
 	public void attackButton(Button b) {
