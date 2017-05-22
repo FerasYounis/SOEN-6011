@@ -19,7 +19,7 @@ public class Pokemon extends Card {
 	private int currentHP;
 	private Strategy status;
 	private ArrayList<Button> ability;
-	private String basicName;            //to indicate the name of this. basic pokemon
+	private String basicName; // to indicate the name of this. basic pokemon
 	private CardCategory stage;
 
 	private ArrayList<Energy> energys;
@@ -93,6 +93,7 @@ public class Pokemon extends Card {
 			pokemonTarget.setCurrentHP(damegAfterHit);
 			this.costEnergy(ability2.getCost());
 			System.out.println(pokemonTarget.getCurrentHP());
+			break;
 		}
 
 	}
@@ -194,6 +195,31 @@ public class Pokemon extends Card {
 			}
 		}
 		return false;
+	}
+
+	public void attackPlayer(int attackAbility) {
+		Pokemon p = ObjectHandler.player.getPoke();
+		if (p != null) {
+			int damegAfterHit;
+			switch (attackAbility) {
+			case 1:
+				if (ability1.checkCost(this)) {
+					damegAfterHit = p.getCurrentHP() - ability1.getAttackHit();
+					p.setCurrentHP(damegAfterHit);
+					this.costEnergy(ability1.getCost());
+					System.out.println(p.getCurrentHP());
+					break;
+				}
+			case 2:
+				if (ability2.checkCost(this)) {
+					damegAfterHit = p.getCurrentHP() - ability2.getAttackHit();
+					p.setCurrentHP(damegAfterHit);
+					this.costEnergy(ability2.getCost());
+					System.out.println(p.getCurrentHP());
+					break;
+				}
+			}
+		}
 	}
 
 }

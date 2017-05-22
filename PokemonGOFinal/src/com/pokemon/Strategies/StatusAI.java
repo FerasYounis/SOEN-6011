@@ -6,14 +6,17 @@ import com.pokemon.Enums.CardCategory;
 import com.pokemon.Main.Enemy;
 import com.pokemon.Main.GameInterface;
 import com.pokemon.Main.ObjectHandler;
+import com.pokemon.Main.Player;
 
 public class StatusAI implements Strategy {
 	private Enemy enemy;
+	private Player player;
 	private boolean hasHandBasic;
 	private boolean hasHandStageone;
 
 	public StatusAI() {
 		enemy = ObjectHandler.getEnemy();
+		player = ObjectHandler.getPlayer();
 		hasHandBasic = false;
 		hasHandStageone = false;
 	}
@@ -43,6 +46,20 @@ public class StatusAI implements Strategy {
 				}
 				
 			}
+			
+			if(enemy.getPoke() != null){
+				Pokemon p = enemy.getPoke();
+				if(p.validateAttackExist(enemy.getPoke().getAbility1().getName())){
+					enemy.getPoke().attackPlayer(1);
+				}
+				if(p.validateAttackExist(enemy.getPoke().getAbility2().getName())){
+					enemy.getPoke().attackPlayer(2);
+				}
+				
+				
+			}
+			
+			
 		}
 		
 		

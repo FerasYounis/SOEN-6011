@@ -238,7 +238,6 @@ public class GameInterface {
 	}
 
 	private void checkMouse() {
-
 		// check mouse loc & player's hand
 		for (int i = 0; i < player.getHand().size(); i++) {
 			if (player.getHand().get(i).getRect().intersects(Game.getMouseRect())) {
@@ -249,14 +248,12 @@ public class GameInterface {
 				break;
 			}
 		}
-
 		// check mouse loc & player's pokemon
 		if (player.getPoke() != null && player.getPoke().getRect().intersects(Game.getMouseRect())) {
 			if (Game.getMouseManager().LPressed) {
 				selected = 11;
 			}
 		}
-
 		// check mouse loc & player's bench
 		for (int i = 0; i < player.getBench().size(); i++) {
 			if (player.getBench().get(i).getRect().intersects(Game.getMouseRect())) {
@@ -266,14 +263,12 @@ public class GameInterface {
 				break;
 			}
 		}
-
 		// check mouse loc & AI's pokemon
 		if (enemy.getPoke() != null && enemy.getPoke().getRect().intersects(Game.getMouseRect())) {
 			if (Game.getMouseManager().LPressed) {
 				selected = 31;
 			}
 		}
-
 		// check mouse loc & AI's bench
 		for (int i = 0; i < enemy.getBench().size(); i++) {
 			if (enemy.getBench().get(i).getRect().intersects(Game.getMouseRect())) {
@@ -283,7 +278,6 @@ public class GameInterface {
 				break;
 			}
 		}
-
 	}
 
 	private void retreat() {
@@ -394,12 +388,28 @@ public class GameInterface {
 			for (int i = 0; i < player.getBench().size(); i++) {
 				player.getBench().get(i).draw(g, playerBench[i].x, playerBench[i].y, false, true);
 
-				if (selected != -1 && 20 <= selected)
+				if (selected != -1 && 20 <= selected && selected <= 24)
 					player.getBench().get(selected - 20).draw(g, 100, 175, true, true);
-				else if (mouseOver != -1 && 11 == mouseOver)
-					player.getBench().get(i).draw(g, 100, 175, true, true);
+//				else if (mouseOver != -1 && 11 == mouseOver)
+//					player.getBench().get(i).draw(g, 100, 175, true, true);
 			}
 		}
+		
+		
+		// draw AI's bench
+		if (enemy.getBench().size() != 0) {
+			for (int i = 0; i < enemy.getBench().size(); i++) {
+				enemy.getBench().get(i).draw(g, enemyBench[i].x, enemyBench[i].y, false, true);
+
+				if (selected != -1 && 40 <= selected && selected <= 44)
+					enemy.getBench().get(selected - 40).draw(g, 100, 175, true, true);
+				if (selected != -1 && 31 == selected)
+					enemy.getPoke().draw(g, 100, 175, true, true);
+			}
+		}
+		
+		
+		
 
 		// draw enemy's hand
 		for (int i = 0; i < enemy.hand.size(); i++)
