@@ -79,24 +79,20 @@ public class Pokemon extends Card {
 			// break;
 			// } //
 
-			if (ability1.checkCost(this)) {
-				damegAfterHit = pokemonTarget.getCurrentHP() - ability1.getAttackHit();
-				pokemonTarget.setCurrentHP(damegAfterHit);
-				this.costEnergy(ability1.getCost());
-				System.out.println(pokemonTarget.getCurrentHP());
-			}
+			damegAfterHit = pokemonTarget.getCurrentHP() - ability1.getAttackHit();
+			pokemonTarget.setCurrentHP(damegAfterHit);
+			this.costEnergy(ability1.getCost());
+			System.out.println(pokemonTarget.getCurrentHP());
 			break;
 
 		case 2:
 			// if (validateAttackExist(ability2.getName()) == false) {
 			// break;
 			// } //
-			if (ability2.checkCost(this)) {
-				damegAfterHit = pokemonTarget.getCurrentHP() - ability2.getAttackHit();
-				pokemonTarget.setCurrentHP(damegAfterHit);
-				this.costEnergy(ability2.getCost());
-				System.out.println(pokemonTarget.getCurrentHP());
-			}
+			damegAfterHit = pokemonTarget.getCurrentHP() - ability2.getAttackHit();
+			pokemonTarget.setCurrentHP(damegAfterHit);
+			this.costEnergy(ability2.getCost());
+			System.out.println(pokemonTarget.getCurrentHP());
 		}
 
 	}
@@ -161,28 +157,39 @@ public class Pokemon extends Card {
 
 	public void setEnergys(ArrayList<Energy> energys) {
 		if (energys.size() != 0) {
+			ArrayList<Energy> list = energys;
 			this.energys = new ArrayList<Energy>();
-			for (Energy e : energys) {
+			ImageLoader loader = new ImageLoader();
+			BufferedImage bi = loader.load(this.url);
+			cardImage = new BufferedImage(245, 342 + 50, BufferedImage.TYPE_INT_ARGB);
+			Graphics g2 = cardImage.getGraphics();
+			g2.drawImage(bi, 0, 0, 245, 342, null);
+			for (Energy e : list) {
 				this.addEnergy(e);
 			}
-		}else{
+			System.out.println("=====" + energys.size());
+		} else {
+			this.energys = new ArrayList<Energy>();
 			ImageLoader loader = new ImageLoader();
 			BufferedImage bi = loader.load(this.url);
 			cardImage = new BufferedImage(245, 342 + 50, BufferedImage.TYPE_INT_ARGB);
 			Graphics g2 = cardImage.getGraphics();
 			g2.drawImage(bi, 0, 0, 245, 342, null);
 		}
-			
 
 	}
 
 	public void attackButton(Button b) {
 		if (b.getText().equals(ability1.getName())) {
-			attack(1, ObjectHandler.getEnemy().getPoke());
-			System.out.println("ability1 success attack!");
+			if (ability1.checkCost(this)) {
+				attack(1, ObjectHandler.getEnemy().getPoke());
+				System.out.println("ability1 success attack!");
+			}
 		} else {
-			attack(2, ObjectHandler.getEnemy().getPoke());
-			System.out.println("ability2 success attack!");
+			if (ability2.checkCost(this)) {
+				attack(2, ObjectHandler.getEnemy().getPoke());
+				System.out.println("ability2 success attack!");
+			}
 		}
 
 	}
