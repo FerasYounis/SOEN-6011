@@ -162,15 +162,17 @@ public class GameInterface {
 	}
 
 	private void checkLose() {
-		if (enemy.prize.size() == 0 || player.deck.size() == 0)
+		if (enemy.prize.size() == 0 || player.deck.size() == 0) {
 			JOptionPane.showMessageDialog(null, "Sorry! You LOSE the game!!!");
-		System.exit(0);
+			System.exit(0);
+		}
 	}
 
 	private void checkWin() {
-		if (player.prize.size() == 0 || enemy.deck.size() == 0)
+		if (player.prize.size() == 0 || enemy.deck.size() == 0) {
 			JOptionPane.showMessageDialog(null, "Congratulations! You WIN!!!");
-		System.exit(0);
+			System.exit(0);
+		}
 	}
 
 	private void checkEvolve() {
