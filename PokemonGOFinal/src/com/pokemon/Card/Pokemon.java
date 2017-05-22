@@ -49,10 +49,10 @@ public class Pokemon extends Card {
 		this.energys = new ArrayList<Energy>();
 		this.ability = new ArrayList<Button>();
 		if (!ability1.equals("0")) {
-			this.ability.add(new Button(220, 550, 50, ability1, Color.WHITE, new Color(49, 156, 12)));
+			this.ability.add(new Button(220, 620, 50, ability1, Color.WHITE, new Color(49, 156, 12)));
 		}
 		if (!ability2.equals("0")) {
-			this.ability.add(new Button(220, 630, 50, ability2, Color.WHITE, new Color(49, 156, 12)));
+			this.ability.add(new Button(220, 700, 50, ability2, Color.WHITE, new Color(49, 156, 12)));
 		}
 	}
 

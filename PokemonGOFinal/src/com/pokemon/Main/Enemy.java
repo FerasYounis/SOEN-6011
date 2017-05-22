@@ -122,7 +122,7 @@ public class Enemy extends GameObject {
 	}
 
 	public boolean checkKnockout(){
-		if(poke.getCurrentHP() <= 0){
+		if(poke != null && poke.getCurrentHP() <= 0){
 			graveyard.add(poke);
 			poke = null;
 			return true;
