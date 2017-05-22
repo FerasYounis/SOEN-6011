@@ -62,7 +62,7 @@ public class DataReader {
 							int number = Integer.parseInt(s[1]);
 							String name = s[2];
 							int stage = Integer.parseInt(s[3]);
-							String evolution = s[4];
+							String basicName = s[4];
 							int HP = Integer.parseInt(s[5]);
 							String ability1 = s[6];
 							int attackHit1 = Integer.parseInt(s[7]);
@@ -71,11 +71,11 @@ public class DataReader {
 
 							for (int i = 0; i < number; i++) {
 								if (0 == stage) {
-									Card card = cf.createCard(name, CardType.Pokemon, CardCategory.Basic, deck, evolution, HP,
+									Card card = cf.createCard(name, CardType.Pokemon, CardCategory.Basic, deck, basicName, HP,
 											ability1, attackHit1, ability2, attackHit2);
 									list.add(card);
 								} else if (1 == stage) {
-									Card card = cf.createCard(name, CardType.Pokemon, CardCategory.StageOne, deck, evolution, HP,
+									Card card = cf.createCard(name, CardType.Pokemon, CardCategory.StageOne, deck, basicName, HP,
 											ability1, attackHit1, ability2, attackHit2);
 									list.add(card);
 								}

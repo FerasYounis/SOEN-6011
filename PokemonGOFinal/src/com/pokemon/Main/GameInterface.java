@@ -5,15 +5,14 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import com.pokemon.Card.Card;
 import com.pokemon.Card.Energy;
 import com.pokemon.Card.Pokemon;
 import com.pokemon.Enums.CardCategory;
 import com.pokemon.Enums.CardType;
+import com.pokemon.Strategies.Strategy;
 
 public class GameInterface extends JFrame {
 	public static CardSpot[] playerBench, enemyBench; //
@@ -90,12 +89,10 @@ public class GameInterface extends JFrame {
 
 				checkMouse();
 				selectPoke();
-				
-			
-				
+				checkEvolve();
 
 			} else {
-				
+
 				movingCard.setX(Game.getMouseManager().MX - 40);
 				movingCard.setY(Game.getMouseManager().MY - 128 / 2);
 				// when the dragging mouse is released
@@ -136,26 +133,51 @@ public class GameInterface extends JFrame {
 
 			// System.out.println(mouseOver + "---(" + selected + ")" + "---" +
 			// player.getDeck().size());
-			
-			
-			
+
 			// select energy card
-			if ((selected > -1 && selected < 10) && player.getPoke() != null
+			if ((selected > -1 && selected < player.getHand().size()) && player.getPoke() != null
 					&& player.getHand().get(selected).getCardType().equals(CardType.Engergy)) {
 
 				if (Game.getMouseManager().LDragging) {
 					movingCard = player.getHand().get(selected);
 					movingCard.setDragging(true);
-				
+
+				}
+			}
+
+		}
+
+	}
+
+	private void checkEvolve() {
+		if(selected >= 0 && selected < player.getHand().size() && player.getHand().get(selected).getCardType() == CardType.Pokemon){
+			Pokemon p = (Pokemon)player.getHand().get(selected);
+			if(player.getPoke() != null && p.evolve(player.getPoke())){
+				int hitPoint = player.getPoke().getHP() - player.getPoke().getCurrentHP();
+				Strategy s = player.getPoke().getStatus();
+				player.setPoke(p);
+				player.getPoke().setCurrentHP(p.getHP() - hitPoint);
+				player.getPoke().setStatus(s);
+				player.getHand().remove(selected);
+			}
+			
+			for(int i = 0; i < player.getBench().size(); i++){
+				Pokemon pp = (Pokemon)player.getBench().get(i);
+				if(p.evolve(pp)){
+					int hitPoint = pp.getHP() - pp.getCurrentHP();
+					Strategy s = pp.getStatus();
+					player.getBench().set(i, p);
+					Pokemon ppp = (Pokemon)player.getBench().get(i);
+					ppp.setCurrentHP(p.getHP() - hitPoint);
+					ppp.setStatus(s);
+					player.getHand().remove(selected);
 				}
 			}
 			
 			
 			
 			
-			
 		}
-
 	}
 
 	private void endTurn() {
@@ -171,7 +193,7 @@ public class GameInterface extends JFrame {
 
 	private void selectPoke() {
 		// select player's pokemon
-		if ((selected > -1 && selected < 10) && player.getPoke() == null
+		if ((selected > -1 && selected < player.getHand().size()) && player.getPoke() == null
 				&& player.getHand().get(selected).getCardCategory() == CardCategory.Basic) {
 			player.setPoke((Pokemon) player.getHand().get(selected));
 			player.getHand().remove(selected);
@@ -180,9 +202,9 @@ public class GameInterface extends JFrame {
 		}
 
 		// select player's bench
-		if ((selected > -1 && selected < 10) && player.getPoke() != null
+		if ((selected > -1 && selected < player.getHand().size()) && player.getPoke() != null
 				&& player.getHand().get(selected).getCardCategory() == CardCategory.Basic
-				&& player.getBench().size() <= 5) {
+				&& player.getBench().size() < 5) {
 			player.getBench().add(player.getHand().get(selected));
 			player.getHand().remove(selected);
 			Game.getMouseManager().LPressed = false;
@@ -273,10 +295,19 @@ public class GameInterface extends JFrame {
 		// draw player's pokemon
 		if (player.getPoke() != null) {
 			player.getPoke().draw(g, playerPoke.x, playerPoke.y, false, true);
-			if (selected != -1 && 11 == selected)
+			if (selected != -1 && 11 == selected) {
 				player.getPoke().draw(g, 100, 175, true, true);
-			else if (mouseOver != -1 && 11 == mouseOver)
+				for (Button b : player.getPoke().getAbility()) {
+					b.draw(g);
+					b.update();
+					if (b.isPressed()) {
+						player.getPoke().attackButton(b);
+						b.setPressed(false);
+					}
+				}
+			} else if (mouseOver != -1 && 11 == mouseOver) {
 				player.getPoke().draw(g, 100, 175, true, true);
+			}
 		}
 
 		// draw player's prize card
@@ -345,6 +376,8 @@ public class GameInterface extends JFrame {
 			if (mouseOver != -1 && i == mouseOver && !Game.getMouseManager().LDragging)
 				player.getHand().get(mouseOver).draw(g, player.hand.get(i).x, player.hand.get(i).y - 350, true, true);
 		}
+
+		// draw player's hand detail
 		if (selected != -1 && selected < player.getHand().size())
 			player.hand.get(selected).draw(g, player.hand.get(selected).x, player.hand.get(selected).y);
 
