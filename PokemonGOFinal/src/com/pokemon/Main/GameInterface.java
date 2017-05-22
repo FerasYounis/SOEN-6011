@@ -7,6 +7,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import com.pokemon.Card.Card;
 import com.pokemon.Card.Energy;
@@ -66,7 +67,8 @@ public class GameInterface{
 	}
 
 	public void update() {
-
+		checkWin();
+		checkLose();
 		endTurn.update();
 		drawCard.update();
 		retreat.update();
@@ -160,6 +162,16 @@ public class GameInterface{
 			
 		}
 
+	}
+
+	private void checkLose() {
+		if(enemy.prize.size() == 0 || player.deck.size() == 0)
+			JOptionPane.showMessageDialog(null, "Sorry! You LOSE the game!!!");
+	}
+
+	private void checkWin() {
+		if(player.prize.size() == 0 || enemy.deck.size() == 0)
+			JOptionPane.showMessageDialog(null, "Congratulations! You WIN!!!");
 	}
 
 	private void checkEvolve() {
