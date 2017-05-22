@@ -281,7 +281,7 @@ public class GameInterface{
 
 	private void retreat() {
 
-		if (selected >= 20 && selected <= 24 && player.getPoke() != null) {
+		if (selected >= 20 && selected <= 24) {
 			Pokemon p = player.getPoke();
 			player.setPoke((Pokemon) player.getBench().get(selected - 20));
 			player.getBench().set(selected - 20, p);
@@ -319,6 +319,10 @@ public class GameInterface{
 					b.update();
 					if (b.isPressed()) {
 						player.getPoke().attackButton(b);
+						if(enemy.checkKnockout()){
+							player.getHand().add(player.getPrize().get(player.getPrize().size() - 1));
+							player.getPrize().remove(player.getPrize().size() - 1);
+						}
 						endTurn();
 						b.setPressed(false);
 					}

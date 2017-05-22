@@ -123,5 +123,16 @@ public class Player extends GameObject {
 		deck.remove(deck.size() - 1);
 		return card;
 	}
+	
+	public boolean checkKnockout(){
+		if(poke.getCurrentHP() <= 0){
+			graveyard.add(poke);
+			poke = null;
+			return true;
+		}
+		return false;
+	}
+	
+	
 
 }

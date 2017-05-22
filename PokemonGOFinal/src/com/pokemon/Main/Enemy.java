@@ -121,4 +121,15 @@ public class Enemy extends GameObject {
 		return card;
 	}
 
+	public boolean checkKnockout(){
+		if(poke.getCurrentHP() <= 0){
+			graveyard.add(poke);
+			poke = null;
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
 }
