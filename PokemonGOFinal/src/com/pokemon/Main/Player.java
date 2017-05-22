@@ -11,6 +11,7 @@ import java.util.List;
 import com.pokemon.Card.Card;
 import com.pokemon.Card.CardFactory;
 import com.pokemon.Card.Pokemon;
+import com.pokemon.Enums.CardCategory;
 
 public class Player extends GameObject {
 
@@ -30,6 +31,13 @@ public class Player extends GameObject {
 		setDeck();
 		shuffleDeck();
 		setHand();
+		
+		while(checkHand()){
+			deck.addAll(hand);
+			hand.clear();
+			shuffleDeck();
+			setHand();
+		}
 		setPrize();
 
 		// initial hand location
@@ -37,6 +45,14 @@ public class Player extends GameObject {
 			hand.get(i).setX(500 + 90 * i);
 			hand.get(i).setY(685);
 		}
+	}
+
+	private boolean checkHand() {
+		for(Card c: hand){
+			if(c.getCardCategory() == CardCategory.Basic)
+				return false;
+		}
+		return true;
 	}
 
 	public void update() {
