@@ -14,7 +14,7 @@ public class Energy extends Card {
 		super(url, CardType.Engergy, catagory);
 		this.catagory = catagory;
 		ImageLoader loader = new ImageLoader();
-		this.icon = loader.load("/" + catagory.toString().toLowerCase() + "Icon.png");
+		this.icon = loader.load("/" + catagory.toString().substring(0, 1).toLowerCase() + "Icon.png");
 	}
 
 	public BufferedImage getIcon() {

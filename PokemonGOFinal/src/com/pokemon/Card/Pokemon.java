@@ -42,6 +42,9 @@ public class Pokemon extends Card {
 		int damegAfterHit;
 		switch (attackAbility) {
 		case 1:
+			if (validateAttackExist(ability1.getName()) == false) {
+				break;
+			} //
 			damegAfterHit = pokemonTarget.getCurrentHP() - ability1.getAttackHit();
 			pokemonTarget.setCurrentHP(damegAfterHit);
 			break;

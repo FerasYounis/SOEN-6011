@@ -28,8 +28,10 @@ public class DataReader {
 				boolean energy = false;
 				boolean trainer = false;
 				CardFactory cf = new CardFactory();
+				int p = 0;
 
 				while ((lineTxt = bufferedReader.readLine()) != null) {
+					System.out.println(++p);
 					if (lineTxt.contains("##Pokémon")) {
 						pokemon = true;
 						energy = false;
@@ -53,6 +55,10 @@ public class DataReader {
 					if (pokemon) {
 						if (lineTxt.startsWith("* ")) {
 							String[] s = lineTxt.split(" ");
+							for(String ss: s){
+							System.out.println(ss);
+							}
+							
 							int number = Integer.parseInt(s[1]);
 							String name = s[2];
 							int stage = Integer.parseInt(s[3]);
@@ -104,8 +110,14 @@ public class DataReader {
 					} else if (energy) {
 						if (lineTxt.startsWith("* ")) {
 							String[] s = lineTxt.split(" ");
-							int number = Integer.parseInt(s[0]);
-							String name = s[1];
+							
+							for(String ss: s){
+								System.out.println(ss);
+								}
+							
+							
+							int number = Integer.parseInt(s[1]);
+							String name = s[2];
 
 							for (int i = 0; i < number; i++) {
 								if (name.equals("Water")) {

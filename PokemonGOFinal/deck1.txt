@@ -1,73 +1,42 @@
 ﻿****** Pokémon Trading Card Game Deck List ******
 
 ##Pokémon - 30
-* 2 Doduo
- 
-* 1 Dodrio
-
-* 1 MeowthAOR
-
-* 1 Meowth
-
-* 1 Persian
-
-* 1 Diglett
-
-* 1 Dugtrio
-
-* 2 Geodude
-
-* 1 Hitmonchan
-
-* 1 Hitmonlee
-
-* 3 Machop
-
-* 2 Machoke
-
-* 2 Espurr
-
-* 1 Meowstic
-
-* 2 Gastly
-
-* 1 Haunter
-
-* 2 Jirachi
-
-* 1 Jynx
-
-* 1 Slowpoke
-
-* 2 Zubat
+* 2 Doduo 0 Dodrio 70 DoubleHit 30 0 0 
+* 1 Dodrio 1 0 90 Rage 20 Endeavor 50
+* 1 MeowthAOR 0 Persian 70 FurySwipes 10 0 0
+* 1 Meowth 0 Meowstic 60 Nap -20 JumpOn 20
+* 1 Persian 1 0 90 0 0 ClawRend 30
+* 1 Diglett 0 Dugtrio 50 0 0 MudSlap 10
+* 1 Dugtrio 1 0 100 0 0 DigUnder 50
+* 2 Geodude 0 0 70 0 0 Rollout 40
+* 1 Hitmonchan 0 0 70 0 0 SkyUppercut 30
+* 1 Hitmonlee 0 0 80 Kick 20 HighJumpKick 60
+* 3 Machop 1 0 100 0 0 CrossChop 60
+* 2 Machoke 0 Machop 70 DualChop 30 0 0
+* 2 Espurr 0 0 60 Psyshot 10 FakeOut 10
+* 1 Meowstic 1 0 90 0 0 Psyblast 60
+* 2 Gastly 0 Haunter 50 0 0 0 0
+* 1 Haunter 1 0 70 0 0 ConfuseRay 20
+* 2 Jirachi 0 0 60 Stardust 10 DreamDance 20
+* 1 Jynx 0 0 70 0 0 Hug 30
+* 1 Slowpoke 0 0 70 Headbutt 10 WhimsyTackle 60
+* 2 Zubat 0 0 50 0 0 0 0
 
 
 ##Trainer Cards - 10
 * 1 Wally
-
 * 1 Red Card
-
 * 2 EnergySwitch
-
 * 1 Switch
-
 * 2 PokémonFanClub
-
 * 1 Shauna
-
 * 1 Poké Ball
-
 * 1 FloralCrown
-
-
-
 
 
 ##Energy - 20
 * 10 Psychic
-
 * 10 Fighting
-
 
 Total Cards - 60
 

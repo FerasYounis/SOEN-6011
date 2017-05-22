@@ -19,11 +19,11 @@ public class Enemy extends GameObject {
 		graveyard = new ArrayList<Card>();
 		prize = new ArrayList<Card>();
 		cf = new CardFactory();
-		for (int i = 0; i < 7; i++) {
+//		for (int i = 0; i < 7; i++) {
 //			hand.add(cf.createCard("Diglett", CardType.Pokemon, 1));
-			hand.get(i).setX(500 + 90 * i);
-			hand.get(i).setY(30);
-		}
+//			hand.get(i).setX(500 + 90 * i);
+//			hand.get(i).setY(30);
+//		}
 	}
 
 	public void update() {

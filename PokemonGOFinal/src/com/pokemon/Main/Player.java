@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.pokemon.Card.Card;
@@ -26,6 +27,7 @@ public class Player extends GameObject {
 		prize = new ArrayList<Card>();
 		dr = new DataReader();
 		setDeck();
+		shuffleDeck();
 		setHand();
 
 
@@ -34,6 +36,10 @@ public class Player extends GameObject {
 			hand.get(i).setX(500 + 90 * i);
 			hand.get(i).setY(685);
 		}
+	}
+
+	private void shuffleDeck() {
+		Collections.shuffle(deck);
 	}
 
 	public void update() {
