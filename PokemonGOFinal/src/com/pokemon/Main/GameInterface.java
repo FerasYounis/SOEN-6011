@@ -350,7 +350,7 @@ public class GameInterface {
 
 		// draw player's prize card
 		if (player.getPrize().size() != 0) {
-			player.getPrize().get(player.getPrize().size() - 1).draw(g, playerPrize.x, playerPrize.y, false, false);
+			player.getPrize().get(0).draw(g, playerPrize.x, playerPrize.y, false, false);
 		}
 
 		// draw player's deck card
