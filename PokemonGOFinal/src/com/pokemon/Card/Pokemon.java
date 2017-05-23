@@ -49,6 +49,7 @@ public class Pokemon extends Card {
 		}
 
 		this.stage = level;
+		this.basicName = null;
 		if (level == CardCategory.StageOne) {
 			this.basicName = evolution;
 		}

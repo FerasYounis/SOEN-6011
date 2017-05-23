@@ -330,6 +330,7 @@ public class GameInterface {
 						if (player.getPoke().attackButton(b)) {
 							if (enemy.checkKnockout()) {
 								player.getHand().add(player.getPrize().get(player.getPrize().size() - 1));
+								System.out.println(player.getHand().size());
 								player.getPrize().remove(player.getPrize().size() - 1);
 							}
 							endTurn();
