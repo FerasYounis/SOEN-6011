@@ -143,7 +143,7 @@ public class GameInterface {
 			// player.getDeck().size());
 
 			// select energy card
-			if ((selected > -1 && selected < player.getHand().size()) && player.getPoke() != null
+			if ((selected > -1 && selected < player.getHand().size()) 
 					&& player.getHand().get(selected).getCardType().equals(CardType.Engergy)) {
 
 				if (Game.getMouseManager().LDragging) {

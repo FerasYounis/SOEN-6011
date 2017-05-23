@@ -30,8 +30,8 @@
 
 ##Energy - 20
 
-* 10 Lightning
-* 10 Water
+* 20 Lightning
+* 20 Water
 
 
 Total Cards - 60

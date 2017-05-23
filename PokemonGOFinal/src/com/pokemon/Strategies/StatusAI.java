@@ -50,6 +50,7 @@ public class StatusAI implements Strategy {
 						enemy.setPoke(p);
 						enemy.getBench().remove(p);
 						enemy.getPoke().costEnergy(1);
+						break;
 					}
 				}
 			}
@@ -64,7 +65,7 @@ public class StatusAI implements Strategy {
 					enemy.getPoke().addEnergy(getHandEnergy());
 					enemy.getHand().remove(getHandEnergy());
 				}
-				if (hasEnergy && enemy.getBench().size() != 0 && enemy.getBench().get(0).getEnergys().size() < 4) {
+				if (hasEnergy && enemy.getBench().size() != 0 && enemy.getBench().get(0).getEnergys().size() < 2) {
 					enemy.getBench().get(0).addEnergy(getHandEnergy());
 					enemy.getHand().remove(getHandEnergy());
 				}

@@ -38,8 +38,8 @@
 
 ##Energy - 20
 
-* 10 Psychic
-* 10 Fighting
+* 20 Psychic
+* 20 Fighting
 
 
 Total Cards - 60
