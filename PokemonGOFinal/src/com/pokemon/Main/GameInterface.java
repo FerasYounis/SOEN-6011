@@ -143,7 +143,7 @@ public class GameInterface {
 			// player.getDeck().size());
 
 			// select energy card
-			if ((selected > -1 && selected < player.getHand().size()) 
+			if ((selected > -1 && selected < player.getHand().size())
 					&& player.getHand().get(selected).getCardType().equals(CardType.Engergy)) {
 
 				if (Game.getMouseManager().LDragging) {
@@ -289,11 +289,21 @@ public class GameInterface {
 
 		if (selected >= 20 && selected <= 24) {
 			Pokemon p = player.getPoke();
-			if(player.getBench().get(selected - 20).getEnergys().size() > 0){
+			// if(player.getPoke().getEnergys().size() > 0){
+			// player.getPoke().costEnergy(1);
+			// player.setPoke((Pokemon) player.getBench().get(selected - 20));
+			// player.getBench().set(selected - 20, p);
+			// }
+			if (player.getPoke() == null)
 				player.setPoke((Pokemon) player.getBench().get(selected - 20));
-				player.getBench().set(selected - 20, p);
-				player.getPoke().costEnergy(1);
+			else {
+				if (player.getPoke().getEnergys().size() > 0) {
+					player.getPoke().costEnergy(1);
+					player.setPoke((Pokemon) player.getBench().get(selected - 20));
+					player.getBench().set(selected - 20, p);
+				}
 			}
+
 			selected = -1;
 		}
 

@@ -61,7 +61,7 @@ public class StatusAI implements Strategy {
 			}
 
 			while (checkHandEnergy()) {
-				if (hasEnergy && enemy.getPoke() != null && enemy.getPoke().getEnergys().size() < 3) {
+				if (hasEnergy && enemy.getPoke() != null && enemy.getPoke().getEnergys().size() < 4) {
 					enemy.getPoke().addEnergy(getHandEnergy());
 					enemy.getHand().remove(getHandEnergy());
 				}
