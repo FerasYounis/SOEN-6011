@@ -434,7 +434,7 @@ public class GameInterface {
 			if (i != selected)
 				player.hand.get(i).draw(g, player.hand.get(i).x, player.hand.get(i).y);
 			if (mouseOver != -1 && i == mouseOver && !Game.getMouseManager().LDragging)
-				player.getHand().get(mouseOver).draw(g, player.hand.get(i).x, player.hand.get(i).y - 350, true, true);
+				player.getHand().get(i).draw(g, player.hand.get(i).x, player.hand.get(i).y - 350, true, true);
 		}
 
 		// draw player's hand detail
