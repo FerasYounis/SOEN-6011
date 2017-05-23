@@ -161,16 +161,16 @@ public class GameInterface {
 
 	}
 
-	private void checkWin() {
+	private void checkLose() {
 		if (enemy.prize.size() == 0 || player.deck.size() == 0) {
-			JOptionPane.showMessageDialog(null, "Congratulations! You WIN!!!");
+			JOptionPane.showMessageDialog(null, "Sorry! You LOSE the game!!!");
 			System.exit(0);
 		}
 	}
 
-	private void checkLose() {
+	private void checkWin() {
 		if (player.prize.size() == 0 || enemy.deck.size() == 0) {
-			JOptionPane.showMessageDialog(null, "Sorry! You LOSE the game!!!");
+			JOptionPane.showMessageDialog(null, "Congratulations! You WIN!!!");
 			System.exit(0);
 		}
 	}
@@ -355,17 +355,17 @@ public class GameInterface {
 
 		// draw player's deck card
 		if (player.getDeck().size() != 0) {
-			player.getDeck().get(player.getDeck().size() - 1).draw(g, playerDeck.x, playerDeck.y, false, false);
+			player.getDeck().get(0).draw(g, playerDeck.x, playerDeck.y, false, false);
 		}
 
 		// draw enemy's prize card
 		if (enemy.getPrize().size() != 0) {
-			enemy.getPrize().get(enemy.getPrize().size() - 1).draw(g, enemyPrize.x, enemyPrize.y, false, false);
+			enemy.getPrize().get(0).draw(g, enemyPrize.x, enemyPrize.y, false, false);
 		}
 
 		// draw enemy's deck card
 		if (enemy.getDeck().size() != 0) {
-			enemy.getDeck().get(enemy.getDeck().size() - 1).draw(g, enemyDeck.x, enemyDeck.y, false, false);
+			enemy.getDeck().get(0).draw(g, enemyDeck.x, enemyDeck.y, false, false);
 		}
 
 		// indicate player's deck number
