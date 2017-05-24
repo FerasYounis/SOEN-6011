@@ -82,7 +82,7 @@ public class Player extends GameObject {
 	}
 
 	public void setDeck() {
-		deck = dr.loadData("deck1.txt", 1);
+		deck = dr.loadData("resourse/deck1.txt", 1);
 	}
 
 	public ArrayList<Card> getHand() {
