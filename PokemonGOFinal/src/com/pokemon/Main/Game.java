@@ -90,8 +90,7 @@ public class Game extends JFrame {
 		objectHandler = new ObjectHandler();
 		state = State.MENU;
 		menu = new Menu();
-		gameInterface = new GameInterface();
-
+	
 		new Thread(new GameThread()).start();
 	}
 

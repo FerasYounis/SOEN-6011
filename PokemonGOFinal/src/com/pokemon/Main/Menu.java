@@ -17,6 +17,12 @@ public class Menu {
 	
 	public void start(){
 		Game.state = Game.State.GAME;
+		
+		ObjectHandler.player = new Player();
+		ObjectHandler.enemy = new Enemy();
+		
+		Game.gameInterface = new GameInterface();
+
 	}
 
 	public void update() {

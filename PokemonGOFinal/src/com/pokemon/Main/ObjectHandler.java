@@ -26,8 +26,8 @@ public class ObjectHandler {
 	public ObjectHandler() {
 		gameObjects = new ArrayList<GameObject>();
 		allCards = new ArrayList<Card>();
-		player = new Player();
-		enemy = new Enemy();
+//		player = new Player();
+//		enemy = new Enemy();
 		
 		CardFactory cf = new CardFactory();
 		cf.createCard("Water", CardType.Engergy, CardCategory.Water, 2);
