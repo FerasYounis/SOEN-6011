@@ -49,6 +49,21 @@ public class Player extends GameObject {
 			hand.get(i).setY(685);
 		}
 	}
+	
+	public Player(boolean flag) {
+		deck = new ArrayList<Card>();
+		hand = new ArrayList<Card>();
+		bench = new ArrayList<Pokemon>();
+		poke = null;
+		graveyard = new ArrayList<Card>();
+		prize = new ArrayList<Card>();
+		dr = new DataReader();
+
+		setDeck();
+		shuffleDeck();
+		setHand();
+
+	}
 
 	private boolean checkHand() {
 		for(Card c: hand){
@@ -110,7 +125,7 @@ public class Player extends GameObject {
 		}
 	}
 
-	private void shuffleDeck() {
+	public void shuffleDeck() {
 		Collections.shuffle(deck);
 	}
 
