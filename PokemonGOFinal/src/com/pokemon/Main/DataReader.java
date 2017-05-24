@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import com.pokemon.Card.Card;
 import com.pokemon.Card.CardFactory;
 import com.pokemon.Enums.CardCategory;
@@ -19,9 +21,10 @@ public class DataReader {
 		ArrayList<Card> list = new ArrayList<Card>();
 		try {
 			String encoding = "utf-8";
-			File file = new File(url);
-			if (file.isFile() && file.exists()) {
-				InputStreamReader read = new InputStreamReader(new FileInputStream(file), encoding);
+//			File file = new File(url);
+//			if (file.isFile() && file.exists()) {
+//				InputStreamReader read = new InputStreamReader(new FileInputStream(file), encoding);
+				InputStreamReader read = new InputStreamReader(this.getClass().getResourceAsStream(url), encoding);
 				bufferedReader = new BufferedReader(read);
 				String lineTxt = null;
 				boolean pokemon = false;
@@ -143,9 +146,9 @@ public class DataReader {
 				}
 
 				
-			} else {
-				System.out.println("not find file");
-			}
+//			} else {
+//				System.out.println("not find file");
+//			}
 		} catch (Exception e) {
 			System.out.println("error reading the contents of the file");
 			e.printStackTrace();

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.pokemon.Card.Card;
 import com.pokemon.Card.CardFactory;
 import com.pokemon.Card.Pokemon;
@@ -28,6 +30,7 @@ public class Player extends GameObject {
 		graveyard = new ArrayList<Card>();
 		prize = new ArrayList<Card>();
 		dr = new DataReader();
+
 		setDeck();
 		shuffleDeck();
 		setHand();
@@ -82,7 +85,8 @@ public class Player extends GameObject {
 	}
 
 	public void setDeck() {
-		deck = dr.loadData("resourse/deck1.txt", 1);
+		System.out.println("player is loading");
+		deck = dr.loadData("/deck1.txt", 1);
 	}
 
 	public ArrayList<Card> getHand() {

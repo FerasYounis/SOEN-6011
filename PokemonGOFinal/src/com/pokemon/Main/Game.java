@@ -12,6 +12,7 @@ import java.io.InputStream;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  * 
@@ -99,6 +100,7 @@ public class Game extends JFrame {
 			menu.update();
 		}else if(state == State.LOADING){
 			ObjectHandler.player = new Player();
+
 			ObjectHandler.enemy = new Enemy();
 			state = State.GAME;
 			gameInterface = new GameInterface();

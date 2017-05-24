@@ -63,7 +63,8 @@ public class Enemy extends GameObject {
 	}
 
 	public void setDeck() {
-		deck = dr.loadData("resourse/deck1.txt", 1);
+		System.out.println("enemy is loading");
+		deck = dr.loadData("/deck1.txt", 1);
 	}
 
 	public ArrayList<Card> getHand() {
