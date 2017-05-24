@@ -16,12 +16,9 @@ public class Menu {
 	}
 	
 	public void start(){
-		Game.state = Game.State.GAME;
+		Game.state = Game.State.LOADING;
 		
-		ObjectHandler.player = new Player();
-		ObjectHandler.enemy = new Enemy();
-		
-		Game.gameInterface = new GameInterface();
+	
 
 	}
 

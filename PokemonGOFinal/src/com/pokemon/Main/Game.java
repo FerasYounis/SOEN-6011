@@ -28,7 +28,7 @@ public class Game extends JFrame {
 	Image offSetImage = null;
 
 	public static enum State {
-		GAME, GAMEOVER, MENU;
+		GAME, GAMEOVER, MENU, LOADING;
 	}
 
 	public static State state;
@@ -97,6 +97,11 @@ public class Game extends JFrame {
 	public void update() {
 		if (state == State.MENU && menu != null) {
 			menu.update();
+		}else if(state == State.LOADING){
+			ObjectHandler.player = new Player();
+			ObjectHandler.enemy = new Enemy();
+			state = State.GAME;
+			gameInterface = new GameInterface();
 		} else if (state == State.GAME) {
 			gameInterface.update();
 		}
@@ -114,7 +119,12 @@ public class Game extends JFrame {
 		if (state == State.MENU && menu != null) {
 			menu.draw(g);
 
-		} else if (state == State.GAME && gameInterface != null) {
+		} else if(state == State.LOADING){
+			g.setColor(Color.black);
+			g.setFont(new Font("DorFont03", Font.PLAIN, 24));
+			g.drawString("Game is loading...", 50, 780);
+			
+		}else if (state == State.GAME && gameInterface != null) {
 			gameInterface.draw(g);
 		}
 
