@@ -6,6 +6,7 @@ import com.pokemon.Card.Pokemon;
 import com.pokemon.Enums.CardCategory;
 import com.pokemon.Enums.CardType;
 import com.pokemon.Main.Enemy;
+import com.pokemon.Main.Game;
 import com.pokemon.Main.GameInterface;
 import com.pokemon.Main.ObjectHandler;
 import com.pokemon.Main.Player;
@@ -98,7 +99,6 @@ public class StatusAI implements Strategy {
 
 		GameInterface.turn++;
 		GameInterface.playerTurn = true;
-
 	}
 
 	public boolean checkHandBasic() {

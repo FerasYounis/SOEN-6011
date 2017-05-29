@@ -100,10 +100,9 @@ public class Game extends JFrame {
 			menu.update();
 		}else if(state == State.LOADING){
 			ObjectHandler.player = new Player();
-
 			ObjectHandler.enemy = new Enemy();
-			state = State.GAME;
 			gameInterface = new GameInterface();
+			state = State.GAME;
 		} else if (state == State.GAME) {
 			gameInterface.update();
 		}

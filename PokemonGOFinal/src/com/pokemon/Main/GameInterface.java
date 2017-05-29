@@ -63,7 +63,7 @@ public class GameInterface {
 		turn = 1;
 		playerTurn = true;
 		drawnCard = false;
-
+		
 	}
 
 	public void update() {
@@ -308,6 +308,7 @@ public class GameInterface {
 		}
 
 	}
+	
 
 	public void draw(Graphics g) {
 
@@ -327,6 +328,11 @@ public class GameInterface {
 		endTurn.draw(g);
 		retreat.draw(g);
 		drawCard.draw(g);
+		Font f = g.getFont();
+		g.setFont(new Font("DorFont03", Font.PLAIN, 60));
+		g.setColor(Color.BLACK);
+		g.drawString("TURN: " + GameInterface.turn, 1140, 150);
+		g.setFont(f);
 
 		// draw player's pokemon
 		if (player.getPoke() != null) {
@@ -379,29 +385,7 @@ public class GameInterface {
 			enemy.getDeck().get(0).draw(g, enemyDeck.x, enemyDeck.y, false, false);
 		}
 
-		// indicate player's deck number
-		if (Game.getMouseRect().intersects(new Rectangle(playerDeck.x, playerDeck.y, Game.CARD_W, Game.CARD_H))) {
-			g.setColor(Color.black);
-			g.drawString("Player's Deck: " + player.getDeck().size(), playerDeck.x - 50, playerDeck.y - 20);
-		}
-
-		// indicate player's prize number
-		if (Game.getMouseRect().intersects(new Rectangle(playerPrize.x, playerPrize.y, Game.CARD_W, Game.CARD_H))) {
-			g.setColor(Color.black);
-			g.drawString("Player's Prize: " + player.getPrize().size(), playerPrize.x - 50, playerPrize.y - 20);
-		}
-
-		// indicate enemey's deck number
-		if (Game.getMouseRect().intersects(new Rectangle(enemyDeck.x, enemyDeck.y, Game.CARD_W, Game.CARD_H))) {
-			g.setColor(Color.black);
-			g.drawString("AI's Deck: " + enemy.getDeck().size(), enemyDeck.x - 50, enemyDeck.y - 20);
-		}
-
-		// indicate enemy's prize number
-		if (Game.getMouseRect().intersects(new Rectangle(enemyPrize.x, enemyPrize.y, Game.CARD_W, Game.CARD_H))) {
-			g.setColor(Color.black);
-			g.drawString("AI's Prize: " + enemy.getPrize().size(), enemyPrize.x - 50, enemyPrize.y - 20);
-		}
+	
 
 		// draw player's bench
 		if (player.getBench().size() != 0) {
@@ -472,5 +456,37 @@ public class GameInterface {
 			}
 		}
 
+		
+		// indicate player's deck number
+		if (Game.getMouseRect().intersects(new Rectangle(playerDeck.x, playerDeck.y, Game.CARD_W, Game.CARD_H))) {
+			g.setColor(Color.black);
+			g.setFont(new Font("DorFont03", Font.PLAIN, 24));
+			g.drawString("Player's Deck: " + player.getDeck().size(), playerDeck.x - 50, playerDeck.y - 20);
+		}
+
+		// indicate player's prize number
+		if (Game.getMouseRect().intersects(new Rectangle(playerPrize.x, playerPrize.y, Game.CARD_W, Game.CARD_H))) {
+			g.setColor(Color.black);
+			g.setFont(new Font("DorFont03", Font.PLAIN, 24));
+			g.drawString("Player's Prize: " + player.getPrize().size(), playerPrize.x - 50, playerPrize.y - 20);
+		}
+
+		// indicate enemey's deck number
+		if (Game.getMouseRect().intersects(new Rectangle(enemyDeck.x, enemyDeck.y, Game.CARD_W, Game.CARD_H))) {
+			g.setColor(Color.black);
+			g.setFont(new Font("DorFont03", Font.PLAIN, 24));
+			g.drawString("AI's Deck: " + enemy.getDeck().size(), enemyDeck.x - 50, enemyDeck.y - 20);
+		}
+
+		// indicate enemy's prize number
+		if (Game.getMouseRect().intersects(new Rectangle(enemyPrize.x, enemyPrize.y, Game.CARD_W, Game.CARD_H))) {
+			g.setColor(Color.black);
+			g.setFont(new Font("DorFont03", Font.PLAIN, 24));
+			g.drawString("AI's Prize: " + enemy.getPrize().size(), enemyPrize.x - 50, enemyPrize.y - 20);
+		}
+		
+		
+		
+		
 	}
 }
