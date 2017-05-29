@@ -46,14 +46,6 @@ public class StatusAI implements Strategy {
 			checkHandBasic();
 
 			if (enemy.getPoke() == null && enemy.getBench().size() > 0) {
-//				for (Pokemon p : enemy.getBench()) {
-//					if (p.getEnergys().size() > 0) {
-//						enemy.setPoke(p);
-//						enemy.getBench().remove(p);
-//						//enemy.getPoke().costEnergy(1);
-//						break;
-//					}
-//				}
 				enemy.setPoke(enemy.getBench().get(0));
 				enemy.getBench().remove(0);
 			}
@@ -96,7 +88,7 @@ public class StatusAI implements Strategy {
 			}
 
 		}
-
+		System.out.println("Enemy has finished his turn!");
 		GameInterface.turn++;
 		GameInterface.playerTurn = true;
 	}

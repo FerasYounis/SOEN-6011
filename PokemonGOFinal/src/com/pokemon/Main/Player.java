@@ -1,17 +1,10 @@
 package com.pokemon.Main;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-
-import javax.swing.JOptionPane;
+import java.util.Random;
 
 import com.pokemon.Card.Card;
-import com.pokemon.Card.CardFactory;
 import com.pokemon.Card.Pokemon;
 import com.pokemon.Enums.CardCategory;
 
@@ -126,7 +119,15 @@ public class Player extends GameObject {
 	}
 
 	public void shuffleDeck() {
-		Collections.shuffle(deck);
+		int size = deck.size();
+		ArrayList<Card> shuffledDeck = new ArrayList<Card>();
+		Random r = new Random();
+		while(!deck.isEmpty()){
+			Card c = deck.get(r.nextInt(deck.size()));
+			shuffledDeck.add(c);
+			deck.remove(c);
+		}
+		deck.addAll(shuffledDeck);
 	}
 
 	public ArrayList<Pokemon> getBench() {

@@ -147,8 +147,9 @@ public class Game extends JFrame {
 			long startTime = System.nanoTime();
 			while (true) {
 				long now = System.nanoTime();
-				update();
+				
 				if (now - startTime > 1000000000 / FPS) {
+					update();
 					repaint();
 					startTime = now;
 				}

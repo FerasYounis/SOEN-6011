@@ -3,6 +3,7 @@ package com.pokemon.Main;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 import com.pokemon.Card.Card;
 import com.pokemon.Card.CardFactory;
@@ -89,7 +90,15 @@ public class Enemy extends GameObject {
 	}
 
 	public void shuffleDeck() {
-		Collections.shuffle(deck);
+		int size = deck.size();
+		ArrayList<Card> shuffledDeck = new ArrayList<Card>();
+		Random r = new Random();
+		while(!deck.isEmpty()){
+			Card c = deck.get(r.nextInt(deck.size()));
+			shuffledDeck.add(c);
+			deck.remove(c);
+		}
+		deck.addAll(shuffledDeck);
 	}
 
 	public ArrayList<Pokemon> getBench() {
