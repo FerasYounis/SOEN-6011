@@ -94,7 +94,6 @@ public class GameInterface {
 					endTurn();
 					endTurn.setPressed(false);
 				}
-
 				checkMouse();
 				selectPoke();
 				checkEvolve();
@@ -128,10 +127,10 @@ public class GameInterface {
 						movingCard.setX(500 + 90 * selected);
 						movingCard.setY(685);
 					}
-					System.out.println(movingCard.getX());
-					System.out.println(flag);
-					System.out.println(Math.abs(movingCard.x - player.getPoke().x));
-					System.out.println(Math.abs(movingCard.y - player.getPoke().y));
+//					System.out.println(movingCard.getX());
+//					System.out.println(flag);
+//					System.out.println(Math.abs(movingCard.x - player.getPoke().x));
+//					System.out.println(Math.abs(movingCard.y - player.getPoke().y));
 					movingCard = null;
 					Game.getMouseManager().LPressed = false;
 					selected = -1;
@@ -209,7 +208,7 @@ public class GameInterface {
 	}
 
 	private void endTurn() {
-		this.playerTurn = false;
+		playerTurn = false;
 		drawnCard = false;
 	}
 
@@ -289,11 +288,6 @@ public class GameInterface {
 
 		if (selected >= 20 && selected <= 24) {
 			Pokemon p = player.getPoke();
-			// if(player.getPoke().getEnergys().size() > 0){
-			// player.getPoke().costEnergy(1);
-			// player.setPoke((Pokemon) player.getBench().get(selected - 20));
-			// player.getBench().set(selected - 20, p);
-			// }
 			if (player.getPoke() == null)
 				player.setPoke((Pokemon) player.getBench().get(selected - 20));
 			else {
@@ -311,7 +305,6 @@ public class GameInterface {
 	
 
 	public void draw(Graphics g) {
-
 		g.drawImage(Game.gameBackground, 0, 0, Game.WIDTH, Game.HEIGHT, null);
 		for (int i = 0; i < playerBench.length; i++) {
 			playerBench[i].draw(g);
