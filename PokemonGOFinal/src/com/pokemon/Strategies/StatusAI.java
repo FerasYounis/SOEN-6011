@@ -56,17 +56,42 @@ public class StatusAI implements Strategy {
 			}
 
 			while (checkHandEnergy()) {
-				if (hasEnergy && enemy.getPoke() != null && enemy.getPoke().getEnergys().size() < 4) {
+				boolean flag = false;
+				if (!flag && enemy.getPoke() != null && enemy.getPoke().getEnergys().size() < 4) {
 					enemy.getPoke().addEnergy(getHandEnergy());
 					enemy.getHand().remove(getHandEnergy());
+					flag = true;
 				}
-				if (hasEnergy && enemy.getBench().size() != 0 && enemy.getBench().get(0).getEnergys().size() < 2) {
+				if (!flag && enemy.getBench().size() > 0 && enemy.getBench().get(0).getEnergys().size() < 3) {
 					enemy.getBench().get(0).addEnergy(getHandEnergy());
 					enemy.getHand().remove(getHandEnergy());
+					flag = true;
 				}
+				if (!flag && enemy.getBench().size() > 1 && enemy.getBench().get(1).getEnergys().size() < 3) {
+					enemy.getBench().get(1).addEnergy(getHandEnergy());
+					enemy.getHand().remove(getHandEnergy());
+					flag = true;
+				}
+				if (!flag && enemy.getBench().size() > 2 && enemy.getBench().get(2).getEnergys().size() < 3) {
+					enemy.getBench().get(2).addEnergy(getHandEnergy());
+					enemy.getHand().remove(getHandEnergy());
+					flag = true;
+				}
+				if (!flag && enemy.getBench().size() > 3 && enemy.getBench().get(3).getEnergys().size() < 3) {
+					enemy.getBench().get(3).addEnergy(getHandEnergy());
+					enemy.getHand().remove(getHandEnergy());
+					flag = true;
+				}
+				if (!flag && enemy.getBench().size() > 4 && enemy.getBench().get(4).getEnergys().size() < 3) {
+					enemy.getBench().get(4).addEnergy(getHandEnergy());
+					enemy.getHand().remove(getHandEnergy());
+					flag = true;
+				}
+				if(!flag)
+					break;
 			}
 
-			if (enemy.getPoke() != null) {
+			if (enemy.getPoke() != null && player.getPoke() != null) {
 				Pokemon p = enemy.getPoke();
 				if (p.validateAttackExist(enemy.getPoke().getAbility2().getName())) {
 					enemy.getPoke().attackPlayer(2);
@@ -129,6 +154,7 @@ public class StatusAI implements Strategy {
 	}
 
 	public boolean checkHandEnergy() {
+		hasEnergy = false;
 		for (Card c : enemy.getHand()) {
 			if (c.getCardType() == CardType.Engergy)
 				hasEnergy = true;

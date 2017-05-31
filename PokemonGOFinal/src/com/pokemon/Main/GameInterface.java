@@ -105,7 +105,7 @@ public class GameInterface {
 				// when the dragging mouse is released
 				if (!Game.getMouseManager().LPressed) {
 					boolean flag = false;
-					if (Math.abs(movingCard.x - player.getPoke().x) < 40
+					if (player.getPoke() != null && Math.abs(movingCard.x - player.getPoke().x) < 40
 							&& Math.abs(movingCard.y - player.getPoke().y) < 40) {
 						player.getPoke().addEnergy((Energy) movingCard);
 						player.getHand().remove(selected);
