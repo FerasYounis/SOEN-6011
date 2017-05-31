@@ -96,16 +96,33 @@ public class Game extends JFrame {
 	}
 
 	public void update() {
-		if (state == State.MENU && menu != null) {
-			menu.update();
-		}else if(state == State.LOADING){
-			ObjectHandler.player = new Player();
-			ObjectHandler.enemy = new Enemy();
-			gameInterface = new GameInterface();
-			state = State.GAME;
-		} else if (state == State.GAME) {
-			gameInterface.update();
-		}
+//		if (state == State.MENU && menu != null) {
+//			menu.update();
+//		}else if(state == State.LOADING){
+//			ObjectHandler.player = new Player();
+//			ObjectHandler.enemy = new Enemy();
+//			gameInterface = new GameInterface();
+//			state = State.GAME;
+//		} else if (state == State.GAME) {
+//			gameInterface.update();
+//		}
+		
+		try {
+			if (state == State.MENU && menu != null) {
+				menu.update();
+			}else if(state == State.LOADING){
+				ObjectHandler.player = new Player();
+
+				ObjectHandler.enemy = new Enemy();
+				state = State.GAME;
+				gameInterface = new GameInterface();
+			} else if (state == State.GAME) {
+				gameInterface.update();
+			}
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}	
+		
 	}
 
 	@Override
