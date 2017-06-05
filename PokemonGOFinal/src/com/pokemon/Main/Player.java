@@ -27,16 +27,16 @@ public class Player extends GameObject {
 
 
 		setDeck();
-		shuffleDeck();
+		//shuffleDeck();
 		setHand();
 		System.out.println(hand.size());
 		
-		while(checkHand()){
-			deck.addAll(hand);
-			hand.clear();
-			shuffleDeck();
-			setHand();
-		}
+//		while(checkHand()){
+//			deck.addAll(hand);
+//			hand.clear();
+//			shuffleDeck();
+//			setHand();
+//		}
 		setPrize();
 
 		// initial hand location
@@ -165,8 +165,8 @@ public class Player extends GameObject {
 	}
 
 	public Card drawOneCard() {
-		Card card = deck.get(deck.size() - 1);
-		deck.remove(deck.size() - 1);
+		Card card = deck.get(0);
+		deck.remove(0);
 		return card;
 	}
 	

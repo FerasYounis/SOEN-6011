@@ -139,7 +139,7 @@ public class GameInterface {
 				}
 			}
 
-			 System.out.println(mouseOver + "---(" + selected + ")" + "---");
+		//	 System.out.println(mouseOver + "---(" + selected + ")" + "---");
 			// player.getDeck().size());
 
 			// select energy card
