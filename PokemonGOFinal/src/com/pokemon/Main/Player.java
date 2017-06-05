@@ -1,7 +1,6 @@
 package com.pokemon.Main;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 import com.pokemon.Card.Card;
@@ -14,6 +13,8 @@ public class Player extends GameObject {
 	protected ArrayList<Pokemon> bench;
 	protected Pokemon poke;
 	private DataReader dr;
+	private DataReader2 dr2;
+
 
 	public Player() {
 		deck = new ArrayList<Card>();
@@ -24,9 +25,11 @@ public class Player extends GameObject {
 		prize = new ArrayList<Card>();
 		dr = new DataReader();
 
+
 		setDeck();
 		shuffleDeck();
 		setHand();
+		System.out.println(hand.size());
 		
 		while(checkHand()){
 			deck.addAll(hand);
@@ -94,7 +97,14 @@ public class Player extends GameObject {
 
 	public void setDeck() {
 		System.out.println("player is loading");
-		deck = dr.loadData("/deck1.txt", 1);
+		dr2 = new DataReader2("/deck1.txt");
+	//	deck = dr.loadData("/deck1.txt", 1);
+		deck = dr2.deck;
+		System.out.println(deck.size());
+		for(Card c: deck){
+			if(c != null)
+			System.out.println(c.url);
+		}
 	}
 
 	public ArrayList<Card> getHand() {

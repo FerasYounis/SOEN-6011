@@ -21,6 +21,8 @@ public class Pokemon extends Card {
 	private ArrayList<Button> ability;
 	private String basicName; // to indicate the name of this. basic pokemon
 	private CardCategory stage;
+	private String retreatCost;
+	private CardCategory attr;
 
 	private ArrayList<Energy> energys;
 
@@ -62,6 +64,41 @@ public class Pokemon extends Card {
 //		if (!ability2.equals("0")) {
 			this.ability.add(new Button(220, 700, 50, "ability2", Color.WHITE, new Color(49, 156, 12)));
 //		}
+	}
+	
+	public Pokemon(String url, String name, CardCategory level, int HP, String evolution, Ability[] ability, String retreatCost, CardCategory attr) {
+		super(url, CardType.Pokemon, level);
+		this.name = name;
+		this.HP = HP;
+		this.attr = attr;
+		
+		Energy[] array1 = new Energy[1];
+		array1[0] = ObjectHandler.colorless;
+		Energy[] array2 = new Energy[3];
+		array2[0] = ObjectHandler.colorless;
+		array2[1] = ObjectHandler.colorless;
+		array2[2] = ObjectHandler.colorless;
+
+		if (level == CardCategory.Basic) {
+			this.ability1 = new Ability("ability1", 10, array1);
+			this.ability2 = new Ability("ability2", 30, array2);
+		} else{
+			this.ability1 = new Ability("ability1", 30, array1);
+			this.ability2 = new Ability("ability2", 50, array2);
+		}
+
+		this.stage = level;
+		this.basicName = null;
+		if (level == CardCategory.StageOne) {
+			this.basicName = evolution;
+		}
+		this.currentHP = HP;
+		this.energys = new ArrayList<Energy>();
+		
+		this.ability = new ArrayList<Button>();
+		this.ability.add(new Button(220, 620, 50, "ability1", Color.WHITE, new Color(49, 156, 12)));
+		this.ability.add(new Button(220, 700, 50, "ability2", Color.WHITE, new Color(49, 156, 12)));
+		this.retreatCost = retreatCost; //if the pokemon cannot be retreated, put null
 	}
 
 	public void addEnergy(Energy e) {

@@ -15,6 +15,8 @@ public class Enemy extends GameObject {
 	protected ArrayList<Pokemon> bench;
 	protected Pokemon poke;
 	private DataReader dr;
+	private DataReader2 dr2;
+
 
 	public Enemy() {
 		deck = new ArrayList<Card>();
@@ -65,7 +67,9 @@ public class Enemy extends GameObject {
 
 	public void setDeck() {
 		System.out.println("enemy is loading");
-		deck = dr.loadData("/deck1.txt", 1);
+		//deck = dr.loadData("/deck1.txt", 1);
+		dr2 = new DataReader2("/deck2.txt");
+		deck = dr2.deck;
 	}
 
 	public ArrayList<Card> getHand() {

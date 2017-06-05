@@ -107,7 +107,7 @@ public class Game extends JFrame {
 //			gameInterface.update();
 //		}
 		
-		try {
+		//try {
 			if (state == State.MENU && menu != null) {
 				menu.update();
 			}else if(state == State.LOADING){
@@ -119,9 +119,9 @@ public class Game extends JFrame {
 			} else if (state == State.GAME) {
 				gameInterface.update();
 			}
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}	
+//		} catch (Exception e) {
+//			System.out.println(e.toString());
+//		}	
 		
 	}
 
