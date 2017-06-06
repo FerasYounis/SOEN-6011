@@ -27,7 +27,7 @@ public class Enemy extends GameObject {
 		prize = new ArrayList<Card>();
 		dr = new DataReader();
 		setDeck();
-		shuffleDeck();
+		//shuffleDeck();
 		setHand();
 		setPrize();
 

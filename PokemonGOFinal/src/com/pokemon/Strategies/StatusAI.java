@@ -96,16 +96,16 @@ public class StatusAI implements Strategy {
 				if (p.validateAttackExist(enemy.getPoke().getAbility2().getName())) {
 					enemy.getPoke().attackPlayer(2);
 					if (player.checkKnockout()) {
-						player.getGraveyard().add(player.getPoke());
-						player.setPoke(null);
+//						player.getGraveyard().add(player.getPoke());
+//						player.setPoke(null);
 						enemy.getHand().add(enemy.getPrize().get(enemy.getPrize().size() - 1));
 						enemy.getPrize().remove(enemy.getPrize().size() - 1);
 					}
 				} else if (p.validateAttackExist(enemy.getPoke().getAbility1().getName())) {
 					enemy.getPoke().attackPlayer(1);
 					if (player.checkKnockout()) {
-						player.getGraveyard().add(player.getPoke());
-						player.setPoke(null);
+//						player.getGraveyard().add(player.getPoke());
+//						player.setPoke(null);
 						enemy.getHand().add(enemy.getPrize().get(enemy.getPrize().size() - 1));
 						enemy.getPrize().remove(enemy.getPrize().size() - 1);
 					}

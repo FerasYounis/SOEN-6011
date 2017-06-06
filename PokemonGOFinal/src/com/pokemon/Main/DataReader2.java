@@ -38,6 +38,7 @@ public class DataReader2 {
 		for (int i = 0; i < deckNum.length; i++) {
 			if (deckNum[i] != 0) {
 				String cardLine = cardData[deckNum[i] - 1];
+				System.out.println(i + ": " + cardLine);
 
 				if (cardLine.contains("basic") || cardLine.contains("stage-one")) {
 					Card pokemon = null;
@@ -120,18 +121,34 @@ public class DataReader2 {
 						}
 
 					}
-					System.out.println(i + ": " + pokemon.url);
 					deck.add(pokemon);
 				}
 
 				else if (cardLine.contains("trainer")) {
+					Card trainer = null;
+
 					String[] datas = cardLine.split(":");
 					String name = datas[0].replaceAll(" ", "");
 					String catagory = datas[3];
 					int despriction = Integer.parseInt(datas[4]);
-					// pending
-					//
-					//
+				
+					if("supporter".equals(catagory)){
+						trainer = cf.createCard(name, CardType.Trainer, CardCategory.Supporter, deckNumber, null);
+					}
+					if("item".equals(catagory)){
+						trainer = cf.createCard(name, CardType.Trainer, CardCategory.Item, deckNumber, null);
+					}
+					if("stadium".equals(catagory)){
+						trainer = cf.createCard(name, CardType.Trainer, CardCategory.Stadium, deckNumber, null);
+					}
+					
+					deck.add(trainer);
+					
+					
+					
+					
+					
+					
 				} else if (cardLine.contains("energy")) {
 					String[] datas = cardLine.split(":");
 					Card card = null;
@@ -215,14 +232,5 @@ public class DataReader2 {
 		}
 	}
 
-//	public static void main(String[] args) {
-//
-//		ObjectHandler oh = new ObjectHandler();
-//		DataReader2 dr2 = new DataReader2("/deck1.txt");
-//		for(Card c: dr2.deck){
-//		}
-//
-//
-//	}
 
 }

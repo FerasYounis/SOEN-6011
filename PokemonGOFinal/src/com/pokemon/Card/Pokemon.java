@@ -108,14 +108,18 @@ public class Pokemon extends Card {
 
 	}
 
-	public void costEnergy(int cost) {
+	public ArrayList<Card> costEnergy(int cost) {
+		ArrayList<Card> list = new ArrayList<Card>();
 		for (int i = 0; i < cost; i++) {
+			list.add(this.energys.get(this.energys.size() - 1));
 			this.energys.remove(this.energys.size() - 1);
 		}
 		setEnergys(this.energys);
+		return list;
 	}
 
-	public void attack(int attackAbility, Pokemon pokemonTarget) {
+	public ArrayList<Card> attack(int attackAbility, Pokemon pokemonTarget) {
+		ArrayList<Card> list = new ArrayList<Card>();
 
 		int damegAfterHit;
 		switch (attackAbility) {
@@ -126,7 +130,7 @@ public class Pokemon extends Card {
 
 			damegAfterHit = pokemonTarget.getCurrentHP() - ability1.getAttackHit();
 			pokemonTarget.setCurrentHP(damegAfterHit);
-			this.costEnergy(ability1.getCost());
+			list = this.costEnergy(ability1.getCost());
 			System.out.println(pokemonTarget.getCurrentHP());
 			break;
 
@@ -136,10 +140,11 @@ public class Pokemon extends Card {
 			// } //
 			damegAfterHit = pokemonTarget.getCurrentHP() - ability2.getAttackHit();
 			pokemonTarget.setCurrentHP(damegAfterHit);
-			this.costEnergy(ability2.getCost());
+			list = this.costEnergy(ability2.getCost());
 			System.out.println(pokemonTarget.getCurrentHP());
 			break;
 		}
+		return list;
 
 	}
 
@@ -189,6 +194,39 @@ public class Pokemon extends Card {
 	public void setAbility(ArrayList<Button> ability) {
 		this.ability = ability;
 	}
+	
+
+	public String getBasicName() {
+		return basicName;
+	}
+
+	public void setBasicName(String basicName) {
+		this.basicName = basicName;
+	}
+
+	public CardCategory getStage() {
+		return stage;
+	}
+
+	public void setStage(CardCategory stage) {
+		this.stage = stage;
+	}
+
+	public String getRetreatCost() {
+		return retreatCost;
+	}
+
+	public void setRetreatCost(String retreatCost) {
+		this.retreatCost = retreatCost;
+	}
+
+	public CardCategory getAttr() {
+		return attr;
+	}
+
+	public void setAttr(CardCategory attr) {
+		this.attr = attr;
+	}
 
 	public boolean evolve(Pokemon p) {
 		if (this.basicName.equals(p.getName()))
@@ -228,13 +266,18 @@ public class Pokemon extends Card {
 	public boolean attackButton(Button b) {
 		if (b.getText().equals(ability1.getName())) {
 			if (ability1.checkCost(this) && ObjectHandler.getEnemy().getPoke() != null) {
-				attack(1, ObjectHandler.getEnemy().getPoke());
+				ArrayList<Card> list = attack(1, ObjectHandler.getEnemy().getPoke());
+				ObjectHandler.getPlayer().getGraveyard().addAll(list);
 				System.out.println("ability1 success attack!");
+				System.out.println("Player's discards Num: " + ObjectHandler.getPlayer().getGraveyard().size());
+ 
 				return true;
+				
 			}
 		} else {
 			if (ability2.checkCost(this) && ObjectHandler.getEnemy().getPoke() != null) {
-				attack(2, ObjectHandler.getEnemy().getPoke());
+				ArrayList<Card> list = attack(2, ObjectHandler.getEnemy().getPoke());
+				ObjectHandler.getPlayer().getGraveyard().addAll(list);
 				System.out.println("ability2 success attack!");
 				return true;
 			}
@@ -244,6 +287,8 @@ public class Pokemon extends Card {
 
 	public void attackPlayer(int attackAbility) {
 		Pokemon p = ObjectHandler.player.getPoke();
+		ArrayList<Card> list = new ArrayList<Card>();
+
 		if (p != null) {
 			int damegAfterHit;
 			switch (attackAbility) {
@@ -251,7 +296,7 @@ public class Pokemon extends Card {
 				if (ability1.checkCost(this)) {
 					damegAfterHit = p.getCurrentHP() - ability1.getAttackHit();
 					p.setCurrentHP(damegAfterHit);
-					this.costEnergy(ability1.getCost());
+					list = this.costEnergy(ability1.getCost());
 					System.out.println(p.getCurrentHP());
 					break;
 				}
@@ -259,11 +304,12 @@ public class Pokemon extends Card {
 				if (ability2.checkCost(this)) {
 					damegAfterHit = p.getCurrentHP() - ability2.getAttackHit();
 					p.setCurrentHP(damegAfterHit);
-					this.costEnergy(ability2.getCost());
+					list = this.costEnergy(ability2.getCost());
 					System.out.println(p.getCurrentHP());
 					break;
 				}
 			}
+			ObjectHandler.getEnemy().getGraveyard().addAll(list);
 		}
 	}
 
