@@ -14,7 +14,7 @@ public interface IAbility {
 	public boolean isFlip = false;;
 	
 	
-	public void runAbility() throws Exception;
+	public Boolean runAbility() throws Exception;
 	
 	
 }

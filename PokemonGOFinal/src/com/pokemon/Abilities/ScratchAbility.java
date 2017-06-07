@@ -36,12 +36,14 @@ public class ScratchAbility implements IAbility {
 	}
 
 	@Override
-	public void runAbility() throws Exception {
+	public Boolean runAbility() throws Exception {
 		if(target.equals("opponent-active"))
 		{
 			int currentHP = ObjectHandler.getEnemy().getPoke().getCurrentHP() - Integer.parseInt(damage);
 			ObjectHandler.getEnemy().getPoke().setCurrentHP(currentHP);
+			return true;
 		}
+		return false;
 
 
 	}
