@@ -5,11 +5,13 @@ import com.pokemon.Enums.CardType;
 
 public class Trainer extends Card {
 	private Ability ability;
+	private String name;
+	
 
-	protected Trainer(String name, CardType cardType, CardCategory cardCategory, String abilityName,
-			int abilityAttackHP) {
-		super(name, CardType.Trainer, cardCategory);
-		this.ability = new Ability(abilityName, abilityAttackHP, null);
+	protected Trainer(String url, CardType cardType, CardCategory cardCategory, Ability ability, String name) {
+		super(url, CardType.Trainer, cardCategory);
+		this.ability = ability;
+		this.name = name;
 	}
 
 	public Ability getAbility() {
@@ -20,4 +22,14 @@ public class Trainer extends Card {
 		this.ability = ability;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	
+	
 }

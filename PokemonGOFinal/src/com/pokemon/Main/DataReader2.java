@@ -125,13 +125,30 @@ public class DataReader2 {
 				}
 
 				else if (cardLine.contains("trainer")) {
+					Card trainer = null;
+
 					String[] datas = cardLine.split(":");
 					String name = datas[0].replaceAll(" ", "");
 					String catagory = datas[3];
 					int despriction = Integer.parseInt(datas[4]);
-					// pending
-					//
-					//
+				
+					if("supporter".equals(catagory)){
+						trainer = cf.createCard(name, CardType.Trainer, CardCategory.Supporter, deckNumber, null);
+					}
+					if("item".equals(catagory)){
+						trainer = cf.createCard(name, CardType.Trainer, CardCategory.Item, deckNumber, null);
+					}
+					if("stadium".equals(catagory)){
+						trainer = cf.createCard(name, CardType.Trainer, CardCategory.Stadium, deckNumber, null);
+					}
+					
+					deck.add(trainer);
+					
+					
+					
+					
+					
+					
 				} else if (cardLine.contains("energy")) {
 					String[] datas = cardLine.split(":");
 					Card card = null;

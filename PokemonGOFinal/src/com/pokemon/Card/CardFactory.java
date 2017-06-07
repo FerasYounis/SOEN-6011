@@ -15,7 +15,7 @@ public class CardFactory {
 					attackHit2, name);
 		}
 	}
-
+	//create a pokemon overload
 	public Card createCard(String name, CardType type, CardCategory level, int deck, String evolution, int HP,
 			Ability[] ability, String retreatCost, CardCategory attr) {
 		if (1 == deck) {
@@ -42,12 +42,11 @@ public class CardFactory {
 	}
 
 	// create a trainer
-	public Card createCard(String name, CardType cardType, CardCategory cardCategory, int deck, String abilityName,
-			int abilityAttackHP) {
+	public Card createCard(String name, CardType cardType, CardCategory cardCategory, int deck, Ability ability) {
 		if (1 == deck) {
-			return new Trainer("/deck1/" + name + ".png", cardType, cardCategory, abilityName, abilityAttackHP);
+			return new Trainer("/deck1/" + name + ".png", cardType, cardCategory, ability, name);
 		} else {
-			return new Trainer("/deck2/" + name + ".png", cardType, cardCategory, abilityName, abilityAttackHP);
+			return new Trainer("/deck2/" + name + ".png", cardType, cardCategory, ability, name);
 		}
 	}
 
