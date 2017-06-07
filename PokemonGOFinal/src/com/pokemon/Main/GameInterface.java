@@ -19,7 +19,8 @@ import com.pokemon.Strategies.Strategy;
 
 public class GameInterface {
 	public static CardSpot[] playerBench, enemyBench; //
-	public static CardSpot playerPoke, enemyPoke, playerDeck, enemyDeck, playerPrize, enemyPrize; //
+	public static CardSpot playerPoke, enemyPoke, playerDeck, enemyDeck, playerPrize, enemyPrize, playerDiscard,
+			enemyDiscard; //
 	private Button endTurn, drawCard, retreat;
 	private int selected = -1, mouseOver = -1; // 0-6 player hand; 11 player
 												// pokemon; 20-24 player bench;
@@ -47,8 +48,10 @@ public class GameInterface {
 		enemyPoke = new CardSpot(550 + 2 * space + Game.CARD_W * 2, Game.HEIGHT / 2 - hSpace / 2 - Game.CARD_H + 10);
 		playerDeck = new CardSpot(550 + 5 * space + Game.CARD_W * 5, Game.HEIGHT / 2 + hSpace / 2 + 10);
 		enemyDeck = new CardSpot(550 + 5 * space + Game.CARD_W * 5, Game.HEIGHT / 2 - hSpace / 2 - Game.CARD_H + 10);
-		playerPrize = new CardSpot(300 + 1 * space + Game.CARD_W * 1, Game.HEIGHT / 2 + hSpace / 2 + 10);
-		enemyPrize = new CardSpot(300 + 1 * space + Game.CARD_W * 1, Game.HEIGHT / 2 - hSpace / 2 - Game.CARD_H + 10);
+		playerPrize = new CardSpot(450 + 1 * space + Game.CARD_W * 1, Game.HEIGHT / 2 + hSpace / 2 + 10);
+		enemyPrize = new CardSpot(450 + 1 * space + Game.CARD_W * 1, Game.HEIGHT / 2 - hSpace / 2 - Game.CARD_H + 10);
+		playerDiscard = new CardSpot(300 + 1 * space + Game.CARD_W * 1, Game.HEIGHT / 2 + hSpace / 2 + 10);
+		enemyDiscard = new CardSpot(300 + 1 * space + Game.CARD_W * 1, Game.HEIGHT / 2 - hSpace / 2 - Game.CARD_H + 10);
 
 		endTurn = new Button(Game.WIDTH - 72, Game.HEIGHT / 2 - 25, 50, "End Turn", Color.WHITE,
 				new Color(49, 156, 12));
@@ -63,7 +66,7 @@ public class GameInterface {
 		turn = 1;
 		playerTurn = true;
 		drawnCard = false;
-		
+
 	}
 
 	public void update() {
@@ -105,7 +108,7 @@ public class GameInterface {
 				// when the dragging mouse is released
 				if (!Game.getMouseManager().LPressed) {
 					boolean flag = false;
-					 
+
 					if (player.getPoke() != null && Math.abs(movingCard.x - player.getPoke().x) < 40
 							&& Math.abs(movingCard.y - player.getPoke().y) < 40) {
 						player.getPoke().addEnergy((Energy) movingCard);
@@ -128,10 +131,12 @@ public class GameInterface {
 						movingCard.setX(500 + 90 * selected);
 						movingCard.setY(685);
 					}
-//					System.out.println(movingCard.getX());
-//					System.out.println(flag);
-//					System.out.println(Math.abs(movingCard.x - player.getPoke().x));
-//					System.out.println(Math.abs(movingCard.y - player.getPoke().y));
+					// System.out.println(movingCard.getX());
+					// System.out.println(flag);
+					// System.out.println(Math.abs(movingCard.x -
+					// player.getPoke().x));
+					// System.out.println(Math.abs(movingCard.y -
+					// player.getPoke().y));
 					movingCard = null;
 					Game.getMouseManager().LPressed = false;
 					selected = -1;
@@ -139,7 +144,7 @@ public class GameInterface {
 				}
 			}
 
-		//	 System.out.println(mouseOver + "---(" + selected + ")" + "---");
+			// System.out.println(mouseOver + "---(" + selected + ")" + "---");
 			// player.getDeck().size());
 
 			// select energy card
@@ -292,10 +297,15 @@ public class GameInterface {
 			if (player.getPoke() == null)
 				player.setPoke((Pokemon) player.getBench().get(selected - 20));
 			else {
-				if (player.getPoke().getEnergys().size() > 0) {
-					player.getPoke().costEnergy(1);
-					player.setPoke((Pokemon) player.getBench().get(selected - 20));
-					player.getBench().set(selected - 20, p);
+				if (player.getPoke().getRetreatCost() != null) {
+					if (player.getPoke().getEnergys().size() >= Integer.parseInt(player.getPoke().getRetreatCost())) {
+						ArrayList<Card> list = player.getPoke()
+								.costEnergy(Integer.parseInt(player.getPoke().getRetreatCost()));
+						player.getGraveyard().addAll(list);
+						System.out.println(player.getGraveyard().size());
+						player.setPoke((Pokemon) player.getBench().get(selected - 20));
+						player.getBench().set(selected - 20, p);
+					}
 				}
 			}
 
@@ -303,7 +313,6 @@ public class GameInterface {
 		}
 
 	}
-	
 
 	public void draw(Graphics g) {
 		g.drawImage(Game.gameBackground, 0, 0, Game.WIDTH, Game.HEIGHT, null);
@@ -319,6 +328,8 @@ public class GameInterface {
 		enemyDeck.draw(g);
 		playerPrize.draw(g);
 		enemyPrize.draw(g);
+		playerDiscard.draw(g);
+		enemyDiscard.draw(g);
 		endTurn.draw(g);
 		retreat.draw(g);
 		drawCard.draw(g);
@@ -379,7 +390,17 @@ public class GameInterface {
 			enemy.getDeck().get(0).draw(g, enemyDeck.x, enemyDeck.y, false, false);
 		}
 
-	
+		// draw player's discard card
+		if (player.getGraveyard().size() != 0) {
+			player.getGraveyard().get(player.getGraveyard().size() - 1).draw(g, playerDiscard.x, playerDiscard.y, false,
+					true);
+		}
+
+		// draw enemy's discard card
+		if (enemy.getGraveyard().size() != 0) {
+			enemy.getGraveyard().get(enemy.getGraveyard().size() - 1).draw(g, enemyDiscard.x, enemyDiscard.y, false,
+					true);
+		}
 
 		// draw player's bench
 		if (player.getBench().size() != 0) {
@@ -450,7 +471,6 @@ public class GameInterface {
 			}
 		}
 
-		
 		// indicate player's deck number
 		if (Game.getMouseRect().intersects(new Rectangle(playerDeck.x, playerDeck.y, Game.CARD_W, Game.CARD_H))) {
 			g.setColor(Color.black);
@@ -478,9 +498,21 @@ public class GameInterface {
 			g.setFont(new Font("DorFont03", Font.PLAIN, 24));
 			g.drawString("AI's Prize: " + enemy.getPrize().size(), enemyPrize.x - 50, enemyPrize.y - 20);
 		}
-		
-		
-		
-		
+
+		// indicate player's discard number
+		if (Game.getMouseRect().intersects(new Rectangle(playerDiscard.x, playerDiscard.y, Game.CARD_W, Game.CARD_H))) {
+			g.setColor(Color.black);
+			g.setFont(new Font("DorFont03", Font.PLAIN, 24));
+			g.drawString("Player's Discard: " + player.getGraveyard().size(), playerDiscard.x - 50,
+					playerDiscard.y - 20);
+		}
+
+		// indicate enemy's discard number
+		if (Game.getMouseRect().intersects(new Rectangle(enemyDiscard.x, enemyDiscard.y, Game.CARD_W, Game.CARD_H))) {
+			g.setColor(Color.black);
+			g.setFont(new Font("DorFont03", Font.PLAIN, 24));
+			g.drawString("Enemy's Discard: " + enemy.getGraveyard().size(), enemyDiscard.x - 50, enemyDiscard.y - 20);
+		}
+
 	}
 }
