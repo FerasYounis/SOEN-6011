@@ -32,7 +32,7 @@ public class GameInterface {
 	public static boolean playerTurn;
 	private Card movingCard = null;
 	private Strategy AIStrategy;
-	private boolean drawnCard;
+	// private boolean drawnCard;
 
 	public GameInterface() {
 		playerBench = new CardSpot[Game.BOARD_SIZE];
@@ -56,8 +56,9 @@ public class GameInterface {
 
 		endTurn = new Button(Game.WIDTH - 72, Game.HEIGHT / 2 - 25, 50, "End Turn", Color.WHITE,
 				new Color(49, 156, 12));
-		drawCard = new Button(Game.WIDTH - 72, Game.HEIGHT / 2 + 70, 50, "Draw Card", Color.WHITE,
-				new Color(49, 156, 12));
+		// drawCard = new Button(Game.WIDTH - 72, Game.HEIGHT / 2 + 70, 50,
+		// "Draw Card", Color.WHITE,
+		// new Color(49, 156, 12));
 		retreat = new Button(Game.WIDTH - 72, Game.HEIGHT / 2 + 70 + 95, 50, "Retreat", Color.WHITE,
 				new Color(49, 156, 12));
 
@@ -66,7 +67,7 @@ public class GameInterface {
 		AIStrategy = new StatusAI();
 		turn = 1;
 		playerTurn = true;
-		drawnCard = false;
+		// drawnCard = false;
 
 	}
 
@@ -74,14 +75,13 @@ public class GameInterface {
 		checkWin();
 		checkLose();
 		endTurn.update();
-		drawCard.update();
+		// drawCard.update();
 		retreat.update();
 		player.update();
 		enemy.update();
-		
 
 		if (playerTurn) {
-			if(player.getPoke() != null)
+			if (player.getPoke() != null)
 				player.getPoke().checkStatus();
 			if (movingCard == null) {
 
@@ -92,10 +92,10 @@ public class GameInterface {
 					retreat.setPressed(false);
 				}
 
-				if (drawCard.isPressed()) {
-					drawCard();
-					drawCard.setPressed(false);
-				}
+				// if (drawCard.isPressed()) {
+				// drawCard();
+				// drawCard.setPressed(false);
+				// }
 
 				if (endTurn.isPressed()) {
 					endTurn();
@@ -156,11 +156,13 @@ public class GameInterface {
 			}
 
 		} else {
+			selected = -1;
 			player.getPoke().turn();
-			if(enemy.getPoke() != null)
+			if (enemy.getPoke() != null)
 				enemy.getPoke().checkStatus();
 			AIStrategy.turn();
 			enemy.getPoke().turn();
+			player.getHand().add(player.drawOneCard());
 
 		}
 
@@ -181,6 +183,7 @@ public class GameInterface {
 	}
 
 	private void checkEvolve() {
+		boolean flag = false;
 		if (selected >= 0 && selected < player.getHand().size()
 				&& player.getHand().get(selected).getCardType() == CardType.Pokemon) {
 			Pokemon p = (Pokemon) player.getHand().get(selected);
@@ -194,21 +197,25 @@ public class GameInterface {
 				player.getPoke().setAttackable(true);
 				player.getPoke().setRetreatable(true);
 				player.getHand().remove(selected);
+				flag = true;
 			}
 
 			for (int i = 0; i < player.getBench().size(); i++) {
-				Pokemon pp = (Pokemon) player.getBench().get(i);
-				if (p.evolve(pp)) {
-					int hitPoint = pp.getHP() - pp.getCurrentHP();
-					ArrayList<Energy> list = pp.getEnergys();
-					player.getBench().set(i, p);
-					Pokemon ppp = (Pokemon) player.getBench().get(i);
-					ppp.setEnergys(list);
-					ppp.setCurrentHP(p.getHP() - hitPoint);
-					ppp.setStatus(Pokemon.Status.normal);
-					ppp.setAttackable(true);
-					ppp.setRetreatable(true);
-					player.getHand().remove(selected);
+				if (!flag) {
+					Pokemon pp = (Pokemon) player.getBench().get(i);
+					if (p.evolve(pp)) {
+						int hitPoint = pp.getHP() - pp.getCurrentHP();
+						ArrayList<Energy> list = pp.getEnergys();
+						player.getBench().set(i, p);
+						Pokemon ppp = (Pokemon) player.getBench().get(i);
+						ppp.setEnergys(list);
+						ppp.setCurrentHP(p.getHP() - hitPoint);
+						ppp.setStatus(Pokemon.Status.normal);
+						ppp.setAttackable(true);
+						ppp.setRetreatable(true);
+						player.getHand().remove(selected);
+						flag = true;
+					}
 				}
 			}
 
@@ -217,15 +224,15 @@ public class GameInterface {
 
 	private void endTurn() {
 		playerTurn = false;
-		drawnCard = false;
+		// drawnCard = false;
 	}
 
-	private void drawCard() {
-		if (!drawnCard) {
-			player.getHand().add(player.drawOneCard());
-		}
-		drawnCard = true;
-	}
+	// private void drawCard() {
+	// if (!drawnCard) {
+	// player.getHand().add(player.drawOneCard());
+	// }
+	// drawnCard = true;
+	// }
 
 	private void selectPoke() {
 		// select player's pokemon
@@ -295,12 +302,13 @@ public class GameInterface {
 	private void retreat() {
 
 		if (selected >= 20 && selected <= 24) {
-			if (player.getPoke().isRetreatable()) {
+			
 				Pokemon p = player.getPoke();
-				if (player.getPoke() == null)
+				if (player.getPoke() == null){
 					player.setPoke((Pokemon) player.getBench().get(selected - 20));
-				else {
-					if (player.getPoke().getRetreatCost() != null) {
+					player.getBench().remove(selected - 20);
+				}else {
+					if (player.getPoke().isRetreatable() && player.getPoke().getRetreatCost() != null) {
 						if (player.getPoke().getEnergys().size() >= Integer
 								.parseInt(player.getPoke().getRetreatCost())) {
 							ArrayList<Card> list = player.getPoke()
@@ -311,7 +319,7 @@ public class GameInterface {
 							player.getBench().set(selected - 20, p);
 						}
 					}
-				}
+				
 			}
 			selected = -1;
 		}
@@ -336,7 +344,7 @@ public class GameInterface {
 		enemyDiscard.draw(g);
 		endTurn.draw(g);
 		retreat.draw(g);
-		drawCard.draw(g);
+		// drawCard.draw(g);
 		Font f = g.getFont();
 		g.setFont(new Font("DorFont03", Font.PLAIN, 60));
 		g.setColor(Color.BLACK);
@@ -479,8 +487,7 @@ public class GameInterface {
 							player.getBench().get(i).y - 15);
 				}
 			}
-			
-			
+
 			// indicate enemy's bench pokemon status
 			for (int i = 0; i < enemy.getBench().size(); i++) {
 				if (Game.getMouseRect().intersects(new Rectangle(enemy.getBench().get(i).x, enemy.getBench().get(i).y,
@@ -494,7 +501,7 @@ public class GameInterface {
 							enemy.getBench().get(i).y - 15);
 				}
 			}
-			
+
 		}
 
 		// indicate player's deck number

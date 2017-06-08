@@ -111,7 +111,7 @@ public class Pokemon extends Card {
 		this.ability.add(new Button(220, 700, 50, "ability2", Color.WHITE, new Color(49, 156, 12)));
 		this.retreatCost = retreatCost; // if the pokemon cannot be retreated,
 										// put null
-		this.status = Status.asleep;
+		this.status = Status.normal;
 		this.retreatable = true;
 		this.attackable = true;
 	}
