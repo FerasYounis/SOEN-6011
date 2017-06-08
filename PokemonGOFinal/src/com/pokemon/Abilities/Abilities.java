@@ -1,5 +1,8 @@
 package com.pokemon.Abilities;
 
-public interface Abilities {
-	public void turn(String target);
+public abstract class Abilities {
+	protected String target;
+	protected int amount;
+	
+	public void turn(String target){};
 }

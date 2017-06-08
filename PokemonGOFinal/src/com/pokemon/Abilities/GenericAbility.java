@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import com.pokemon.Card.Energy;
 import com.pokemon.Card.Pokemon;
 
-public class GenericAbility implements Abilities {
+public class GenericAbility {
 	private final String name;
 	private final Energy[] cost;
 	private ArrayList<Abilities> ability;
@@ -40,8 +40,6 @@ public class GenericAbility implements Abilities {
 				e.printStackTrace();
 			}
 
-			// o = Class.forName(name + "Ability").newInstance();
-
 
 		}
 
@@ -69,13 +67,6 @@ public class GenericAbility implements Abilities {
 
 	}
 
-//	public static void main(String[] args) {
-//		GenericAbility ga = new GenericAbility("Scratch:dam:target:opponent-active:20", null);
-//		ga.ability.get(0).turn();
-//		
-//		
-//		
-//		
-//	}
+
 
 }

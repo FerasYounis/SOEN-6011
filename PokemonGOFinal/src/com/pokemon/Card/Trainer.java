@@ -1,24 +1,25 @@
 package com.pokemon.Card;
 
+import com.pokemon.Abilities.GenericAbility;
 import com.pokemon.Enums.CardCategory;
 import com.pokemon.Enums.CardType;
 
 public class Trainer extends Card {
-	private Ability ability;
+	private GenericAbility ability;
 	private String name;
 	
 
-	protected Trainer(String url, CardType cardType, CardCategory cardCategory, Ability ability, String name) {
+	protected Trainer(String url, CardType cardType, CardCategory cardCategory, GenericAbility ability, String name) {
 		super(url, CardType.Trainer, cardCategory);
 		this.ability = ability;
 		this.name = name;
 	}
 
-	public Ability getAbility() {
+	public GenericAbility getAbility() {
 		return ability;
 	}
 
-	public void setAbility(Ability ability) {
+	public void setAbility(GenericAbility ability) {
 		this.ability = ability;
 	}
 

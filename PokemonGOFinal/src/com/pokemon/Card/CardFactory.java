@@ -21,7 +21,7 @@ public class CardFactory {
 	}
 
 	// create a trainer
-	public Card createCard(String name, CardType cardType, CardCategory cardCategory, int deck, Ability ability) {
+	public Card createCard(String name, CardType cardType, CardCategory cardCategory, int deck, GenericAbility ability) {
 			return new Trainer("/deck" + deck + "/" + name + ".png", cardType, cardCategory, ability, name);
 	}
 

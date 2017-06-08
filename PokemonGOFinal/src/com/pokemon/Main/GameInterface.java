@@ -411,6 +411,9 @@ public class GameInterface {
 			enemy.getGraveyard().get(enemy.getGraveyard().size() - 1).draw(g, enemyDiscard.x, enemyDiscard.y, false,
 					true);
 		}
+		
+	
+		
 
 		// draw player's bench
 		if (player.getBench().size() != 0) {
@@ -545,5 +548,13 @@ public class GameInterface {
 			g.drawString("Enemy's Discard: " + enemy.getGraveyard().size(), enemyDiscard.x - 50, enemyDiscard.y - 20);
 		}
 
+	}
+
+	public int getSelected() {
+		return selected;
+	}
+
+	public void setSelected(int selected) {
+		this.selected = selected;
 	}
 }
