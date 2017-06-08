@@ -8,13 +8,13 @@ import com.pokemon.Main.ObjectHandler;
 //choice:opponent is not implmented yet
 
 public class damAbility extends Abilities {
-
+	private String count;
 
 	public damAbility(String line) {
 		super();
+		count = null;
+		String[] datas = line.split(":");
 		if (!line.contains("count")) {
-			String[] datas = line.split(":");
-			
 			if(!line.contains("choice")){
 				this.target = datas[1];
 				this.amount = Integer.parseInt(datas[2]);
@@ -23,12 +23,71 @@ public class damAbility extends Abilities {
 				this.target = datas[1];
 				this.amount = Integer.parseInt(datas[3]);
 			}
+		}else{
+			this.target = datas[1];
+			String s = line.substring(datas[0].length() + datas[1].length() + 2);
+			String sss = null;
+			boolean flag = false;
+			for(char c: s.toCharArray()){
+				if(c == '*'){
+					flag = true;
+					sss = s.replace(c, ' ');
+				}
+			}
+			
+			if(!flag){
+				this.amount = 1;
+			}else{
+				String[] ss = sss.split(" ");
+				if(ss[0].contains("count")){
+					String temp = ss[0];
+					ss[0] = ss[1];
+					ss[1] = temp;
+				}
+				this.amount = Integer.parseInt(ss[0]);
+				int begin = 0;
+				int end = 0;
+				
+				for(char c: s.toCharArray()){
+					if(c == '[' || c == '(' || c == ']' || c == ')'){
+						ss[1] = ss[1].replace(c, ' ');
+					}
+				}
+				String[] p = ss[1].split(" ");
+				this.count = p[1];
+				
+				
+			}
 		}
 
 	}
 
 	public void turn(String enemy) {
-
+		if(count != null){
+			if(count.contains("your-bench")){
+				if(enemy.equals("enemy"))
+					this.amount = this.amount * ObjectHandler.getPlayer().getBench().size(); 
+				if(enemy.equals("player"))
+					this.amount = this.amount * ObjectHandler.getEnemy().getBench().size(); 
+			}
+			if(count.contains("your-active:damage")){
+				if(enemy.equals("enemy"))
+					this.amount = this.amount * ((ObjectHandler.getPlayer().getPoke().getHP() - ObjectHandler.getPlayer().getPoke().getCurrentHP()) / 10);
+				if(enemy.equals("player"))
+					this.amount = this.amount * ((ObjectHandler.getEnemy().getPoke().getHP() - ObjectHandler.getEnemy().getPoke().getCurrentHP()) / 10);
+			}
+			
+			if(count.contains("opponent-active:energy")){
+				if(enemy.equals("player"))
+					this.amount = this.amount * ObjectHandler.getPlayer().getPoke().getEnergys().size(); 
+				if(enemy.equals("enemy"))
+					this.amount = this.amount * ObjectHandler.getEnemy().getPoke().getEnergys().size(); 
+			}
+			
+			
+			
+		}
+			
 		System.out.println(enemy + ": " + amount);
 		switch (this.target) {
 		case "opponent-active":
@@ -106,6 +165,11 @@ public class damAbility extends Abilities {
 			break;
 		}
 		return;
+	} 
+		
+		
 	}
+	
+	
+	
 
-}

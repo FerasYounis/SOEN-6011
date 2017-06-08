@@ -2,6 +2,7 @@ package com.pokemon.Abilities;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Random;
 
 import com.pokemon.Main.ObjectHandler;
 
@@ -28,7 +29,7 @@ public class condAbility extends Abilities {
 				this.condAbility = createCondAbility(condAbilityName, condAbilityLine);
 				String elseAbilityName = abilities[1].substring(0, abilities[1].indexOf(":"));
 				String elseAbilityLine = abilities[1].substring(abilities[1].indexOf(":") + 1);
-				this.condAbility = createCondAbility(elseAbilityName, elseAbilityLine);
+				this.elseAbility = createCondAbility(elseAbilityName, elseAbilityLine);
 			}
 		}
 		
@@ -59,9 +60,11 @@ public class condAbility extends Abilities {
 	
 
 	public void turn(String target) {
-		if (checkCond(target))
+		if (checkCond(target)){
+			System.out.println("condAbility:");
 			this.condAbility.turn(target);
-		else if (this.elseAbility != null) {
+		}else if (this.elseAbility != null) {
+			System.out.println("elseAbility:");
 			this.elseAbility.turn(target);
 		}
 		return;
@@ -69,7 +72,7 @@ public class condAbility extends Abilities {
 
 	public boolean checkCond(String target) {
 		if (this.cond.equals("flip")) {
-			return Math.random() * 2 > 1;
+			return (new Random().nextInt(100) > 50);
 		}
 
 		if (this.cond.contains("healed")) {
