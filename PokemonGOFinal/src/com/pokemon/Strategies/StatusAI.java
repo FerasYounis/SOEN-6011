@@ -39,15 +39,17 @@ public class StatusAI implements Strategy {
 			enemy.setPoke(getHandBasic());
 			enemy.getHand().remove(getHandBasic());
 		}
-		if (GameInterface.turn > 1)
-
-		{
+		if (GameInterface.turn > 1) {
 			enemy.getHand().add(enemy.drawOneCard());
 			checkHandBasic();
 
 			if (enemy.getPoke() == null && enemy.getBench().size() > 0) {
 				enemy.setPoke(enemy.getBench().get(0));
 				enemy.getBench().remove(0);
+			}else if(enemy.getPoke() == null && enemy.getBench().size() == 0){
+				checkHandBasic();
+				enemy.setPoke(getHandBasic());
+				enemy.getHand().remove(getHandBasic());
 			}
 
 			if (hasHandBasic && enemy.getBench().size() < 5) {
@@ -96,7 +98,7 @@ public class StatusAI implements Strategy {
 				if (enemy.getPoke().attackPlayer(2) || enemy.getPoke().attackPlayer(1)) {
 					player.checkKnockout();
 					enemy.checkKnockout();
-				} 
+				}
 			}
 
 		}

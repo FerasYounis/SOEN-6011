@@ -179,7 +179,7 @@ public class Pokemon extends Card {
 	}
 
 	public boolean evolve(Pokemon p) {
-		if (this.basicName.equals(p.getName()))
+		if (this.basicName != null && this.basicName.equals(p.getName()))
 			return true;
 		return false;
 
