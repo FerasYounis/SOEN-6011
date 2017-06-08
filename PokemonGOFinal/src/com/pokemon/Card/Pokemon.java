@@ -10,19 +10,25 @@ import com.pokemon.Enums.CardType;
 import com.pokemon.Main.Button;
 import com.pokemon.Main.ImageLoader;
 import com.pokemon.Main.ObjectHandler;
-import com.pokemon.Strategies.Strategy;
 
 public class Pokemon extends Card {
 	private final String name;
 	private final int HP;
 	private final Ability ability1, ability2;
 	private int currentHP;
-	private Strategy status;
+
+	public static enum Status {
+		normal, asleep, paralyzed, stuck, poisoned
+	}
+
+	private Status status;
 	private ArrayList<Button> ability;
 	private String basicName; // to indicate the name of this. basic pokemon
 	private CardCategory stage;
 	private String retreatCost;
 	private CardCategory attr;
+	private boolean attackable;
+	private boolean retreatable;
 
 	private ArrayList<Energy> energys;
 
@@ -45,7 +51,7 @@ public class Pokemon extends Card {
 		if (level == CardCategory.Basic) {
 			this.ability1 = new Ability("ability1", 10, array1);
 			this.ability2 = new Ability("ability2", 30, array2);
-		} else{
+		} else {
 			this.ability1 = new Ability("ability1", 30, array1);
 			this.ability2 = new Ability("ability2", 50, array2);
 		}
@@ -58,20 +64,25 @@ public class Pokemon extends Card {
 		this.currentHP = HP;
 		this.energys = new ArrayList<Energy>();
 		this.ability = new ArrayList<Button>();
-//		if (!ability1.equals("0")) {
-			this.ability.add(new Button(220, 620, 50, "ability1", Color.WHITE, new Color(49, 156, 12)));
-//		}
-//		if (!ability2.equals("0")) {
-			this.ability.add(new Button(220, 700, 50, "ability2", Color.WHITE, new Color(49, 156, 12)));
-//		}
+		// if (!ability1.equals("0")) {
+		this.ability.add(new Button(220, 620, 50, "ability1", Color.WHITE, new Color(49, 156, 12)));
+		// }
+		// if (!ability2.equals("0")) {
+		this.ability.add(new Button(220, 700, 50, "ability2", Color.WHITE, new Color(49, 156, 12)));
+		// }
+
+		this.status = Status.normal;
+		this.retreatable = true;
+		this.attackable = true;
 	}
-	
-	public Pokemon(String url, String name, CardCategory level, int HP, String evolution, Ability[] ability, String retreatCost, CardCategory attr) {
+
+	public Pokemon(String url, String name, CardCategory level, int HP, String evolution, Ability[] ability,
+			String retreatCost, CardCategory attr) {
 		super(url, CardType.Pokemon, level);
 		this.name = name;
 		this.HP = HP;
 		this.attr = attr;
-		
+
 		Energy[] array1 = new Energy[1];
 		array1[0] = ObjectHandler.colorless;
 		Energy[] array2 = new Energy[3];
@@ -82,7 +93,7 @@ public class Pokemon extends Card {
 		if (level == CardCategory.Basic) {
 			this.ability1 = new Ability("ability1", 10, array1);
 			this.ability2 = new Ability("ability2", 30, array2);
-		} else{
+		} else {
 			this.ability1 = new Ability("ability1", 30, array1);
 			this.ability2 = new Ability("ability2", 50, array2);
 		}
@@ -94,11 +105,15 @@ public class Pokemon extends Card {
 		}
 		this.currentHP = HP;
 		this.energys = new ArrayList<Energy>();
-		
+
 		this.ability = new ArrayList<Button>();
 		this.ability.add(new Button(220, 620, 50, "ability1", Color.WHITE, new Color(49, 156, 12)));
 		this.ability.add(new Button(220, 700, 50, "ability2", Color.WHITE, new Color(49, 156, 12)));
-		this.retreatCost = retreatCost; //if the pokemon cannot be retreated, put null
+		this.retreatCost = retreatCost; // if the pokemon cannot be retreated,
+										// put null
+		this.status = Status.asleep;
+		this.retreatable = true;
+		this.attackable = true;
 	}
 
 	public void addEnergy(Energy e) {
@@ -118,8 +133,7 @@ public class Pokemon extends Card {
 		return list;
 	}
 
-	public ArrayList<Card> attack(int attackAbility, Pokemon pokemonTarget) {
-		ArrayList<Card> list = new ArrayList<Card>();
+	public void attack(int attackAbility, Pokemon pokemonTarget) {
 
 		int damegAfterHit;
 		switch (attackAbility) {
@@ -130,7 +144,6 @@ public class Pokemon extends Card {
 
 			damegAfterHit = pokemonTarget.getCurrentHP() - ability1.getAttackHit();
 			pokemonTarget.setCurrentHP(damegAfterHit);
-			list = this.costEnergy(ability1.getCost());
 			System.out.println(pokemonTarget.getCurrentHP());
 			break;
 
@@ -140,11 +153,9 @@ public class Pokemon extends Card {
 			// } //
 			damegAfterHit = pokemonTarget.getCurrentHP() - ability2.getAttackHit();
 			pokemonTarget.setCurrentHP(damegAfterHit);
-			list = this.costEnergy(ability2.getCost());
 			System.out.println(pokemonTarget.getCurrentHP());
 			break;
 		}
-		return list;
 
 	}
 
@@ -167,11 +178,11 @@ public class Pokemon extends Card {
 		return name;
 	}
 
-	public Strategy getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(Strategy status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
@@ -194,7 +205,6 @@ public class Pokemon extends Card {
 	public void setAbility(ArrayList<Button> ability) {
 		this.ability = ability;
 	}
-	
 
 	public String getBasicName() {
 		return basicName;
@@ -235,6 +245,22 @@ public class Pokemon extends Card {
 
 	}
 
+	public boolean isAttackable() {
+		return attackable;
+	}
+
+	public void setAttackable(boolean attackable) {
+		this.attackable = attackable;
+	}
+
+	public boolean isRetreatable() {
+		return retreatable;
+	}
+
+	public void setRetreatable(boolean retreatable) {
+		this.retreatable = retreatable;
+	}
+
 	public ArrayList<Energy> getEnergys() {
 		return energys;
 	}
@@ -266,18 +292,15 @@ public class Pokemon extends Card {
 	public boolean attackButton(Button b) {
 		if (b.getText().equals(ability1.getName())) {
 			if (ability1.checkCost(this) && ObjectHandler.getEnemy().getPoke() != null) {
-				ArrayList<Card> list = attack(1, ObjectHandler.getEnemy().getPoke());
-				ObjectHandler.getPlayer().getGraveyard().addAll(list);
+				attack(1, ObjectHandler.getEnemy().getPoke());
 				System.out.println("ability1 success attack!");
 				System.out.println("Player's discards Num: " + ObjectHandler.getPlayer().getGraveyard().size());
- 
 				return true;
-				
+
 			}
 		} else {
 			if (ability2.checkCost(this) && ObjectHandler.getEnemy().getPoke() != null) {
-				ArrayList<Card> list = attack(2, ObjectHandler.getEnemy().getPoke());
-				ObjectHandler.getPlayer().getGraveyard().addAll(list);
+				attack(2, ObjectHandler.getEnemy().getPoke());
 				System.out.println("ability2 success attack!");
 				return true;
 			}
@@ -287,7 +310,6 @@ public class Pokemon extends Card {
 
 	public void attackPlayer(int attackAbility) {
 		Pokemon p = ObjectHandler.player.getPoke();
-		ArrayList<Card> list = new ArrayList<Card>();
 
 		if (p != null) {
 			int damegAfterHit;
@@ -296,7 +318,6 @@ public class Pokemon extends Card {
 				if (ability1.checkCost(this)) {
 					damegAfterHit = p.getCurrentHP() - ability1.getAttackHit();
 					p.setCurrentHP(damegAfterHit);
-					list = this.costEnergy(ability1.getCost());
 					System.out.println(p.getCurrentHP());
 					break;
 				}
@@ -304,13 +325,54 @@ public class Pokemon extends Card {
 				if (ability2.checkCost(this)) {
 					damegAfterHit = p.getCurrentHP() - ability2.getAttackHit();
 					p.setCurrentHP(damegAfterHit);
-					list = this.costEnergy(ability2.getCost());
 					System.out.println(p.getCurrentHP());
 					break;
 				}
 			}
-			ObjectHandler.getEnemy().getGraveyard().addAll(list);
 		}
+	}
+
+	public void checkStatus() {
+
+		if (status == Status.normal) {
+			this.retreatable = true;
+			this.attackable = true;
+		}
+		if (status == Status.paralyzed) {
+			this.retreatable = false;
+			this.attackable = false;
+		}
+		if (status == Status.asleep) {
+			this.retreatable = false;
+			this.attackable = false;
+		}
+		if (status == Status.stuck) {
+			this.retreatable = false;
+			this.attackable = true;
+		}
+		if (status == Status.poisoned) {
+			this.retreatable = true;
+			this.attackable = true;
+		}
+
+	}
+
+	public void turn() {
+		if (status == Status.paralyzed) {
+			status = Status.normal;
+		}
+		if (status == Status.stuck) {
+			status = Status.normal;
+		}
+		if (status == Status.asleep) {
+			if(Math.random() * 2 > 1)
+				status = Status.normal;
+		}
+		if (status == Status.poisoned) {
+			this.currentHP--;
+		}
+		
+		
 	}
 
 }
