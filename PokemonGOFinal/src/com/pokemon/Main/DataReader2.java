@@ -86,8 +86,8 @@ public class DataReader2 {
 //					ga[0] = new GenericAbility(ability1, energy1);
 //					ga[1] = new GenericAbility(ability2, energy2);
 					
-					ga[0] = new GenericAbility(abilityData[9], new Energy[1]);
-					ga[1] = new GenericAbility(abilityData[16], new Energy[1]);
+					ga[0] = new GenericAbility(abilityData[16], new Energy[1]);
+					ga[1] = new GenericAbility(abilityData[37], new Energy[1]);
 					
 					
 					
@@ -160,16 +160,19 @@ public class DataReader2 {
 					String[] datas = cardLine.split(":");
 					String name = datas[0].replaceAll(" ", "");
 					String catagory = datas[3];
-					int despriction = Integer.parseInt(datas[4]);
-
+					String despriction = abilityData[Integer.parseInt(datas[4])];
+					//GenericAbility ga = new GenericAbility(despriction, new Energy[1]);
+					GenericAbility ga = new GenericAbility(abilityData[1], new Energy[1]);
+					
+					
 					if ("supporter".equals(catagory)) {
-						trainer = cf.createCard(name, CardType.Trainer, CardCategory.Supporter, deckNumber, null);
+						trainer = cf.createCard(name, CardType.Trainer, CardCategory.Supporter, deckNumber, ga);
 					}
 					if ("item".equals(catagory)) {
-						trainer = cf.createCard(name, CardType.Trainer, CardCategory.Item, deckNumber, null);
+						trainer = cf.createCard(name, CardType.Trainer, CardCategory.Item, deckNumber, ga);
 					}
 					if ("stadium".equals(catagory)) {
-						trainer = cf.createCard(name, CardType.Trainer, CardCategory.Stadium, deckNumber, null);
+						trainer = cf.createCard(name, CardType.Trainer, CardCategory.Stadium, deckNumber, ga);
 					}
 
 					deck.add(trainer);

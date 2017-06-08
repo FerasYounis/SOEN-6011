@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import com.pokemon.Card.Card;
 import com.pokemon.Card.Energy;
 import com.pokemon.Card.Pokemon;
+import com.pokemon.Card.Trainer;
 import com.pokemon.Enums.CardCategory;
 import com.pokemon.Enums.CardType;
 import com.pokemon.Strategies.StatusAI;
@@ -372,6 +373,26 @@ public class GameInterface {
 				player.getPoke().draw(g, 100, 175, true, true);
 			}
 		}
+		
+		
+		// draw player's trainer card
+		
+					if (selected >= 0 && selected < player.getHand().size() && player.getHand().get(selected).getCardType() == CardType.Trainer) {
+						player.getHand().get(selected).draw(g, 100, 175, true, true);
+						Trainer t = (Trainer)player.getHand().get(selected);
+						Button b = t.getButton();
+							b.draw(g);
+							b.update();
+							if (b.isPressed()) {
+								t.getAbility().turn("enemy");
+								player.getGraveyard().add(t);
+								player.getHand().remove(t);
+								b.setPressed(false);
+							}
+						}
+					
+				
+		
 
 		// draw AI's pokemon
 		if (enemy.getPoke() != null) {
