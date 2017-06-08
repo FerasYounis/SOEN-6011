@@ -388,6 +388,7 @@ public class GameInterface {
 								player.getGraveyard().add(t);
 								player.getHand().remove(t);
 								b.setPressed(false);
+								selected = -1;
 							}
 						}
 					

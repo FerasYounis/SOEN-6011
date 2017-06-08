@@ -45,8 +45,6 @@ public class damAbility extends Abilities {
 					ss[1] = temp;
 				}
 				this.amount = Integer.parseInt(ss[0]);
-				int begin = 0;
-				int end = 0;
 				
 				for(char c: s.toCharArray()){
 					if(c == '[' || c == '(' || c == ']' || c == ')'){

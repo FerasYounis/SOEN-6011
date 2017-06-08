@@ -15,7 +15,15 @@ public class condAbility extends Abilities {
 		this.condAbility = null;
 		this.elseAbility = null;
 
-		if (line.contains("flip") && !line.contains("(")) {
+		boolean flag = false;
+		for(char c: line.toCharArray()){
+			if(c == '(')
+				flag = true;
+		}
+		
+		
+		
+		if (line.contains("flip") && !flag) {
 			String condA = line.substring(line.indexOf(":") + 1);
 			this.cond = line.substring(0, line.indexOf(":"));
 			if (!line.contains("else")) {
@@ -72,6 +80,7 @@ public class condAbility extends Abilities {
 
 	public boolean checkCond(String target) {
 		if (this.cond.equals("flip")) {
+			System.out.println("is fliping......");
 			return (new Random().nextInt(100) > 50);
 		}
 
