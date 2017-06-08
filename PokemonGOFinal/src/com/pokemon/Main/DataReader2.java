@@ -61,6 +61,21 @@ public class DataReader2 {
 
 					int energyNum = 0;
 					boolean isFirst = true;
+					
+					GenericAbility[] ga = new GenericAbility[2];
+					int abilityNum = 0;
+					for(String cat: cats){
+						String[] s = cat.split(":");
+						if(s.length == 4)
+							abilityNum++;
+					}
+					
+					
+					
+					
+					if(abilityNum == 2){
+					
+					
 					for (String cat : cats) {
 						String[] s = cat.split(":");
 						if (isFirst) {
@@ -80,14 +95,32 @@ public class DataReader2 {
 								energyNum = 0;
 							}
 						}
+					
+					}
+					ga[0] = new GenericAbility(ability1, energy1);
+					ga[1] = new GenericAbility(ability2, energy2);
+					
+//					ga[0] = new GenericAbility(abilityData[29], new Energy[1]);
+//					ga[1] = new GenericAbility(abilityData[29], new Energy[1]);
 					}
 					
-					GenericAbility[] ga = new GenericAbility[2];
-//					ga[0] = new GenericAbility(ability1, energy1);
-//					ga[1] = new GenericAbility(ability2, energy2);
-					
-					ga[0] = new GenericAbility(abilityData[29], new Energy[1]);
-					ga[1] = new GenericAbility(abilityData[29], new Energy[1]);
+					if(abilityNum == 1){
+						
+						
+						for (String cat : cats) {
+							String[] s = cat.split(":");
+								energyNum += Integer.parseInt(s[2]);
+								if (s.length == 4) {
+									energy1 = new Energy[energyNum];
+									ability1 = abilityData[Integer.parseInt(s[3])];
+									isFirst = false;
+									energyNum = 0;
+								}
+						}
+						ga[0] = new GenericAbility(ability1, energy1);
+						ga[1] = null;
+						}
+						
 					
 					
 					

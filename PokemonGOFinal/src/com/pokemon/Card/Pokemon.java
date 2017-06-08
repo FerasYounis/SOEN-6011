@@ -56,8 +56,10 @@ public class Pokemon extends Card {
 		this.energys = new ArrayList<Energy>();
 
 		this.ability = new ArrayList<Button>();
-		this.ability.add(new Button(220, 620, 50, ability1.getName(), Color.WHITE, new Color(49, 156, 12)));
-		this.ability.add(new Button(220, 700, 50, ability2.getName(), Color.WHITE, new Color(49, 156, 12)));
+		if(ability[0] != null)
+			this.ability.add(new Button(220, 620, 50, ability1.getName(), Color.WHITE, new Color(49, 156, 12)));
+		if(ability[1] != null)
+			this.ability.add(new Button(220, 700, 50, ability2.getName(), Color.WHITE, new Color(49, 156, 12)));
 		this.retreatCost = retreatCost; // if the pokemon cannot be retreated,
 										// put null
 		this.status = Status.normal;
@@ -84,8 +86,11 @@ public class Pokemon extends Card {
 	}
 
 
-	public boolean validateAttackExist(String attackAbility) {
-		if (attackAbility.equals("0")) {
+	public boolean validateAttackExist(int i) {
+		if (1 == i && ability1 == null) {
+			return false;
+		}
+		if (2 == i && ability2 == null) {
 			return false;
 		}
 		return true;
@@ -251,14 +256,14 @@ public class Pokemon extends Card {
 		if (p != null) {
 			switch (attackAbility) {
 			case 1:
-				if (ability1.checkCost(this)) {
+				if (ability != null && ability1.checkCost(this)) {
 					System.out.println("enemy: ability1");
 					ability1.turn("player");
 					return true;
 				}
 				break;
 			case 2:
-				if (ability2.checkCost(this)) {
+				if (ability2 != null && ability2.checkCost(this)) {
 					System.out.println("enemy: ability2");
 					ability2.turn("player");
 					return true;

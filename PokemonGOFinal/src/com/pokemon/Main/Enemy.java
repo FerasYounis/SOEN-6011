@@ -92,7 +92,6 @@ public class Enemy extends GameObject {
 	}
 
 	public void shuffleDeck() {
-		int size = deck.size();
 		ArrayList<Card> shuffledDeck = new ArrayList<Card>();
 		Random r = new Random();
 		while(!deck.isEmpty()){
