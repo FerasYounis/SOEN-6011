@@ -12,7 +12,6 @@ public class Player extends GameObject {
 	protected ArrayList<Card> deck, hand, graveyard, prize;
 	protected ArrayList<Pokemon> bench;
 	protected Pokemon poke;
-	private DataReader dr;
 	private DataReader2 dr2;
 
 
@@ -23,7 +22,6 @@ public class Player extends GameObject {
 		poke = null;
 		graveyard = new ArrayList<Card>();
 		prize = new ArrayList<Card>();
-		dr = new DataReader();
 
 
 		setDeck();
@@ -46,20 +44,19 @@ public class Player extends GameObject {
 		}
 	}
 	
-	public Player(boolean flag) {
-		deck = new ArrayList<Card>();
-		hand = new ArrayList<Card>();
-		bench = new ArrayList<Pokemon>();
-		poke = null;
-		graveyard = new ArrayList<Card>();
-		prize = new ArrayList<Card>();
-		dr = new DataReader();
-
-		setDeck();
-		shuffleDeck();
-		setHand();
-
-	}
+//	public Player(boolean flag) {
+//		deck = new ArrayList<Card>();
+//		hand = new ArrayList<Card>();
+//		bench = new ArrayList<Pokemon>();
+//		poke = null;
+//		graveyard = new ArrayList<Card>();
+//		prize = new ArrayList<Card>();
+//
+//		setDeck();
+//		shuffleDeck();
+//		setHand();
+//
+//	}
 
 	private boolean checkHand() {
 		for(Card c: hand){

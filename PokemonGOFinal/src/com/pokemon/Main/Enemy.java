@@ -14,7 +14,6 @@ public class Enemy extends GameObject {
 	protected ArrayList<Card> deck, hand, graveyard, prize;
 	protected ArrayList<Pokemon> bench;
 	protected Pokemon poke;
-	private DataReader dr;
 	private DataReader2 dr2;
 
 
@@ -25,7 +24,6 @@ public class Enemy extends GameObject {
 		poke = null;
 		graveyard = new ArrayList<Card>();
 		prize = new ArrayList<Card>();
-		dr = new DataReader();
 		setDeck();
 		//shuffleDeck();
 		setHand();

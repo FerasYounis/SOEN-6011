@@ -4,11 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 
+import com.pokemon.Abilities.GenericAbility;
 import com.pokemon.Card.Card;
 import com.pokemon.Card.CardFactory;
-import com.pokemon.Card.Pokemon;
+import com.pokemon.Card.Energy;
 import com.pokemon.Enums.CardCategory;
 import com.pokemon.Enums.CardType;
 
@@ -52,7 +52,47 @@ public class DataReader2 {
 						retreatCost = retreat[2];
 
 					}
-					String abilityData = twoSec[1];
+					String aData = twoSec[1];
+					String[] cats = aData.split(",");
+					Energy[] energy1 = null;
+					Energy[] energy2 = null;
+					String ability1 = null;
+					String ability2 = null;
+
+					int energyNum = 0;
+					boolean isFirst = true;
+					for (String cat : cats) {
+						String[] s = cat.split(":");
+						if (isFirst) {
+							energyNum += Integer.parseInt(s[2]);
+							if (s.length == 4) {
+								energy1 = new Energy[energyNum];
+								ability1 = abilityData[Integer.parseInt(s[3])];
+								isFirst = false;
+								energyNum = 0;
+							}
+						} else {
+							energyNum += Integer.parseInt(s[2]);
+							if (s.length == 4) {
+								energy2 = new Energy[energyNum];
+								ability2 = abilityData[Integer.parseInt(s[3])];
+								isFirst = true;
+								energyNum = 0;
+							}
+						}
+					}
+					
+					GenericAbility[] ga = new GenericAbility[2];
+//					ga[0] = new GenericAbility(ability1, energy1);
+//					ga[1] = new GenericAbility(ability2, energy2);
+					
+					ga[0] = new GenericAbility(abilityData[1], new Energy[1]);
+					ga[1] = new GenericAbility(abilityData[1], new Energy[1]);
+					
+					
+					
+					
+					
 
 					if (cardLine.contains("basic")) {
 						String[] datas = basicData.split(":");
@@ -61,29 +101,24 @@ public class DataReader2 {
 						String attr = datas[5];
 						int Hp = Integer.parseInt(datas[6]);
 						if ("water".equals(attr)) {
-							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.Basic,
-									deckNumber, null, Hp, null, retreatCost,
-									CardCategory.Water);
+							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.Basic, deckNumber, null, Hp,
+									ga, retreatCost, CardCategory.Water);
 						}
 						if ("colorless".equals(attr)) {
-							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.Basic,
-									deckNumber, null, Hp, null, retreatCost,
-									CardCategory.Colorless);
+							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.Basic, deckNumber, null, Hp,
+									ga, retreatCost, CardCategory.Colorless);
 						}
 						if ("fight".equals(attr)) {
-							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.Basic,
-									deckNumber, null, Hp, null, retreatCost,
-									CardCategory.Fighting);
+							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.Basic, deckNumber, null, Hp,
+									ga, retreatCost, CardCategory.Fighting);
 						}
 						if ("lightning".equals(attr)) {
-							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.Basic,
-									deckNumber, null, Hp, null, retreatCost,
-									CardCategory.Lightning);
+							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.Basic, deckNumber, null, Hp,
+									ga, retreatCost, CardCategory.Lightning);
 						}
 						if ("psychic".equals(attr)) {
-							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.Basic,
-									deckNumber, null, Hp, null, retreatCost,
-									CardCategory.Psychic);
+							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.Basic, deckNumber, null, Hp,
+									ga, retreatCost, CardCategory.Psychic);
 						}
 
 					} else if (cardLine.contains("stage-one")) {
@@ -95,29 +130,24 @@ public class DataReader2 {
 						int Hp = Integer.parseInt(datas[7]);
 
 						if ("water".equals(attr)) {
-							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.StageOne,
-									deckNumber, basicName, Hp, null, retreatCost,
-									CardCategory.Water);
+							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.StageOne, deckNumber,
+									basicName, Hp, ga, retreatCost, CardCategory.Water);
 						}
 						if ("colorless".equals(attr)) {
-							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.StageOne,
-									deckNumber, basicName, Hp, null, retreatCost,
-									CardCategory.Colorless);
+							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.StageOne, deckNumber,
+									basicName, Hp, ga, retreatCost, CardCategory.Colorless);
 						}
 						if ("fight".equals(attr)) {
-							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.StageOne,
-									deckNumber, basicName, Hp, null, retreatCost,
-									CardCategory.Fighting);
+							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.StageOne, deckNumber,
+									basicName, Hp, ga, retreatCost, CardCategory.Fighting);
 						}
 						if ("lightning".equals(attr)) {
-							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.StageOne,
-									deckNumber, basicName, Hp, null, retreatCost,
-									CardCategory.Lightning);
+							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.StageOne, deckNumber,
+									basicName, Hp, ga, retreatCost, CardCategory.Lightning);
 						}
 						if ("psychic".equals(attr)) {
-							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.StageOne,
-									deckNumber, basicName, Hp, null, retreatCost,
-									CardCategory.Psychic);
+							pokemon = cf.createCard(name, CardType.Pokemon, CardCategory.StageOne, deckNumber,
+									basicName, Hp, ga, retreatCost, CardCategory.Psychic);
 						}
 
 					}
@@ -131,42 +161,33 @@ public class DataReader2 {
 					String name = datas[0].replaceAll(" ", "");
 					String catagory = datas[3];
 					int despriction = Integer.parseInt(datas[4]);
-				
-					if("supporter".equals(catagory)){
+
+					if ("supporter".equals(catagory)) {
 						trainer = cf.createCard(name, CardType.Trainer, CardCategory.Supporter, deckNumber, null);
 					}
-					if("item".equals(catagory)){
+					if ("item".equals(catagory)) {
 						trainer = cf.createCard(name, CardType.Trainer, CardCategory.Item, deckNumber, null);
 					}
-					if("stadium".equals(catagory)){
+					if ("stadium".equals(catagory)) {
 						trainer = cf.createCard(name, CardType.Trainer, CardCategory.Stadium, deckNumber, null);
 					}
-					
+
 					deck.add(trainer);
-					
-					
-					
-					
-					
-					
+
 				} else if (cardLine.contains("energy")) {
 					String[] datas = cardLine.split(":");
 					Card card = null;
 					if ("Water".equals(datas[0])) {
-						card = cf.createCard(datas[0], CardType.Engergy, CardCategory.Water,
-								deckNumber);
+						card = cf.createCard(datas[0], CardType.Engergy, CardCategory.Water, deckNumber);
 					}
 					if ("Fight".equals(datas[0])) {
-						card = cf.createCard("Fighting", CardType.Engergy, CardCategory.Fighting,
-								deckNumber);
+						card = cf.createCard("Fighting", CardType.Engergy, CardCategory.Fighting, deckNumber);
 					}
 					if ("Lightning".equals(datas[0])) {
-						card = cf.createCard(datas[0], CardType.Engergy, CardCategory.Lightning,
-								deckNumber);
+						card = cf.createCard(datas[0], CardType.Engergy, CardCategory.Lightning, deckNumber);
 					}
 					if ("Psychic".equals(datas[0])) {
-						card = cf.createCard(datas[0], CardType.Engergy, CardCategory.Psychic,
-								deckNumber);
+						card = cf.createCard(datas[0], CardType.Engergy, CardCategory.Psychic, deckNumber);
 					}
 					deck.add(card);
 				}
@@ -214,7 +235,8 @@ public class DataReader2 {
 	}
 
 	public void loadAbility() {
-		abilityReader = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/abilities.txt")));
+		abilityReader = new BufferedReader(
+				new InputStreamReader(this.getClass().getResourceAsStream("/abilities.txt")));
 		String lineTxt = null;
 		try {
 			int i = 0;
@@ -231,6 +253,5 @@ public class DataReader2 {
 			}
 		}
 	}
-
 
 }
