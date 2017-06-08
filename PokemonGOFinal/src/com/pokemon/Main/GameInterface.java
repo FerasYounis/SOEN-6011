@@ -57,8 +57,7 @@ public class GameInterface {
 		// drawCard = new Button(Game.WIDTH - 72, Game.HEIGHT / 2 + 70, 50,
 		// "Draw Card", Color.WHITE,
 		// new Color(49, 156, 12));
-		retreat = new Button(Game.WIDTH - 72, Game.HEIGHT / 2 + 70, 50, "Retreat", Color.WHITE,
-				new Color(49, 156, 12));
+		retreat = new Button(Game.WIDTH - 72, Game.HEIGHT / 2 + 70, 50, "Retreat", Color.WHITE, new Color(49, 156, 12));
 
 		player = ObjectHandler.getPlayer();
 		enemy = ObjectHandler.getEnemy();
@@ -155,11 +154,13 @@ public class GameInterface {
 
 		} else {
 			selected = -1;
-			player.getPoke().turn();
+			if(player.getPoke() != null)
+				player.getPoke().turn();
 			if (enemy.getPoke() != null)
 				enemy.getPoke().checkStatus();
 			AIStrategy.turn();
-			enemy.getPoke().turn();
+			if(enemy.getPoke() != null)
+				enemy.getPoke().turn();
 			player.getHand().add(player.drawOneCard());
 
 		}
@@ -300,24 +301,23 @@ public class GameInterface {
 	private void retreat() {
 
 		if (selected >= 20 && selected <= 24) {
-			
-				Pokemon p = player.getPoke();
-				if (player.getPoke() == null){
-					player.setPoke((Pokemon) player.getBench().get(selected - 20));
-					player.getBench().remove(selected - 20);
-				}else {
-					if (player.getPoke().isRetreatable() && player.getPoke().getRetreatCost() != null) {
-						if (player.getPoke().getEnergys().size() >= Integer
-								.parseInt(player.getPoke().getRetreatCost())) {
-							ArrayList<Card> list = player.getPoke()
-									.costEnergy(Integer.parseInt(player.getPoke().getRetreatCost()));
-							player.getGraveyard().addAll(list);
-							System.out.println(player.getGraveyard().size());
-							player.setPoke((Pokemon) player.getBench().get(selected - 20));
-							player.getBench().set(selected - 20, p);
-						}
+
+			Pokemon p = player.getPoke();
+			if (player.getPoke() == null) {
+				player.setPoke((Pokemon) player.getBench().get(selected - 20));
+				player.getBench().remove(selected - 20);
+			} else {
+				if (player.getPoke().isRetreatable() && player.getPoke().getRetreatCost() != null) {
+					if (player.getPoke().getEnergys().size() >= Integer.parseInt(player.getPoke().getRetreatCost())) {
+						ArrayList<Card> list = player.getPoke()
+								.costEnergy(Integer.parseInt(player.getPoke().getRetreatCost()));
+						player.getGraveyard().addAll(list);
+						System.out.println(player.getGraveyard().size());
+						player.setPoke((Pokemon) player.getBench().get(selected - 20));
+						player.getBench().set(selected - 20, p);
 					}
-				
+				}
+
 			}
 			selected = -1;
 		}
@@ -359,12 +359,10 @@ public class GameInterface {
 					b.update();
 					if (b.isPressed()) {
 						if (player.getPoke().isAttackable() && player.getPoke().attackButton(b)) {
-							if (enemy.checkKnockout()) {
-								player.getHand().add(player.getPrize().get(player.getPrize().size() - 1));
-								System.out.println(player.getHand().size());
-								player.getPrize().remove(player.getPrize().size() - 1);
-								selected = -1;
-							}
+							player.checkKnockout();
+							enemy.checkKnockout();
+							selected = -1;
+
 							endTurn();
 						}
 						b.setPressed(false);
@@ -411,9 +409,6 @@ public class GameInterface {
 			enemy.getGraveyard().get(enemy.getGraveyard().size() - 1).draw(g, enemyDiscard.x, enemyDiscard.y, false,
 					true);
 		}
-		
-	
-		
 
 		// draw player's bench
 		if (player.getBench().size() != 0) {

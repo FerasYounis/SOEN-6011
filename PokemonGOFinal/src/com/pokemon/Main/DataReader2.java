@@ -86,7 +86,7 @@ public class DataReader2 {
 //					ga[0] = new GenericAbility(ability1, energy1);
 //					ga[1] = new GenericAbility(ability2, energy2);
 					
-					ga[0] = new GenericAbility(abilityData[2], new Energy[1]);
+					ga[0] = new GenericAbility(abilityData[41], new Energy[1]);
 					ga[1] = new GenericAbility(abilityData[2], new Energy[1]);
 					
 					

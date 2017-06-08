@@ -137,6 +137,11 @@ public class Enemy extends GameObject {
 		if(poke != null && poke.getCurrentHP() <= 0){
 			graveyard.add(poke);
 			poke = null;
+			
+			ObjectHandler.getPlayer().getHand().add(ObjectHandler.getPlayer().getPrize().get(ObjectHandler.getPlayer().getPrize().size() - 1));
+			ObjectHandler.getPlayer().getPrize().remove(ObjectHandler.getPlayer().getPrize().size() - 1);
+			
+			
 			return true;
 		}
 		return false;
