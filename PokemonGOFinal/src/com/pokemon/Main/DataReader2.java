@@ -82,7 +82,7 @@ public class DataReader2 {
 							energyNum += Integer.parseInt(s[2]);
 							if (s.length == 4) {
 								energy1 = new Energy[energyNum];
-								ability1 = abilityData[Integer.parseInt(s[3])];
+								ability1 = abilityData[Integer.parseInt(s[3]) - 1];
 								isFirst = false;
 								energyNum = 0;
 							}
@@ -90,7 +90,7 @@ public class DataReader2 {
 							energyNum += Integer.parseInt(s[2]);
 							if (s.length == 4) {
 								energy2 = new Energy[energyNum];
-								ability2 = abilityData[Integer.parseInt(s[3])];
+								ability2 = abilityData[Integer.parseInt(s[3]) - 1];
 								isFirst = true;
 								energyNum = 0;
 							}
@@ -112,7 +112,7 @@ public class DataReader2 {
 								energyNum += Integer.parseInt(s[2]);
 								if (s.length == 4) {
 									energy1 = new Energy[energyNum];
-									ability1 = abilityData[Integer.parseInt(s[3])];
+									ability1 = abilityData[Integer.parseInt(s[3]) - 1];
 									isFirst = false;
 									energyNum = 0;
 								}
@@ -193,9 +193,9 @@ public class DataReader2 {
 					String[] datas = cardLine.split(":");
 					String name = datas[0].replaceAll(" ", "");
 					String catagory = datas[3];
-					String despriction = abilityData[Integer.parseInt(datas[4])];
-					//GenericAbility ga = new GenericAbility(despriction, new Energy[1]);
-					GenericAbility ga = new GenericAbility(abilityData[1], new Energy[1]);
+					String despriction = abilityData[Integer.parseInt(datas[4]) - 1];
+					GenericAbility ga = new GenericAbility(despriction, new Energy[0]);
+					//GenericAbility ga = new GenericAbility(abilityData[1], new Energy[1]);
 					
 					
 					if ("supporter".equals(catagory)) {

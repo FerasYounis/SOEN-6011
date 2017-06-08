@@ -20,7 +20,7 @@ public class damAbility extends Abilities {
 				this.amount = Integer.parseInt(datas[2]);
 			}
 			else{
-				this.target = datas[1];
+				this.target = datas[1] + ":" + datas[2];
 				this.amount = Integer.parseInt(datas[3]);
 			}
 		}else{
@@ -86,7 +86,7 @@ public class damAbility extends Abilities {
 			
 		}
 			
-		System.out.println(enemy + ": " + amount);
+		System.out.println(enemy + ": " + target + ": "  + amount);
 		switch (this.target) {
 		case "opponent-active":
 			if (enemy.equals("enemy")) {
@@ -110,21 +110,38 @@ public class damAbility extends Abilities {
 			}
 			break;
 			
-		case "choice":
-		//	int selected = Game.gameInterface.getSelected();
-			if (enemy.equals("enmey")) {
-				int currentHP = ObjectHandler.getEnemy().getPoke().getCurrentHP();
-			//	if(31 == selected)
-					ObjectHandler.getEnemy().getPoke().setCurrentHP(currentHP - amount);
-//				if(40 <= selected && 44 >= selected)
-//					ObjectHandler.getEnemy().getBench().get(selected - 40).setCurrentHP(currentHP - amount);
+		case "choice:opponent-bench":
+			if (enemy.equals("enemy")) {
+				if(ObjectHandler.getEnemy().getBench().size() != 0){
+					int currentHP = ObjectHandler.getEnemy().getBench().get(0).getCurrentHP();
+					ObjectHandler.getEnemy().getBench().get(0).setCurrentHP(currentHP - amount);
+					System.out.println("attack successfully!");
+				}
 			}
 			if (enemy.equals("player")) {
-				int currentHP = ObjectHandler.getPlayer().getPoke().getCurrentHP();
-				ObjectHandler.getPlayer().getPoke().setCurrentHP(currentHP - amount);
+				if(ObjectHandler.getPlayer().getBench().size() != 0){
+					int currentHP = ObjectHandler.getPlayer().getBench().get(0).getCurrentHP();
+					ObjectHandler.getPlayer().getBench().get(0).setCurrentHP(currentHP - amount);
+				}
 			}
 			
-			Game.gameInterface.setSelected(-1);
+			break;
+			
+			
+		case "choice:opponent":
+			if (enemy.equals("enemy")) {
+				if(ObjectHandler.getEnemy().getBench().size() != 0){
+					int currentHP = ObjectHandler.getEnemy().getBench().get(0).getCurrentHP();
+					ObjectHandler.getEnemy().getBench().get(0).setCurrentHP(currentHP - amount);
+				}
+			}
+			if (enemy.equals("player")) {
+				if(ObjectHandler.getPlayer().getBench().size() != 0){
+					int currentHP = ObjectHandler.getPlayer().getBench().get(0).getCurrentHP();
+					ObjectHandler.getPlayer().getBench().get(0).setCurrentHP(currentHP - amount);
+				}
+			}
+			
 			break;
 			
 		case "your-bench":
