@@ -6,7 +6,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import com.pokemon.Card.Card;
@@ -15,7 +14,6 @@ import com.pokemon.Card.Pokemon;
 import com.pokemon.Enums.CardCategory;
 import com.pokemon.Enums.CardType;
 import com.pokemon.Strategies.StatusAI;
-import com.pokemon.Strategies.StatusNormal;
 import com.pokemon.Strategies.Strategy;
 
 public class GameInterface {
@@ -458,7 +456,7 @@ public class GameInterface {
 			if (player.getPoke() != null && Game.getMouseRect()
 					.intersects(new Rectangle(playerPoke.x, playerPoke.y, Game.CARD_W, Game.CARD_H))) {
 				g.setColor(Color.black);
-				g.setFont(new Font("DorFont03", Font.PLAIN, 24));
+				g.setFont(new Font("DorFont03", Font.PLAIN, 26));
 				g.drawString("Remaining HP: " + player.getPoke().getCurrentHP(), playerPoke.x - 50, playerPoke.y - 35);
 				g.drawString("Status: " + player.getPoke().getStatus(), playerPoke.x - 50, playerPoke.y - 15);
 
@@ -468,7 +466,7 @@ public class GameInterface {
 			if (enemy.getPoke() != null && Game.getMouseRect()
 					.intersects(new Rectangle(enemyPoke.x, enemyPoke.y, Game.CARD_W, Game.CARD_H))) {
 				g.setColor(Color.black);
-				g.setFont(new Font("DorFont03", Font.PLAIN, 24));
+				g.setFont(new Font("DorFont03", Font.PLAIN, 26));
 				g.drawString("Remaining HP: " + enemy.getPoke().getCurrentHP(), enemyPoke.x - 50, enemyPoke.y - 35);
 				g.drawString("Status: " + enemy.getPoke().getStatus(), enemyPoke.x - 50, enemyPoke.y - 15);
 
@@ -479,7 +477,7 @@ public class GameInterface {
 				if (Game.getMouseRect().intersects(new Rectangle(player.getBench().get(i).x, player.getBench().get(i).y,
 						Game.CARD_W, Game.CARD_H))) {
 					g.setColor(Color.black);
-					g.setFont(new Font("DorFont03", Font.PLAIN, 24));
+					g.setFont(new Font("DorFont03", Font.PLAIN, 26));
 					Pokemon p = (Pokemon) player.getBench().get(i);
 					g.drawString("Remaining HP: " + p.getCurrentHP(), player.getBench().get(i).x - 50,
 							player.getBench().get(i).y - 35);
@@ -493,7 +491,7 @@ public class GameInterface {
 				if (Game.getMouseRect().intersects(new Rectangle(enemy.getBench().get(i).x, enemy.getBench().get(i).y,
 						Game.CARD_W, Game.CARD_H))) {
 					g.setColor(Color.black);
-					g.setFont(new Font("DorFont03", Font.PLAIN, 24));
+					g.setFont(new Font("DorFont03", Font.PLAIN, 26));
 					Pokemon p = (Pokemon) enemy.getBench().get(i);
 					g.drawString("Remaining HP: " + p.getCurrentHP(), enemy.getBench().get(i).x - 50,
 							enemy.getBench().get(i).y - 35);
