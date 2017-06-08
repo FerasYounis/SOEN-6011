@@ -18,6 +18,7 @@ public class Pokemon extends Card {
 	private final int HP;
 	private final GenericAbility ability1, ability2;
 	private int currentHP;
+	private boolean isHealed;
 
 	public static enum Status {
 		normal, asleep, paralyzed, stuck, poisoned
@@ -44,7 +45,7 @@ public class Pokemon extends Card {
 		this.attr = attr;
 		this.ability1 = ability[0];
 		this.ability2 = ability[1];
-		
+		this.isHealed = false;
 
 		this.stage = level;
 		this.basicName = null;
@@ -89,6 +90,18 @@ public class Pokemon extends Card {
 		}
 		return true;
 	}
+
+	
+	
+	public boolean isHealed() {
+		return isHealed;
+	}
+
+
+	public void setHealed(boolean isHealed) {
+		this.isHealed = isHealed;
+	}
+
 
 	public int getCurrentHP() {
 		return currentHP;
@@ -232,23 +245,28 @@ public class Pokemon extends Card {
 		return false;
 	}
 
-	public void attackPlayer(int attackAbility) {
+	public boolean attackPlayer(int attackAbility) {
 		Pokemon p = ObjectHandler.player.getPoke();
 
 		if (p != null) {
 			switch (attackAbility) {
 			case 1:
 				if (ability1.checkCost(this)) {
+					System.out.println("enemy: ability1");
 					ability1.turn("player");
-					break;
+					return true;
 				}
+				break;
 			case 2:
 				if (ability2.checkCost(this)) {
-					ability1.turn("player");
-					break;
+					System.out.println("enemy: ability2");
+					ability2.turn("player");
+					return true;
 				}
+				break;
 			}
 		}
+		return false;
 	}
 
 	public void checkStatus() {

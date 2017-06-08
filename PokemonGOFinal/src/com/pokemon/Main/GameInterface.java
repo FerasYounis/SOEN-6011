@@ -431,8 +431,14 @@ public class GameInterface {
 					enemy.getBench().get(selected - 40).draw(g, 100, 175, true, true);
 			}
 		}
-		if (selected != -1 && 31 == selected)
+		//draw AI's active
+		if (selected != -1 && 31 == selected){
 			enemy.getPoke().draw(g, 100, 175, true, true);
+			for (Button b : enemy.getPoke().getAbility()) {
+				b.draw(g);
+			}
+			
+		}
 
 		// draw enemy's hand
 		for (int i = 0; i < enemy.hand.size(); i++)

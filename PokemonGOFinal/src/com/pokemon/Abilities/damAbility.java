@@ -29,7 +29,7 @@ public class damAbility extends Abilities {
 
 	public void turn(String enemy) {
 
-		System.out.println(target + ": " + amount);
+		System.out.println(enemy + ": " + amount);
 		switch (this.target) {
 		case "opponent-active":
 			if (enemy.equals("enemy")) {
