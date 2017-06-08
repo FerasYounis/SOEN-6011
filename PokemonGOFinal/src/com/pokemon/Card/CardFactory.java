@@ -7,22 +7,13 @@ public class CardFactory {
 	// create a pokemon
 	public Card createCard(String name, CardType type, CardCategory level, int deck, String evolution, int HP,
 			String ability1, int attackHit1, String ability2, int attackHit2) {
-		if (1 == deck) {
-			return new Pokemon("/deck1/" + name + ".png", level, HP, evolution, ability1, attackHit1, ability2,
+			return new Pokemon("/deck" + deck + "/" + name + ".png", level, HP, evolution, ability1, attackHit1, ability2,
 					attackHit2, name);
-		} else {
-			return new Pokemon("/deck2/" + name + ".png", level, HP, evolution, ability1, attackHit1, ability2,
-					attackHit2, name);
-		}
 	}
 	//create a pokemon overload
 	public Card createCard(String name, CardType type, CardCategory level, int deck, String evolution, int HP,
 			Ability[] ability, String retreatCost, CardCategory attr) {
-		if (1 == deck) {
-			return new Pokemon("/deck1/" + name + ".png", name, level, HP, evolution, ability, retreatCost, attr);
-		} else {
-			return new Pokemon("/deck2/" + name + ".png", name, level, HP, evolution, ability, retreatCost, attr);
-		}
+			return new Pokemon("/deck" + deck + "/" + name + ".png", name, level, HP, evolution, ability, retreatCost, attr);
 	}
 
 	// create a energy
@@ -30,24 +21,12 @@ public class CardFactory {
 		if (level == CardCategory.Colorless) {
 			return new Energy("/Colorless.png", level);
 		}
-
-		if (1 == deck) {
-			return new Energy("/deck1/" + name + ".png", level);
-		}
-
-		else {
-			return new Energy("/deck2/" + name + ".png", level);
-		}
-
+			return new Energy("/deck" + deck + "/" + name + ".png", level);
 	}
 
 	// create a trainer
 	public Card createCard(String name, CardType cardType, CardCategory cardCategory, int deck, Ability ability) {
-		if (1 == deck) {
-			return new Trainer("/deck1/" + name + ".png", cardType, cardCategory, ability, name);
-		} else {
-			return new Trainer("/deck2/" + name + ".png", cardType, cardCategory, ability, name);
-		}
+			return new Trainer("/deck" + deck + "/" + name + ".png", cardType, cardCategory, ability, name);
 	}
 
 }

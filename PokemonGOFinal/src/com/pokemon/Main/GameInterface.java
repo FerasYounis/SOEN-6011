@@ -57,7 +57,7 @@ public class GameInterface {
 		// drawCard = new Button(Game.WIDTH - 72, Game.HEIGHT / 2 + 70, 50,
 		// "Draw Card", Color.WHITE,
 		// new Color(49, 156, 12));
-		retreat = new Button(Game.WIDTH - 72, Game.HEIGHT / 2 + 70 + 95, 50, "Retreat", Color.WHITE,
+		retreat = new Button(Game.WIDTH - 72, Game.HEIGHT / 2 + 70, 50, "Retreat", Color.WHITE,
 				new Color(49, 156, 12));
 
 		player = ObjectHandler.getPlayer();
