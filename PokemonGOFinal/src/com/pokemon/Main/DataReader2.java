@@ -97,11 +97,11 @@ public class DataReader2 {
 						}
 					
 					}
-					ga[0] = new GenericAbility(ability1, energy1);
-					ga[1] = new GenericAbility(ability2, energy2);
+//					ga[0] = new GenericAbility(ability1, energy1);
+//					ga[1] = new GenericAbility(ability2, energy2);
 					
-//					ga[0] = new GenericAbility(abilityData[29], new Energy[1]);
-//					ga[1] = new GenericAbility(abilityData[29], new Energy[1]);
+					ga[0] = new GenericAbility(abilityData[23], new Energy[1]);
+					ga[1] = new GenericAbility(abilityData[58], new Energy[1]);
 					}
 					
 					if(abilityNum == 1){
