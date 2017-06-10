@@ -3,10 +3,10 @@ package com.pokemon.Strategies;
 import com.pokemon.Card.Card;
 import com.pokemon.Card.Energy;
 import com.pokemon.Card.Pokemon;
+import com.pokemon.Card.Trainer;
 import com.pokemon.Enums.CardCategory;
 import com.pokemon.Enums.CardType;
 import com.pokemon.Main.Enemy;
-import com.pokemon.Main.Game;
 import com.pokemon.Main.GameInterface;
 import com.pokemon.Main.ObjectHandler;
 import com.pokemon.Main.Player;
@@ -42,6 +42,13 @@ public class StatusAI implements Strategy {
 		if (GameInterface.turn > 1) {
 			enemy.getHand().add(enemy.drawOneCard());
 			checkHandBasic();
+			Trainer t = null;
+			while((t = getHandTrainer()) != null){
+				t.getAbility().turn("player");
+				enemy.getGraveyard().add(t);
+				enemy.getHand().remove(t);
+			}
+			
 
 			if (enemy.getPoke() == null && enemy.getBench().size() > 0) {
 				enemy.setPoke(enemy.getBench().get(0));
@@ -156,6 +163,15 @@ public class StatusAI implements Strategy {
 			if (c.getCardType() == CardType.Engergy) {
 				hasEnergy = false;
 				return (Energy) c;
+			}
+		}
+		return null;
+	}
+	
+	public Trainer getHandTrainer(){
+		for (Card c : enemy.getHand()) {
+			if (c.getCardType() == CardType.Trainer) {
+				return (Trainer) c;
 			}
 		}
 		return null;
