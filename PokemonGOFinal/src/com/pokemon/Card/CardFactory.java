@@ -9,7 +9,8 @@ public class CardFactory {
 	//create a pokemon 
 	public Card createCard(String name, CardType type, CardCategory level, int deck, String evolution, int HP,
 			GenericAbility[] ability, String retreatCost, CardCategory attr) {
-			return new Pokemon("/deck" + deck + "/" + name + ".png", name, level, HP, evolution, ability, retreatCost, attr);
+		//	return new Pokemon("/deck" + deck + "/" + name + ".png", name, level, HP, evolution, ability, retreatCost, attr);
+			return new Pokemon("/" + name + ".png", name, level, HP, evolution, ability, retreatCost, attr);
 	}
 
 	// create a energy
@@ -17,12 +18,15 @@ public class CardFactory {
 		if (level == CardCategory.Colorless) {
 			return new Energy("/Colorless.png", level);
 		}
-			return new Energy("/deck" + deck + "/" + name + ".png", level);
+			//return new Energy("/deck" + deck + "/" + name + ".png", level);
+		return new Energy("/" + name + ".png", level);
 	}
 
 	// create a trainer
 	public Card createCard(String name, CardType cardType, CardCategory cardCategory, int deck, GenericAbility ability) {
-			return new Trainer("/deck" + deck + "/" + name + ".png", cardType, cardCategory, ability, name);
+		//	return new Trainer("/deck" + deck + "/" + name + ".png", cardType, cardCategory, ability, name);
+		System.out.println("/" + name + ".png");
+		return new Trainer("/" + name + ".png", cardType, cardCategory, ability, name);
 	}
 
 }

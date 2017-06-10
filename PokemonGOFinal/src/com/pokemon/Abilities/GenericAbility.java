@@ -33,7 +33,8 @@ public class GenericAbility {
 				ability.add((Abilities) o);
 
 			} catch (ClassNotFoundException | NoSuchMethodException | SecurityException e1) {
-				e1.printStackTrace();
+				ability.add(new drawAbility("1"));
+				//e1.printStackTrace();
 			}
 
 			catch (Exception e) {

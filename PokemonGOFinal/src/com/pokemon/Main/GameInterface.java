@@ -150,8 +150,8 @@ public class GameInterface {
 					}
 				}
 
-				// System.out.println(mouseOver + "---(" + selected + ")" +
-				// "---");
+//				 System.out.println(mouseOver + "---(" + selected + ")" +
+//				 "---");
 
 				// select energy card
 				if ((selected > -1 && selected < player.getHand().size())

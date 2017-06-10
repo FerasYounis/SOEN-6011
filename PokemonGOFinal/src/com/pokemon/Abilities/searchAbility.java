@@ -23,7 +23,7 @@ public class searchAbility extends Abilities {
 
 			if (line.contains("pokemon")) {
 				if (line.contains("cat:basic")) {
-					if (!line.contains("evoloves-from")) {
+					if (!line.contains("evolves-from")) {
 						this.target = datas[1];
 						this.source = datas[3];
 						this.amount = Integer.parseInt(datas[8]);

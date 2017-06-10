@@ -130,7 +130,8 @@ public class DataReader2 {
 					if (cardLine.contains("basic")) {
 						String[] datas = basicData.split(":");
 
-						String name = datas[0].replaceAll(" ", "");
+						//String name = datas[0].replaceAll(" ", "");
+						String name = datas[0];
 						String attr = datas[5];
 						int Hp = Integer.parseInt(datas[6]);
 						if ("water".equals(attr)) {
@@ -157,8 +158,10 @@ public class DataReader2 {
 					} else if (cardLine.contains("stage-one")) {
 						String[] datas = basicData.split(":");
 
-						String name = datas[0].replaceAll(" ", "");
-						String basicName = datas[4].replaceAll(" ", "");
+//						String name = datas[0].replaceAll(" ", "");
+//						String basicName = datas[4].replaceAll(" ", "");
+						String name = datas[0];
+						String basicName = datas[4];
 						String attr = datas[6];
 						int Hp = Integer.parseInt(datas[7]);
 
@@ -191,7 +194,8 @@ public class DataReader2 {
 					Card trainer = null;
 
 					String[] datas = cardLine.split(":");
-					String name = datas[0].replaceAll(" ", "");
+				//	String name = datas[0].replaceAll(" ", "");
+					String name = datas[0];
 					String catagory = datas[3];
 					String despriction = abilityData[Integer.parseInt(datas[4]) - 1];
 					GenericAbility ga = new GenericAbility(despriction, new Energy[0]);

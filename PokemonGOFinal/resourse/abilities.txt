@@ -31,7 +31,7 @@ Destructive Beam:cond:flip:deenergize:target:opponent-active:1
 Tierno:draw:3
 Potion:heal:target:your:30
 Misty's Determination:cond:ability:deck:destination:discard:target:choice:you:1:(search:target:you:source:deck:filter:top:8:1,shuffle:target:you)
-Pokémon Center Lady:heal:target:your:60,destat:target:last
+Pokemon Center Lady:heal:target:your:60,destat:target:last
 Clemont:search:target:you:source:deck:filter:type:energy:4
 Ear Influence:redamage:target:opponent:target:opponent:count(target:last:source:damage)
 Psychic:dam:target:opponent-active:60,dam:target:opponent-active:count(target:opponent-active:energy)*10
@@ -65,9 +65,9 @@ Twinkle:applystat:status:asleep:opponent-active
 Fake Out:dam:target:opponent-active:30,cond:flip:applystat:status:paralyzed:opponent-active
 Ambush:dam:target:opponent-active:40,cond:flip:dam:target:opponent-active:30
 Floral Crown:add:target:your:trigger:opponent:turn-end:(heal:target:self:20)
-Poké Ball:cond:flip:search:target:you:source:deck:filter:pokemon:1
+Poke Ball:cond:flip:search:target:you:source:deck:filter:pokemon:1
 Shauna:deck:destination:deck:count(your:hand),shuffle:target:you,draw:5
-Pokémon Fan Club:search:target:you:source:deck:filter:pokemon:cat:basic:2,shuffle:target:you
+Pokemon Fan Club:search:target:you:source:deck:filter:pokemon:cat:basic:2,shuffle:target:you
 Switch:swap:your-active:your:choice:bench
 Energy Switch:reenergize:target:your:choice:target:your:choice
 Red Card:deck:target:opponent:destination:deck:count(opponent:hand),shuffle:target:you,draw:opponent:4
