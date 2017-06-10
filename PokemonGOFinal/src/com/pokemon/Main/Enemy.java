@@ -16,7 +16,6 @@ public class Enemy extends GameObject {
 	protected Pokemon poke;
 	private DataReader2 dr2;
 
-
 	public Enemy() {
 		deck = new ArrayList<Card>();
 		hand = new ArrayList<Card>();
@@ -25,7 +24,7 @@ public class Enemy extends GameObject {
 		graveyard = new ArrayList<Card>();
 		prize = new ArrayList<Card>();
 		setDeck();
-		//shuffleDeck();
+		// shuffleDeck();
 		setHand();
 		setPrize();
 
@@ -58,14 +57,13 @@ public class Enemy extends GameObject {
 
 	}
 
-
 	public ArrayList<Card> getDeck() {
 		return deck;
 	}
 
 	public void setDeck() {
 		System.out.println("enemy is loading");
-		//deck = dr.loadData("/deck1.txt", 1);
+		// deck = dr.loadData("/deck1.txt", 1);
 		dr2 = new DataReader2("/deck2.txt");
 		deck = dr2.deck;
 	}
@@ -79,7 +77,6 @@ public class Enemy extends GameObject {
 			hand.add(drawOneCard());
 		}
 	}
-	
 
 	public ArrayList<Card> getPrize() {
 		return prize;
@@ -94,7 +91,7 @@ public class Enemy extends GameObject {
 	public void shuffleDeck() {
 		ArrayList<Card> shuffledDeck = new ArrayList<Card>();
 		Random r = new Random();
-		while(!deck.isEmpty()){
+		while (!deck.isEmpty()) {
 			Card c = deck.get(r.nextInt(deck.size()));
 			shuffledDeck.add(c);
 			deck.remove(c);
@@ -132,20 +129,31 @@ public class Enemy extends GameObject {
 		return card;
 	}
 
-	public boolean checkKnockout(){
-		if(poke != null && poke.getCurrentHP() <= 0){
+	public boolean checkKnockout() {
+		if (poke != null && poke.getCurrentHP() <= 0) {
 			graveyard.add(poke);
 			poke = null;
-			
-			ObjectHandler.getPlayer().getHand().add(ObjectHandler.getPlayer().getPrize().get(ObjectHandler.getPlayer().getPrize().size() - 1));
+
+			ObjectHandler.getPlayer().getHand()
+					.add(ObjectHandler.getPlayer().getPrize().get(ObjectHandler.getPlayer().getPrize().size() - 1));
 			ObjectHandler.getPlayer().getPrize().remove(ObjectHandler.getPlayer().getPrize().size() - 1);
-			
-			
+
 			return true;
+		}
+		if (bench != null) {
+			for (Pokemon p : bench) {
+				if (p.getCurrentHP() <= 0) {
+					graveyard.add(p);
+					bench.remove(p);
+					ObjectHandler.getPlayer().getHand().add(
+							ObjectHandler.getPlayer().getPrize().get(ObjectHandler.getPlayer().getPrize().size() - 1));
+					ObjectHandler.getPlayer().getPrize().remove(ObjectHandler.getPlayer().getPrize().size() - 1);
+
+					return true;
+				}
+			}
 		}
 		return false;
 	}
-	
-	
-	
+
 }

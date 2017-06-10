@@ -14,7 +14,6 @@ public class Player extends GameObject {
 	protected Pokemon poke;
 	private DataReader2 dr2;
 
-
 	public Player() {
 		deck = new ArrayList<Card>();
 		hand = new ArrayList<Card>();
@@ -23,18 +22,17 @@ public class Player extends GameObject {
 		graveyard = new ArrayList<Card>();
 		prize = new ArrayList<Card>();
 
-
 		setDeck();
-		//shuffleDeck();
+		// shuffleDeck();
 		setHand();
 		System.out.println(hand.size());
-		
-//		while(checkHand()){
-//			deck.addAll(hand);
-//			hand.clear();
-//			shuffleDeck();
-//			setHand();
-//		}
+
+		// while(checkHand()){
+		// deck.addAll(hand);
+		// hand.clear();
+		// shuffleDeck();
+		// setHand();
+		// }
 		setPrize();
 
 		// initial hand location
@@ -43,24 +41,24 @@ public class Player extends GameObject {
 			hand.get(i).setY(685);
 		}
 	}
-	
-//	public Player(boolean flag) {
-//		deck = new ArrayList<Card>();
-//		hand = new ArrayList<Card>();
-//		bench = new ArrayList<Pokemon>();
-//		poke = null;
-//		graveyard = new ArrayList<Card>();
-//		prize = new ArrayList<Card>();
-//
-//		setDeck();
-//		shuffleDeck();
-//		setHand();
-//
-//	}
+
+	// public Player(boolean flag) {
+	// deck = new ArrayList<Card>();
+	// hand = new ArrayList<Card>();
+	// bench = new ArrayList<Pokemon>();
+	// poke = null;
+	// graveyard = new ArrayList<Card>();
+	// prize = new ArrayList<Card>();
+	//
+	// setDeck();
+	// shuffleDeck();
+	// setHand();
+	//
+	// }
 
 	private boolean checkHand() {
-		for(Card c: hand){
-			if(c.getCardCategory() == CardCategory.Basic)
+		for (Card c : hand) {
+			if (c.getCardCategory() == CardCategory.Basic)
 				return false;
 		}
 		return true;
@@ -95,12 +93,12 @@ public class Player extends GameObject {
 	public void setDeck() {
 		System.out.println("player is loading");
 		dr2 = new DataReader2("/deck1.txt");
-	//	deck = dr.loadData("/deck1.txt", 1);
+		// deck = dr.loadData("/deck1.txt", 1);
 		deck = dr2.deck;
 		System.out.println(deck.size());
-		for(Card c: deck){
-			if(c != null)
-			System.out.println(c.url);
+		for (Card c : deck) {
+			if (c != null)
+				System.out.println(c.url);
 		}
 	}
 
@@ -113,7 +111,6 @@ public class Player extends GameObject {
 			hand.add(drawOneCard());
 		}
 	}
-	
 
 	public ArrayList<Card> getPrize() {
 		return prize;
@@ -129,7 +126,7 @@ public class Player extends GameObject {
 		int size = deck.size();
 		ArrayList<Card> shuffledDeck = new ArrayList<Card>();
 		Random r = new Random();
-		while(!deck.isEmpty()){
+		while (!deck.isEmpty()) {
 			Card c = deck.get(r.nextInt(deck.size()));
 			shuffledDeck.add(c);
 			deck.remove(c);
@@ -166,20 +163,33 @@ public class Player extends GameObject {
 		deck.remove(0);
 		return card;
 	}
-	
-	public boolean checkKnockout(){
-		if(poke != null && poke.getCurrentHP() <= 0){
+
+	public boolean checkKnockout() {
+		if (poke != null && poke.getCurrentHP() <= 0) {
 			graveyard.add(poke);
 			poke = null;
-			
-			ObjectHandler.getEnemy().getHand().add(ObjectHandler.getEnemy().getPrize().get(ObjectHandler.getEnemy().getPrize().size() - 1));
+
+			ObjectHandler.getEnemy().getHand()
+					.add(ObjectHandler.getEnemy().getPrize().get(ObjectHandler.getEnemy().getPrize().size() - 1));
 			ObjectHandler.getEnemy().getPrize().remove(ObjectHandler.getEnemy().getPrize().size() - 1);
-			
+
 			return true;
 		}
+		if (bench != null) {
+			for (Pokemon p : bench) {
+				if (p.getCurrentHP() <= 0) {
+					graveyard.add(p);
+					bench.remove(p);
+					ObjectHandler.getEnemy().getHand().add(
+							ObjectHandler.getEnemy().getPrize().get(ObjectHandler.getEnemy().getPrize().size() - 1));
+					ObjectHandler.getEnemy().getPrize().remove(ObjectHandler.getEnemy().getPrize().size() - 1);
+
+					return true;
+				}
+			}
+		}
+
 		return false;
 	}
-	
-	
 
 }

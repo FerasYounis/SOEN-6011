@@ -179,6 +179,7 @@ public class GameInterface {
 
 		} else if (choiceAbilities != null) {
 			boolean flag = false;
+			mouseOver = -1;
 			 System.out.println(this.choiceRange + ": " + selected);
 			if (!flag && "choice:opponent-bench".equals(choiceRange)) {
 				if (selected >= 40 && selected <= 44) {
@@ -195,6 +196,15 @@ public class GameInterface {
 					selected = -1;
 
 			}
+			if (!flag && "choice:bench".equals(choiceRange)) {
+				if (selected >= 20 && selected <= 24) {
+					choiceAbilities.turn(selected - 20);
+					flag = true;
+				}else
+					selected = -1;
+
+			}
+			
 			if (flag) {
 				this.choiceAbilities = null;
 				this.choiceRange = null;
