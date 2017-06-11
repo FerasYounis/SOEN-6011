@@ -186,4 +186,15 @@ public class damAbility extends Abilities {
 		}
 	}
 
+	public String getCount() {
+		return count;
+	}
+
+	public void setCount(String count) {
+		this.count = count;
+	}
+	
+	
+	
+
 }

@@ -42,19 +42,18 @@ public class Player extends GameObject {
 		}
 	}
 
-	// public Player(boolean flag) {
-	// deck = new ArrayList<Card>();
-	// hand = new ArrayList<Card>();
-	// bench = new ArrayList<Pokemon>();
-	// poke = null;
-	// graveyard = new ArrayList<Card>();
-	// prize = new ArrayList<Card>();
-	//
-	// setDeck();
-	// shuffleDeck();
-	// setHand();
-	//
-	// }
+	public Player(boolean flag) {
+		if (!flag) {
+			deck = new ArrayList<Card>();
+			hand = new ArrayList<Card>();
+			bench = new ArrayList<Pokemon>();
+			poke = null;
+			graveyard = new ArrayList<Card>();
+			prize = new ArrayList<Card>();
+
+		}
+		return;
+	}
 
 	private boolean checkHand() {
 		for (Card c : hand) {

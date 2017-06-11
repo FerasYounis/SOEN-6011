@@ -35,6 +35,20 @@ public class Enemy extends GameObject {
 		}
 	}
 
+	public Enemy(boolean flag) {
+		if (!flag) {
+			deck = new ArrayList<Card>();
+			hand = new ArrayList<Card>();
+			bench = new ArrayList<Pokemon>();
+			poke = null;
+			graveyard = new ArrayList<Card>();
+			prize = new ArrayList<Card>();
+
+		}
+		return;
+	}
+	
+	
 	public void update() {
 		if (!Game.getMouseManager().LDragging) {
 
