@@ -16,13 +16,12 @@ public class condAbility extends Abilities {
 		this.elseAbility = null;
 
 		boolean flag = false;
-		for(char c: line.toCharArray()){
-			if(c == '(')
+
+		for (char c : line.toCharArray()) {
+			if (c == '(')
 				flag = true;
 		}
-		
-		
-		
+
 		if (line.contains("flip") && !flag) {
 			String condA = line.substring(line.indexOf(":") + 1);
 			this.cond = line.substring(0, line.indexOf(":"));
@@ -40,9 +39,6 @@ public class condAbility extends Abilities {
 				this.elseAbility = createCondAbility(elseAbilityName, elseAbilityLine);
 			}
 		}
-		
-		
-		
 
 		if (line.contains("healed")) {
 			String[] ss = line.split(":");
@@ -56,22 +52,13 @@ public class condAbility extends Abilities {
 			}
 		}
 
-		
-		
-		
-		
-		
-		
-		
-		
 	}
-	
 
 	public void turn(String target) {
-		if (checkCond(target)){
+		if (checkCond(target)) {
 			System.out.println("condAbility:");
 			this.condAbility.turn(target);
-		}else if (this.elseAbility != null) {
+		} else if (this.elseAbility != null) {
 			System.out.println("elseAbility:");
 			this.elseAbility.turn(target);
 		}

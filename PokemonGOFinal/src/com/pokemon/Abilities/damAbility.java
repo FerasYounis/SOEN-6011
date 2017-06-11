@@ -2,7 +2,6 @@ package com.pokemon.Abilities;
 
 import com.pokemon.Card.Pokemon;
 import com.pokemon.Main.Game;
-import com.pokemon.Main.GameInterface;
 import com.pokemon.Main.ObjectHandler;
 
 //lack the count condition to calculate the amount field
@@ -180,7 +179,7 @@ public class damAbility extends Abilities {
 			int currentHP = ObjectHandler.getEnemy().getBench().get(benchNum).getCurrentHP();
 			ObjectHandler.getEnemy().getBench().get(benchNum).setCurrentHP(currentHP - amount);
 		}
-		if(benchNum == -9){
+		if (benchNum == -9) {
 			int currentHP = ObjectHandler.getEnemy().getPoke().getCurrentHP();
 			ObjectHandler.getEnemy().getPoke().setCurrentHP(currentHP - amount);
 		}
@@ -193,8 +192,5 @@ public class damAbility extends Abilities {
 	public void setCount(String count) {
 		this.count = count;
 	}
-	
-	
-	
 
 }
