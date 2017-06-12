@@ -39,7 +39,7 @@ public class applyStatusAbilityTest {
 	@Test
 	public void test() {
 		statAbility.turn("enemy");
-		assertEquals(oh.getEnemy().getPoke().getStatus(), Pokemon.Status.asleep);
+		assertEquals(Pokemon.Status.asleep, oh.getEnemy().getPoke().getStatus());
 	}
 
 }
