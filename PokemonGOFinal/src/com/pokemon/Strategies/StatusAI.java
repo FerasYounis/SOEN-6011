@@ -64,40 +64,31 @@ public class StatusAI implements Strategy {
 				enemy.getHand().remove(getHandBasic());
 			}
 
-			while (checkHandEnergy()) {
-				boolean flag = false;
-				if (!flag && enemy.getPoke() != null && enemy.getPoke().getEnergys().size() < 4) {
+			if (checkHandEnergy()) {
+				if (enemy.getPoke() != null && enemy.getPoke().getEnergys().size() < 3) {
 					enemy.getPoke().addEnergy(getHandEnergy());
 					enemy.getHand().remove(getHandEnergy());
-					flag = true;
 				}
-				if (!flag && enemy.getBench().size() > 0 && enemy.getBench().get(0).getEnergys().size() < 3) {
+				else if (enemy.getBench().size() > 0 && enemy.getBench().get(0).getEnergys().size() < 3) {
 					enemy.getBench().get(0).addEnergy(getHandEnergy());
 					enemy.getHand().remove(getHandEnergy());
-					flag = true;
 				}
-				if (!flag && enemy.getBench().size() > 1 && enemy.getBench().get(1).getEnergys().size() < 3) {
+				else if (enemy.getBench().size() > 1 && enemy.getBench().get(1).getEnergys().size() < 3) {
 					enemy.getBench().get(1).addEnergy(getHandEnergy());
 					enemy.getHand().remove(getHandEnergy());
-					flag = true;
 				}
-				if (!flag && enemy.getBench().size() > 2 && enemy.getBench().get(2).getEnergys().size() < 3) {
+				else if (enemy.getBench().size() > 2 && enemy.getBench().get(2).getEnergys().size() < 3) {
 					enemy.getBench().get(2).addEnergy(getHandEnergy());
 					enemy.getHand().remove(getHandEnergy());
-					flag = true;
 				}
-				if (!flag && enemy.getBench().size() > 3 && enemy.getBench().get(3).getEnergys().size() < 3) {
+				else if (enemy.getBench().size() > 3 && enemy.getBench().get(3).getEnergys().size() < 3) {
 					enemy.getBench().get(3).addEnergy(getHandEnergy());
 					enemy.getHand().remove(getHandEnergy());
-					flag = true;
 				}
-				if (!flag && enemy.getBench().size() > 4 && enemy.getBench().get(4).getEnergys().size() < 3) {
+				else if (enemy.getBench().size() > 4 && enemy.getBench().get(4).getEnergys().size() < 3) {
 					enemy.getBench().get(4).addEnergy(getHandEnergy());
 					enemy.getHand().remove(getHandEnergy());
-					flag = true;
 				}
-				if (!flag)
-					break;
 			}
 
 			if (enemy.getPoke() != null && player.getPoke() != null && enemy.getPoke().isAttackable()) {

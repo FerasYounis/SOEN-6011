@@ -29,7 +29,7 @@ public class Game extends JFrame {
 	Image offSetImage = null;
 
 	public static enum State {
-		GAME, GAMEOVER, MENU, LOADING;
+		GAME, GAMEOVER, MENU, LOADING, SHOWDISCARD;
 	}
 
 	public static State state;
@@ -39,6 +39,7 @@ public class Game extends JFrame {
 	public static Menu menu;
 	public static GameInterface gameInterface;
 	public static ObjectHandler objectHandler;
+	public static ShowDiscard showDiscard;
 
 	public void lanuchGame() {
 		this.setTitle("Pokemon TCG"); // 设置主界面窗体
@@ -91,6 +92,7 @@ public class Game extends JFrame {
 		objectHandler = new ObjectHandler();
 		state = State.MENU;
 		menu = new Menu();
+		showDiscard = new ShowDiscard();
 	
 		new Thread(new GameThread()).start();
 	}
@@ -118,6 +120,8 @@ public class Game extends JFrame {
 				gameInterface = new GameInterface();
 			} else if (state == State.GAME) {
 				gameInterface.update();
+			} else if(state == State.SHOWDISCARD){
+				showDiscard.update();
 			}
 //		} catch (Exception e) {
 //			System.out.println(e.toString());
@@ -144,6 +148,8 @@ public class Game extends JFrame {
 			
 		}else if (state == State.GAME && gameInterface != null) {
 			gameInterface.draw(g);
+		}else if(state == State.SHOWDISCARD){
+			showDiscard.draw(g);
 		}
 
 		g.dispose();

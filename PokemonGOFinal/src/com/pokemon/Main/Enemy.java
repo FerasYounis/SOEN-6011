@@ -1,12 +1,10 @@
 package com.pokemon.Main;
 
-import java.awt.Graphics;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 import com.pokemon.Card.Card;
-import com.pokemon.Card.CardFactory;
+import com.pokemon.Card.Energy;
 import com.pokemon.Card.Pokemon;
 
 public class Enemy extends GameObject {
@@ -145,6 +143,8 @@ public class Enemy extends GameObject {
 
 	public boolean checkKnockout() {
 		if (poke != null && poke.getCurrentHP() <= 0) {
+			graveyard.addAll(poke.getEnergys());
+			poke.setEnergys(new ArrayList<Energy>());
 			graveyard.add(poke);
 			poke = null;
 

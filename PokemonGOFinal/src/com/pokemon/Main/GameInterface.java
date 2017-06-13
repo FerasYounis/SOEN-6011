@@ -22,7 +22,7 @@ public class GameInterface {
 	public static CardSpot[] playerBench, enemyBench; //
 	public static CardSpot playerPoke, enemyPoke, playerDeck, enemyDeck, playerPrize, enemyPrize, playerDiscard,
 			enemyDiscard; //
-	private Button endTurn, drawCard, retreat;
+	private Button endTurn, retreat, showDiscard;
 	private int selected = -1, mouseOver = -1; // 0-6 player hand; 11 player
 												// pokemon; 20-24 player bench;
 												// 31 AI pokemon; 40-44 AI bench
@@ -62,7 +62,8 @@ public class GameInterface {
 		// "Draw Card", Color.WHITE,
 		// new Color(49, 156, 12));
 		retreat = new Button(Game.WIDTH - 72, Game.HEIGHT / 2 + 70, 50, "Retreat", Color.WHITE, new Color(49, 156, 12));
-
+		showDiscard = new Button(Game.WIDTH - 72, Game.HEIGHT / 2 + 165, 50, "Discards", Color.WHITE,
+				new Color(49, 156, 12));
 		player = ObjectHandler.getPlayer();
 		enemy = ObjectHandler.getEnemy();
 		AIStrategy = new StatusAI();
@@ -82,6 +83,7 @@ public class GameInterface {
 		retreat.update();
 		player.update();
 		enemy.update();
+		showDiscard.update();
 		if(movingCard == null)
 			checkMouse();
 
@@ -109,6 +111,12 @@ public class GameInterface {
 						endTurn();
 						endTurn.setPressed(false);
 					}
+					
+					if (showDiscard.isPressed()) {
+						Game.state = Game.State.SHOWDISCARD;
+						showDiscard.setPressed(false);
+					}
+					
 					checkMouse();
 					selectPoke();
 					checkEvolve();
@@ -422,6 +430,7 @@ public class GameInterface {
 		enemyDiscard.draw(g);
 		endTurn.draw(g);
 		retreat.draw(g);
+		showDiscard.draw(g);
 		// drawCard.draw(g);
 		Font f = g.getFont();
 		g.setFont(new Font("DorFont03", Font.PLAIN, 60));
@@ -542,7 +551,7 @@ public class GameInterface {
 		for (int i = 0; i < enemy.hand.size(); i++)
 			enemy.hand.get(i).draw(g, enemy.hand.get(i).x, enemy.hand.get(i).y, true, false);
 		// draw player's hand
-		for (int i = 0; i < player.hand.size(); i++) {
+		for (int i = player.hand.size() - 1; i >= 0 ; i--) {
 			if (i != selected)
 				player.hand.get(i).draw(g, player.hand.get(i).x, player.hand.get(i).y);
 			if (mouseOver != -1 && i == mouseOver && !Game.getMouseManager().LDragging)

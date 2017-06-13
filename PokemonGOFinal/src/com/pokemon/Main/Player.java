@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import com.pokemon.Card.Card;
+import com.pokemon.Card.Energy;
 import com.pokemon.Card.Pokemon;
 import com.pokemon.Enums.CardCategory;
 
@@ -27,17 +28,17 @@ public class Player extends GameObject {
 		setHand();
 		System.out.println(hand.size());
 
-		// while(checkHand()){
-		// deck.addAll(hand);
-		// hand.clear();
-		// shuffleDeck();
-		// setHand();
-		// }
+		while (checkHand()) {
+			deck.addAll(hand);
+			hand.clear();
+			shuffleDeck();
+			setHand();
+		}
 		setPrize();
 
 		// initial hand location
 		for (int i = 0; i < hand.size(); i++) {
-			hand.get(i).setX(500 + 90 * i);
+			hand.get(i).setX(500 + 45 * i);
 			hand.get(i).setY(685);
 		}
 	}
@@ -65,11 +66,19 @@ public class Player extends GameObject {
 
 	public void update() {
 		if (!Game.getMouseManager().LDragging) {
-
-			for (int i = 0; i < hand.size(); i++) {
-				hand.get(i).setX(500 + 90 * i);
-				hand.get(i).setY(685);
+			if (hand.size() <= 10) {
+				for (int i = 0; i < hand.size(); i++) {
+					hand.get(i).setX(500 + 90 * i);
+					hand.get(i).setY(685);
+				}
 			}
+			if (hand.size() > 10 && hand.size() <= 19) {
+				for (int i = 0; i < hand.size(); i++) {
+					hand.get(i).setX(500 + 45 * i);
+					hand.get(i).setY(685);
+				}
+			}
+			
 
 			if (poke != null) {
 				poke.setX(GameInterface.playerPoke.x);
@@ -165,6 +174,8 @@ public class Player extends GameObject {
 
 	public boolean checkKnockout() {
 		if (poke != null && poke.getCurrentHP() <= 0) {
+			graveyard.addAll(poke.getEnergys());
+			poke.setEnergys(new ArrayList<Energy>());
 			graveyard.add(poke);
 			poke = null;
 
