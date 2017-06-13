@@ -78,12 +78,9 @@ public class GameInterface {
 	public void update() {
 		checkWin();
 		checkLose();
-		endTurn.update();
-		// drawCard.update();
-		retreat.update();
 		player.update();
 		enemy.update();
-		showDiscard.update();
+		
 		if(movingCard == null)
 			checkMouse();
 
@@ -97,15 +94,15 @@ public class GameInterface {
 
 					mouseOver = -1;
 
+					endTurn.update();
+					retreat.update();
+					showDiscard.update();
+					
 					if (retreat.isPressed()) {
 						retreat();
 						retreat.setPressed(false);
 					}
 
-					// if (drawCard.isPressed()) {
-					// drawCard();
-					// drawCard.setPressed(false);
-					// }
 
 					if (endTurn.isPressed()) {
 						endTurn();
@@ -122,7 +119,7 @@ public class GameInterface {
 					checkEvolve();
 
 				} else {
-
+				//	System.out.println("is dragging...");
 					movingCard.setX(Game.getMouseManager().MX - 40);
 					movingCard.setY(Game.getMouseManager().MY - 128 / 2);
 					// when the dragging mouse is released
@@ -132,7 +129,7 @@ public class GameInterface {
 						if (player.getPoke() != null && Math.abs(movingCard.x - player.getPoke().x) < 40
 								&& Math.abs(movingCard.y - player.getPoke().y) < 40) {
 							player.getPoke().addEnergy((Energy) movingCard);
-							player.getHand().remove(selected);
+							player.getHand().remove(selected - 60);
 							flag = true;
 						}
 						if (!flag) {
@@ -141,15 +138,20 @@ public class GameInterface {
 										&& Math.abs(movingCard.y - player.getBench().get(i).y) < 40) {
 									Pokemon p = (Pokemon) player.getBench().get(i);
 									p.addEnergy((Energy) movingCard);
-									player.getHand().remove(selected);
+									player.getHand().remove(selected - 60);
 									flag = true;
 									break;
 								}
 							}
 						}
 						if (!flag) {
-							movingCard.setX(500 + 90 * selected);
-							movingCard.setY(685);
+							if(player.getHand().size() <= 10){
+								movingCard.setX(500 + 90 * (selected - 60));
+								movingCard.setY(685);
+							}else if(10 < player.getHand().size() && 19 >= player.getHand().size()){
+								movingCard.setX(500 + 45 * (selected - 60));
+								movingCard.setY(685);
+							}
 						}
 						movingCard = null;
 						Game.getMouseManager().LPressed = false;
@@ -162,11 +164,11 @@ public class GameInterface {
 //				 "---");
 
 				// select energy card
-				if ((selected > -1 && selected < player.getHand().size())
-						&& player.getHand().get(selected).getCardType().equals(CardType.Engergy)) {
+				if ((selected >= 60 && selected - 60 < player.getHand().size())
+						&& player.getHand().get(selected - 60).getCardType().equals(CardType.Engergy)) {
 
 					if (Game.getMouseManager().LDragging) {
-						movingCard = player.getHand().get(selected);
+						movingCard = player.getHand().get(selected - 60);
 						movingCard.setDragging(true);
 
 					}
@@ -195,6 +197,9 @@ public class GameInterface {
 					flag = true;
 				}else
 					selected = -1;
+				if(enemy.getBench().size() == 0){
+					flag = true;
+				}
 			}
 			if (!flag && "choice:opponent".equals(choiceRange)) {
 				if ((selected >= 40 && selected <= 44) || selected == 31) {
@@ -202,6 +207,9 @@ public class GameInterface {
 					flag = true;
 				}else
 					selected = -1;
+				if(enemy.getBench().size() == 0 && enemy.getPoke() == null){
+					flag = true;
+				}
 
 			}
 			if (!flag && "choice:bench".equals(choiceRange)) {
@@ -210,7 +218,9 @@ public class GameInterface {
 					flag = true;
 				}else
 					selected = -1;
-
+				if(player.getBench().size() == 0){
+					flag = true;
+				}
 			}
 			
 			if (flag) {
@@ -271,9 +281,9 @@ public class GameInterface {
 
 	private void checkEvolve() {
 		boolean flag = false;
-		if (selected >= 0 && selected < player.getHand().size()
-				&& player.getHand().get(selected).getCardType() == CardType.Pokemon) {
-			Pokemon p = (Pokemon) player.getHand().get(selected);
+		if (selected >= 60 && selected - 60 < player.getHand().size()
+				&& player.getHand().get(selected - 60).getCardType() == CardType.Pokemon) {
+			Pokemon p = (Pokemon) player.getHand().get(selected - 60);
 			if (player.getPoke() != null && p.evolve(player.getPoke())) {
 				int hitPoint = player.getPoke().getHP() - player.getPoke().getCurrentHP();
 				ArrayList<Energy> list = player.getPoke().getEnergys();
@@ -283,7 +293,7 @@ public class GameInterface {
 				player.getPoke().setStatus(Pokemon.Status.normal);
 				player.getPoke().setAttackable(true);
 				player.getPoke().setRetreatable(true);
-				player.getHand().remove(selected);
+				player.getHand().remove(selected - 60);
 				flag = true;
 			}
 
@@ -300,7 +310,7 @@ public class GameInterface {
 						ppp.setStatus(Pokemon.Status.normal);
 						ppp.setAttackable(true);
 						ppp.setRetreatable(true);
-						player.getHand().remove(selected);
+						player.getHand().remove(selected - 60);
 						flag = true;
 					}
 				}
@@ -323,20 +333,20 @@ public class GameInterface {
 
 	private void selectPoke() {
 		// select player's pokemon
-		if ((selected > -1 && selected < player.getHand().size()) && player.getPoke() == null
-				&& player.getHand().get(selected).getCardCategory() == CardCategory.Basic) {
-			player.setPoke((Pokemon) player.getHand().get(selected));
-			player.getHand().remove(selected);
+		if ((selected >= 60 && selected - 60 < player.getHand().size()) && player.getPoke() == null
+				&& player.getHand().get(selected - 60).getCardCategory() == CardCategory.Basic) {
+			player.setPoke((Pokemon) player.getHand().get(selected - 60));
+			player.getHand().remove(selected - 60);
 			Game.getMouseManager().LPressed = false;
 			selected = -1;
 		}
 
 		// select player's bench
-		if ((selected > -1 && selected < player.getHand().size()) && player.getPoke() != null
-				&& player.getHand().get(selected).getCardCategory() == CardCategory.Basic
+		if ((selected >= 60 && selected - 60 < player.getHand().size()) && player.getPoke() != null
+				&& player.getHand().get(selected - 60).getCardCategory() == CardCategory.Basic
 				&& player.getBench().size() < 5) {
-			player.getBench().add((Pokemon) player.getHand().get(selected));
-			player.getHand().remove(selected);
+			player.getBench().add((Pokemon) player.getHand().get(selected - 60));
+			player.getHand().remove(selected - 60);
 			Game.getMouseManager().LPressed = false;
 			selected = -1;
 		}
@@ -347,7 +357,7 @@ public class GameInterface {
 		// check mouse loc & player's hand
 		for (int i = 0; i < player.getHand().size(); i++) {
 			if (player.getHand().get(i).getRect().intersects(Game.getMouseRect())) {
-				mouseOver = i;
+				mouseOver = i + 60;
 				if (Game.getMouseManager().LPressed) {
 					selected = mouseOver;
 				}
@@ -464,10 +474,10 @@ public class GameInterface {
 
 		// draw player's trainer card
 
-		if (selected >= 0 && selected < player.getHand().size()
-				&& player.getHand().get(selected).getCardType() == CardType.Trainer) {
-			player.getHand().get(selected).draw(g, 100, 175, true, true);
-			Trainer t = (Trainer) player.getHand().get(selected);
+		if (selected >= 60 && selected < 60 + player.getHand().size()
+				&& player.getHand().get(selected - 60).getCardType() == CardType.Trainer) {
+			player.getHand().get(selected - 60).draw(g, 100, 175, true, true);
+			Trainer t = (Trainer) player.getHand().get(selected - 60);
 			Button b = t.getButton();
 			b.draw(g);
 			b.update();
@@ -552,16 +562,23 @@ public class GameInterface {
 			enemy.hand.get(i).draw(g, enemy.hand.get(i).x, enemy.hand.get(i).y, true, false);
 		// draw player's hand
 		for (int i = player.hand.size() - 1; i >= 0 ; i--) {
-			if (i != selected)
+			//if (i != mouseOver - 60)
 				player.hand.get(i).draw(g, player.hand.get(i).x, player.hand.get(i).y);
-			if (mouseOver != -1 && i == mouseOver && !Game.getMouseManager().LDragging)
+			if (mouseOver != -1 && i == (mouseOver - 60) && !Game.getMouseManager().LDragging)
 				player.getHand().get(i).draw(g, player.hand.get(i).x, player.hand.get(i).y - 350, true, true);
 		}
 
-		// draw player's hand detail
-		if (selected != -1 && selected < player.getHand().size())
-			player.hand.get(selected).draw(g, player.hand.get(selected).x, player.hand.get(selected).y);
-
+//		// draw player's hand detail
+//		if (selected >= 60 && selected - 60  < player.getHand().size())
+//			player.hand.get(selected - 60).draw(g, player.hand.get(selected - 60).x, player.hand.get(selected - 60).y);
+		for(Card c: player.getHand()){
+			if(c == movingCard)
+				c.draw(g, c.getX(), c.getY());
+		}
+		
+		
+		
+		
 		if (movingCard == null) {
 			// indicate player's fighting pokemon status
 			if (player.getPoke() != null && Game.getMouseRect()
