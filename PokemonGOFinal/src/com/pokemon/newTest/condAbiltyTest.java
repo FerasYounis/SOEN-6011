@@ -23,7 +23,7 @@ public class condAbiltyTest {
 	@Before
 	public void setUp() throws Exception {
 		oh = new ObjectHandler();
-		ability = new condAbility("cond:healed:target:your-active:dam:target:opponent-active:80");
+		ability = new condAbility("healed:target:your-active:dam:target:opponent-active:80");
 		oh.player = new Player(false);
 		oh.enemy = new Enemy(false);
 		cf = new CardFactory();
