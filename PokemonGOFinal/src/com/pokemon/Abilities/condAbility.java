@@ -66,27 +66,29 @@ public class condAbility extends Abilities {
 	}
 
 	public boolean checkCond(String target) {
-		if (this.cond.equals("flip")) {
-			System.out.println("is fliping......");
-			return (new Random().nextInt(100) > 50);
-		}
-
-		if (this.cond.contains("healed")) {
-			String[] conds = cond.split(":");
-			switch (conds[2]) {
-			case "your-active":
-				if ("enemy".equals(target) && ObjectHandler.getPlayer().getPoke().isHealed()) {
-					return true;
-				}
-				if ("player".equals(target) && ObjectHandler.getEnemy().getPoke().isHealed()) {
-					return true;
-				}
-				break;
-
-			default:
-				break;
+		if (null != this.cond) {
+			if (this.cond.equals("flip")) {
+				System.out.println("is fliping......");
+				return (new Random().nextInt(100) > 50);
 			}
 
+			if (this.cond.contains("healed")) {
+				String[] conds = cond.split(":");
+				switch (conds[2]) {
+				case "your-active":
+					if ("enemy".equals(target) && ObjectHandler.getPlayer().getPoke().isHealed()) {
+						return true;
+					}
+					if ("player".equals(target) && ObjectHandler.getEnemy().getPoke().isHealed()) {
+						return true;
+					}
+					break;
+
+				default:
+					break;
+				}
+
+			}
 		}
 
 		return false;
