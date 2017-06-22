@@ -17,7 +17,7 @@ import com.pokemon.Main.Player;
 
 public class healAbilityTest {
 
-	healAbility da1 = new healAbility("target:your-active:20");
+	healAbility ha1 = new healAbility("target:your-active:20");
 
 	ObjectHandler oh;
 	CardFactory cf;
@@ -33,13 +33,12 @@ public class healAbilityTest {
 		p = (Pokemon) cf.createCard("Doduo", CardType.Pokemon, CardCategory.Basic, 1, null, 60, new GenericAbility[2],
 				"1", CardCategory.Water);
 		ObjectHandler.getEnemy().setPoke(p);
-		ObjectHandler.getPlayer().setPoke(p);
 	}
 
 	@Test
 	public void test() {
 		int currentHp = oh.getEnemy().getPoke().getCurrentHP();
-		da1.turn("enemy");
+		ha1.turn("enemy");
 		int currentHp2 = oh.getEnemy().getPoke().getCurrentHP();
 		assertTrue(currentHp2 > currentHp);
 		assertTrue(oh.getEnemy().getPoke().isHealed());

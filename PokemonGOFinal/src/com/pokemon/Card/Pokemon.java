@@ -132,6 +132,7 @@ public class Pokemon extends Card {
 		return HP;
 	}
 
+	
 
 	public ArrayList<Button> getAbility() {
 		return ability;
