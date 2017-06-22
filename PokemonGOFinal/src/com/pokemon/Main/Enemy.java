@@ -108,7 +108,7 @@ public class Enemy extends GameObject {
 			shuffledDeck.add(c);
 			deck.remove(c);
 		}
-		deck.addAll(shuffledDeck);
+		deck = shuffledDeck;
 	}
 
 	public ArrayList<Pokemon> getBench() {
