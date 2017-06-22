@@ -294,4 +294,31 @@ public class DataReader2 {
 		}
 	}
 
+	public int[] getDeckNum() {
+		return deckNum;
+	}
+
+	public void setDeckNum(int[] deckNum) {
+		this.deckNum = deckNum;
+	}
+
+	public String[] getCardData() {
+		return cardData;
+	}
+
+	public void setCardData(String[] cardData) {
+		this.cardData = cardData;
+	}
+
+	public String[] getAbilityData() {
+		return abilityData;
+	}
+
+	public void setAbilityData(String[] abilityData) {
+		this.abilityData = abilityData;
+	}
+	
+	
+	
+
 }

@@ -19,7 +19,8 @@ public class Trainer extends Card {
 		super(url, CardType.Trainer, cardCategory);
 		this.ability = ability;
 		this.name = name;
-		this.button = new Button(220, 620, 50, ability.getName(), Color.WHITE, new Color(49, 156, 12));
+		if(null != ability)
+			this.button = new Button(220, 620, 50, ability.getName(), Color.WHITE, new Color(49, 156, 12));
 	}
 
 	public GenericAbility getAbility() {
