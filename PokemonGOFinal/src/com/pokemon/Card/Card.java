@@ -24,6 +24,9 @@ public class Card extends GameObject {
 	protected boolean dragging = false;
 	private CardCategory cardCategory;
 
+	
+	public Card(){}
+	
 	public Card(String url, CardType type, CardCategory cardCategory) {
 		this.cardType = type;
 		this.cardCategory = cardCategory;

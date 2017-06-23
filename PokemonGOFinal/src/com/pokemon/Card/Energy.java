@@ -10,6 +10,9 @@ public class Energy extends Card {
 	private BufferedImage icon;
 	private CardCategory catagory;
 
+	public Energy(){}
+	
+	
 	public Energy(String url, CardCategory catagory) {
 		super(url, CardType.Engergy, catagory);
 		this.catagory = catagory;
